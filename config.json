@@ -1,0 +1,77 @@
+{
+  "zoomDuration": 3000,
+  "restDuration": 2000,
+  "packPadding": 12,
+  "hereColor": "#9a3044",
+  "colorPalette": ["#74d7ca", "#51b7c4", "#ffffff", "#dddddd"],
+  "defaultUnit": "objects",
+  "mediaArrays": {
+    "trilobites": {"id": "Trilobites", "parent": "Fossil Invertebrates", "image": "img/Trilobite_Layout_01.jpg"}
+  },
+  "data": [{
+    "id": "AMNH Collections",
+    "children": [
+      {
+        "id": "Monell Cryo-Facility",
+        "datum": 126219
+      },{
+        "id": "Earth and Planetary Sciences",
+        "children": [
+          {"id": "EPS/Mineralogy", "datum": 126527, "image": "img/Fossil_Plants.png"},
+          {"id": "EPS/Meteorites", "datum": 5294, "image": "img/Fossil_Fish.png"},
+          {"id": "Tektites", "datum": 921, "image": "img/Fossil_Fish.png"},
+          {"id": "EPS/Mineral Deposits", "datum": 13441, "image": "img/Fossil_Fish.png"},
+          {"id": "EPS/Petrology", "datum": 24603, "image": "img/Fossil_Plants.png"},
+          {"id": "Astro/Observations", "datum": 45, "unit": "TB", "image": "img/Fossil_Fish.png"},
+          {"id": "Astro/Simulations", "datum": 50, "unit": "TB", "image": "img/Fossil_Fish.png"},
+          {"id": "Astro/Instruments", "datum": 2, "image": "img/Fossil_Plants.png"}
+        ]
+      },{
+        "id": "Anthropology",
+        "children": [
+          {"id": "Archaeology", "datum": 340641, "image": "img/Fossil_Mammals.png"},
+          {"id": "Ethnology", "datum": 169893, "image": "img/Fossil_Plants.png"},
+          {"id": "Biology", "datum": 23009, "image": "img/Fossil_Fish.png"},
+          {"id": "Other (casts, molds)", "datum": 7215, "image": "img/Fossil_Plants.png"}
+        ]
+      },{
+        "id": "Vertebrate Zoology",
+        "children": [
+          {"id": "Herpetology", "datum": 376154, "image": "img/Fossil_Fish.png"},
+          {"id": "Ichthyology", "datum": 3231638, "image": "img/Fossil_Plants.png"},
+          {"id": "Mammalogy", "datum": 279812, "image": "img/Fossil_Mammals.png"},
+          {"id": "Ornithology", "datum": 890540, "image": "img/Fossil_Plants.png"}
+        ]
+      },{
+        "id": "Paleontology",
+        "children": [
+          {"id": "Fossil Amphibians, Reptiles and Birds", "datum": 33231, "image": "img/Fossil_Amphibians_Reptiles_and_Birds.png"},
+          {"id": "Fossil Fish", "datum": 28687, "image": "img/Fossil_Fish.png"},
+          {"id": "Fossil Invertebrates", "datum": 5110000, "image": "img/Fossil_Invertebrates.png"},
+          {"id": "Fossil Mammals", "datum": 400000, "image": "img/Fossil_Mammals.png"},
+          {"id": "Fossil Plants", "datum": 440, "image": "img/Fossil_Plants.png"}
+        ]
+      },{
+        "id": "Invertebrate Zoology",
+        "children": [
+          {"id": "Amber", "datum": 12744, "image": "img/Fossil_Fish.png"},
+          {"id": "Arachnida", "datum": 1216768, "image": "img/Fossil_Mammals.png"},
+          {"id": "Cnidaria", "datum": 8826, "image": "img/Fossil_Plants.png"},
+          {"id": "Coleoptera", "datum": 1982780, "image": "img/Fossil_Plants.png"},
+          {"id": "Crustacea", "datum": 116500, "image": "img/Fossil_Amphibians_Reptiles_and_Birds.png"},
+          {"id": "Diptera", "datum": 1138717, "image": "img/Fossil_Plants.png"},
+          {"id": "Hemiptera", "datum": 976518, "image": "img/Fossil_Mammals.png"},
+          {"id": "Hymenoptera", "datum": 8724094, "image": "img/Fossil_Fish.png"},
+          {"id": "Isoptera", "datum": 1000000, "image": "img/Fossil_Plants.png"},
+          {"id": "Lepidoptera", "datum": 2263456, "image": "img/Fossil_Amphibians_Reptiles_and_Birds.png"},
+          {"id": "Minor Orders", "datum": 824644, "image": "img/Fossil_Plants.png"},
+          {"id": "Misc. Bulk", "datum": 33597, "image": "img/Fossil_Mammals.png"},
+          {"id": "Mollusca", "datum": 1606459, "image": "img/Fossil_Fish.png"},
+          {"id": "Myriapoda", "datum": 79880},
+          {"id": "Other Invert Phyla", "datum": 3399856, "image": "img/Fossil_Amphibians_Reptiles_and_Birds.png"},
+          {"id": "Protists", "datum": 47895, "image": "img/Fossil_Plants.png"}
+        ]
+      }
+    ]
+  }]
+}
