@@ -21,15 +21,21 @@ a = parser.parse_args()
 
 config = readJSON(a.CONFIG_FILE)
 
-collectionsData = config['data']
-flattenedData = flattenTree(collectionsData)
+data = config['data']
+flattenedData = flattenTree(data)
 
 # add datums where they don't exist
 flattenedData = sorted(flattenedData, key=lambda d: -d['level'])
 for i, d in enumerate(flattenedData):
     if 'datum' not in d:
         flattenedData[i]['datum'] = sum([dd['datum'] for dd in flattenedData if 'parent' in dd and dd['parent']==d['id'] and 'datum' in dd])
-dataLookup = createLookup(flattenedData)
-
+dataLookup = createLookup(flattenedData, 'id')
 # flattenedData = sorted(flattenedData, key=lambda d: d['level'])
 # pprint(flattenedData)
+
+data = unflattenData(flattenedData)
+pprint(data)
+
+
+
+# circles = circ.circlify(collectionsData, show_enclosure=True)
