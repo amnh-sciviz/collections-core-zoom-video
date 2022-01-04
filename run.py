@@ -34,8 +34,7 @@ dataLookup = createLookup(flattenedData, 'id')
 # pprint(flattenedData)
 
 data = unflattenData(flattenedData)
-pprint(data)
+# pprint(data)
 
-
-
-# circles = circ.circlify(collectionsData, show_enclosure=True)
+circles = circ.circlify(data)
+# circ.bubbles(circles)
