@@ -45,12 +45,37 @@ def groupBy(arr, groupBy):
         groups.append(group)
     return groups
 
+def isBetween(value, ab, inclusive=True):
+    a, b = ab
+    if inclusive:
+        return a <= value <= b
+    else:
+        return a < value < b
+
+def makeDirectories(filenames):
+    if not isinstance(filenames, list):
+        filenames = [filenames]
+    for filename in filenames:
+        dirname = os.path.dirname(filename)
+        if len(dirname) > 0 and not os.path.exists(dirname):
+            os.makedirs(dirname)
+
+def norm(value, ab):
+    a, b = ab
+    n = 0.0
+    if (b - a) != 0:
+        n = 1.0 * (value - a) / (b - a)
+    return n
+
 def readJSON(filename):
     data = {}
     if os.path.isfile(filename):
         with open(filename, encoding="utf8") as f:
             data = json.load(f)
     return data
+
+def roundInt(n):
+    return int(round(n))
 
 def unflattenData(nodes):
     nodeLookup = createLookup(nodes, 'id')
@@ -66,3 +91,9 @@ def unflattenData(nodes):
             nodes[parent['index']]['children'] = children
     roots = [node for node in nodes if 'parent' not in node or not node['parent']]
     return roots
+
+def wrapNumber(value, ab):
+    a, b = ab
+    if isBetween(value, ab):
+        return value
+    return (value - a) % (b - a + 1) + a

@@ -2,6 +2,7 @@
   "zoomDuration": 3000,
   "restDuration": 2000,
   "packPadding": 12,
+  "bgColor": "#000000",
   "hereColor": "#9a3044",
   "colorPalette": ["#74d7ca", "#51b7c4", "#ffffff", "#dddddd"],
   "defaultUnit": "objects",
