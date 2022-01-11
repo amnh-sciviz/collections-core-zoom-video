@@ -1,11 +1,17 @@
 {
   "zoomDuration": 3000,
   "restDuration": 2000,
-  "packPadding": 12,
+  "packPadding": 2,
   "bgColor": "#000000",
   "hereColor": "#9a3044",
+  "labelColor": "#000000",
   "colorPalette": ["#74d7ca", "#51b7c4", "#ffffff", "#dddddd"],
   "defaultUnit": "objects",
+  "font": "fonts/Open_Sans/OpenSans-SemiBold.ttf",
+  "subheadingFont": "fonts/Open_Sans/OpenSans-Regular.ttf",
+  "fontSize": 18,
+  "subheadingFontSize": 18,
+  "lineSpacing": 2,
   "mediaArrays": {
     "trilobites": {"id": "Trilobites", "parent": "Fossil Invertebrates", "image": "img/Trilobite_Layout_01.jpg"}
   },

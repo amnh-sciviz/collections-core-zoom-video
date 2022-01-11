@@ -32,6 +32,9 @@ def flattenTree(nodes):
         level += 1
     return results
 
+def formatNumber(n):
+    return "{:,}".format(n)
+
 def groupBy(arr, groupBy):
     groups = []
     arr = sorted(arr, key=itemgetter(groupBy))
