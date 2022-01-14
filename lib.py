@@ -4,11 +4,20 @@ import itertools
 import json
 from operator import itemgetter
 import os
+from PIL import Image
 
 def addIndices(arr, keyName="index", startIndex=0):
     for i, item in enumerate(arr):
         arr[i][keyName] = startIndex + i
     return arr
+
+def alphaMask(im, mask):
+    w, h = im.size
+    transparentImg = Image.new(mode="RGBA", size=(w, h), color=(0, 0, 0, 0))
+    mw, mh = mask.size
+    if mw != w or mh != h:
+        mask = mask.resize((w, h), PIL.Image.BICUBIC)
+    return Image.composite(im, transparentImg, mask)
 
 def createLookup(arr, key):
     return dict([(str(item[key]), item) for item in arr])

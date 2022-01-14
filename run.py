@@ -61,8 +61,8 @@ circleLookup = dict([(c.ex['id'], c) for c in circles])
 def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfont):
     packPadding = 1.0 * config['packPadding'] / w
     w, h = (w*resolution, h*resolution)
-    bgColor = ImageColor.getrgb(config['bgColor'])
-    baseIm = Image.new(mode="RGB", size=(w, h), color=bgColor)
+    bgColor = config['bgColor']
+    baseIm = Image.new(mode="RGBA", size=(w, h), color=bgColor)
     draw = ImageDraw.Draw(baseIm)
     x0, y0, windowWidth = offset
     x1 = x0 + windowWidth
@@ -74,7 +74,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         text = cdata['id']
         level = cdata['level']
         colorIndex = wrapNumber(level - 1, (0, len(config['colorPalette'])-1))
-        fillColor = ImageColor.getrgb(config['colorPalette'][colorIndex])
+        fillColor = config['colorPalette'][colorIndex]
         # normalize the circle data
         cx = norm(cx, (-1, 1))
         cy = norm(cy, (1, -1))
@@ -98,7 +98,21 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         cy0 = norm(cy0, (y0, y1)) * h
         cy1 = norm(cy1, (y0, y1)) * h
 
-        draw.ellipse([cx0, cy0, cx1, cy1], fill=fillColor)
+        if 'image' in cdata:
+            loadedImage = cdata['image'].copy()
+            imw = roundInt(abs(cx1-cx0))
+            imh = roundInt(abs(cy1-cy0))
+            if imw <= 0 or imh <= 0:
+                continue
+            resizedImage = loadedImage.resize((imw, imh), resample=Image.LANCZOS)
+            mask = Image.new(mode="L", size=(imw, imh), color=0)
+            maskDraw = ImageDraw.Draw(mask)
+            maskDraw.ellipse([0, 0, imw, imh], fill=255)
+            compositeImage = alphaMask(resizedImage, mask)
+            baseIm.alpha_composite(compositeImage, (roundInt(cx0), roundInt(cy0)))
+
+        else:
+            draw.ellipse([cx0, cy0, cx1, cy1], fill=fillColor)
         # pprint([text, cx0, cy0, cx1, cy1, fillColor])
 
     # Draw labels
@@ -132,10 +146,12 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
 font = ImageFont.truetype(font=config["font"], size=roundInt(config["fontSize"]*RESOLUTION))
 subfont = ImageFont.truetype(font=config["subheadingFont"], size=roundInt(config["subheadingFontSize"]*RESOLUTION))
 lineSpacing = config["lineSpacing"] * RESOLUTION
+imageCache = {}
 
-# add labels
 for i, c in enumerate(circles):
     cdata = c.ex
+
+    # add labels
     collectionName = cdata['id']
     unit = cdata['unit'] if 'unit' in cdata else 'objects'
     countFormatted = formatNumber(cdata['datum'])
@@ -160,4 +176,13 @@ for i, c in enumerate(circles):
     circles[i].ex['labelColor'] = list(ImageColor.getrgb(config['labelColor']))
     circles[i].ex['labelSpacing'] = lineSpacing
 
+    # load images
+    if 'image' in cdata:
+        loadedImage = None
+        if cdata['image'] in imageCache:
+            loadedImage = imageCache[cdata['image']]
+        else:
+            loadedImage = Image.open(cdata['image'])
+            imageCache[cdata['image']] = loadedImage
+        circles[i].ex['image'] = loadedImage
 drawCircles(circles, "output/test.png", config, a.WIDTH, a.HEIGHT, (0, 0, 1.0), RESOLUTION, font, subfont)
