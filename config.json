@@ -9,11 +9,11 @@
   "defaultUnit": "objects",
   "font": "fonts/Open_Sans/OpenSans-SemiBold.ttf",
   "subheadingFont": "fonts/Open_Sans/OpenSans-Regular.ttf",
-  "fontSize": 18,
+  "fontSize": 19,
   "subheadingFontSize": 18,
   "lineSpacing": 2,
   "mediaArrays": {
-    "trilobites": {"id": "Trilobites", "parent": "Fossil Invertebrates", "image": "img/Trilobite_Layout_01.jpg"}
+    "trilobites": {"id": "Trilobites", "parent": "Fossil Invertebrates", "image": "img/Trilobite_Layout_01.jpg", "datum": 50000, "positionSeed": 7}
   },
   "data": [{
     "id": "AMNH Collections",

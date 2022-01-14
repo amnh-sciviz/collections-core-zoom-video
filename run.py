@@ -40,6 +40,34 @@ config = readJSON(a.CONFIG_FILE)
 data = config['data']
 flattenedData = flattenTree(data)
 
+# add here
+if a.HERE_KEY not in config['mediaArrays']:
+    print(f'Could not find {a.HERE_KEY} in mediaArrays')
+    sys.exit()
+here = config['mediaArrays'][a.HERE_KEY]
+here['isHere'] = True
+for i, d in enumerate(flattenedData):
+    if d['id'] == here['parent']:
+        here['level'] = d['level'] + 1
+        children = [here]
+        leftover = d['datum'] - here['datum']
+        otherCount = here['positionSeed']
+        leftoverPerOther = roundInt(1.0 * leftover / otherCount)
+        for j in range(otherCount):
+            value = leftoverPerOther
+            if j == otherCount-1:
+                value = leftover - (otherCount-1) * leftoverPerOther
+            placeholder = {
+                'id': f'Placeholder {j+1}',
+                'level': d['level'] + 1,
+                'isPlaceholder': True,
+                'parent': d['id'],
+                'datum': value
+            }
+            children.append(placeholder)
+        flattenedData[i]['children'] = children
+        break
+
 # add datums where they don't exist
 flattenedData = sorted(flattenedData, key=lambda d: -d['level'])
 for i, d in enumerate(flattenedData):
@@ -71,6 +99,11 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
     # Draw circles
     for i, c in enumerate(circles):
         cx, cy, cr, cdata = (c.x, c.y, c.r, c.ex)
+        isHere = 'isHere' in cdata
+        isPlaceholder = 'isPlaceholder' in cdata
+        if isPlaceholder:
+            circles[i].ex['isVisible'] = False
+            continue
         text = cdata['id']
         level = cdata['level']
         colorIndex = wrapNumber(level - 1, (0, len(config['colorPalette'])-1))
@@ -113,6 +146,11 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
 
         else:
             draw.ellipse([cx0, cy0, cx1, cy1], fill=fillColor)
+
+        if isHere:
+            draw.ellipse([cx0, cy0, cx1, cy1], fill=None, outline=tuple(cdata['labelColor'] + [255]), width=4)
+
+
         # pprint([text, cx0, cy0, cx1, cy1, fillColor])
 
     # Draw labels
@@ -120,6 +158,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         cx, cy, cr, cdata = (c.x, c.y, c.r, c.ex)
         if cdata['labelOpacity'] <= 0 or not cdata['isVisible']:
             continue
+        isHere = 'isHere' in cdata
         labelColor = cdata['labelColor']
         labelColor = tuple(labelColor + [cdata['labelOpacity']])
         cx, cy = cdata['nxy']
@@ -129,6 +168,8 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         cx = norm(cx, (x0, x1)) * w
         cy = norm(cy, (y0, y1)) * h
         ly = cy - labelHeight * 0.5
+        if isHere:
+            ly = cy + labelHeight * 0.5
         for i, line in enumerate(labelLines):
             lw, lh = line['size']
             lx = cx - labelWidth * 0.5 + (labelWidth - lw) * 0.5
@@ -152,17 +193,21 @@ for i, c in enumerate(circles):
     cdata = c.ex
 
     # add labels
+    isHere = 'isHere' in cdata
+    isPlaceholder = 'isPlaceholder' in cdata
     collectionName = cdata['id']
     unit = cdata['unit'] if 'unit' in cdata else 'objects'
     countFormatted = formatNumber(cdata['datum'])
     lines = []
     lines.append(collectionName)
     lines.append(f'{countFormatted} {unit}')
+    if isHere:
+        lines = ['You are here']
     lineCount = len(lines)
     for j, line in enumerate(lines):
         label = {}
         label['text'] = line
-        label['isLastLine'] = (j == lineCount-1)
+        label['isLastLine'] = (j == lineCount-1 and not isHere)
         lw, lh = font.getsize(line)
         if label['isLastLine']:
             lw, lh = subfont.getsize(line)
@@ -173,7 +218,11 @@ for i, c in enumerate(circles):
     circles[i].ex['labelHeight'] = sum(l['size'][1] for l in lines) + (lineCount-1) * lineSpacing
     opacity = 255 if cdata['level'] == 2 else 0
     circles[i].ex['labelOpacity'] = opacity
-    circles[i].ex['labelColor'] = list(ImageColor.getrgb(config['labelColor']))
+    if isHere:
+        circles[i].ex['labelColor'] = list(ImageColor.getrgb(config['hereColor']))
+        circles[i].ex['labelOpacity'] = 255
+    else:
+        circles[i].ex['labelColor'] = list(ImageColor.getrgb(config['labelColor']))
     circles[i].ex['labelSpacing'] = lineSpacing
 
     # load images
