@@ -1,7 +1,7 @@
 {
   "zoomDuration": 3000,
   "restDuration": 2000,
-  "packPadding": 2,
+  "packPadding": 4,
   "bgColor": "#000000",
   "hereColor": "#9a3044",
   "labelColor": "#000000",
@@ -12,8 +12,11 @@
   "fontSize": 19,
   "subheadingFontSize": 18,
   "lineSpacing": 2,
+  "shadowWidth": 3,
+  "shadowBlurRadius": 5,
+  "shadowOpacity": 0.4,
   "mediaArrays": {
-    "trilobites": {"id": "Trilobites", "parent": "Fossil Invertebrates", "image": "img/Trilobite_Layout_01.jpg", "datum": 50000, "positionSeed": 7}
+    "trilobites": {"id": "Trilobites", "parent": "Fossil Invertebrates", "image": "img/Trilobite_Layout_01.jpg", "datum": 50000}
   },
   "data": [{
     "id": "AMNH Collections",

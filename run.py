@@ -3,7 +3,7 @@
 import argparse
 import circlify as circ
 import os
-from PIL import Image, ImageColor, ImageDraw, ImageFont
+from PIL import Image, ImageColor, ImageDraw, ImageFilter, ImageFont
 from pprint import pprint
 import sys
 
@@ -51,7 +51,7 @@ for i, d in enumerate(flattenedData):
         here['level'] = d['level'] + 1
         children = [here]
         leftover = d['datum'] - here['datum']
-        otherCount = here['positionSeed']
+        otherCount = 1
         leftoverPerOther = roundInt(1.0 * leftover / otherCount)
         for j in range(otherCount):
             value = leftoverPerOther
@@ -82,7 +82,13 @@ data = unflattenData(flattenedData)
 
 circles = circ.circlify(data)
 circles = sorted(circles, key=lambda c: c.level)
+# add indices for easier references later
+for i, c in enumerate(circles):
+    circles[i].ex['index'] = i
 circleLookup = dict([(c.ex['id'], c) for c in circles])
+for i, c in enumerate(circles):
+    if 'parent' in c.ex and c.ex['parent'] in circleLookup:
+        circles[i].ex['parentIndex'] = circleLookup[c.ex['parent']].ex['index']
 
 # circ.bubbles(circles)
 
@@ -98,7 +104,10 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
 
     # Draw circles
     for i, c in enumerate(circles):
-        cx, cy, cr, cdata = (c.x, c.y, c.r, c.ex)
+        cdata = c.ex
+        cx = cdata['cx']
+        cy = cdata['cy']
+        cr = cdata['cr']
         isHere = 'isHere' in cdata
         isPlaceholder = 'isPlaceholder' in cdata
         if isPlaceholder:
@@ -112,7 +121,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         cx = norm(cx, (-1, 1))
         cy = norm(cy, (1, -1))
         circles[i].ex['nxy'] = (cx, cy)
-        cr = cr * 0.5
+        # cr = cr * 0.5
         if level > 1:
             cr = max(cr - packPadding, 0.0000001)
         # check bounds
@@ -131,6 +140,17 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         cy0 = norm(cy0, (y0, y1)) * h
         cy1 = norm(cy1, (y0, y1)) * h
 
+        # draw shadow
+        shadowIm = Image.new(mode="RGBA", size=(w, h), color=(0,0,0,0))
+        shadowDraw = ImageDraw.Draw(shadowIm)
+        shadowWidth = config["shadowWidth"]
+        shadowBlurRadius = config["shadowBlurRadius"]
+        shadowOpacity = roundInt(config["shadowOpacity"] * 255)
+        shadowDraw.ellipse([cx0, cy0, cx1+shadowWidth, cy1+shadowWidth], fill=(0,0,0,shadowOpacity))
+        shadowIm = shadowIm.filter(ImageFilter.GaussianBlur(shadowBlurRadius))
+        baseIm.alpha_composite(shadowIm, (0, 0))
+
+        # draw circle with image
         if 'image' in cdata:
             loadedImage = cdata['image'].copy()
             imw = roundInt(abs(cx1-cx0))
@@ -144,9 +164,11 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             compositeImage = alphaMask(resizedImage, mask)
             baseIm.alpha_composite(compositeImage, (roundInt(cx0), roundInt(cy0)))
 
+        # draw circle with no image
         else:
             draw.ellipse([cx0, cy0, cx1, cy1], fill=fillColor)
 
+        # draw outline around here
         if isHere:
             draw.ellipse([cx0, cy0, cx1, cy1], fill=None, outline=tuple(cdata['labelColor'] + [255]), width=4)
 
@@ -155,7 +177,9 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
 
     # Draw labels
     for c in circles:
-        cx, cy, cr, cdata = (c.x, c.y, c.r, c.ex)
+        cdata = c.ex
+        cx = cdata['cx']
+        cy = cdata['cy']
         if cdata['labelOpacity'] <= 0 or not cdata['isVisible']:
             continue
         isHere = 'isHere' in cdata
@@ -190,11 +214,24 @@ lineSpacing = config["lineSpacing"] * RESOLUTION
 imageCache = {}
 
 for i, c in enumerate(circles):
-    cdata = c.ex
-
-    # add labels
+    cx, cy, cr, cdata = (c.x, c.y, c.r, c.ex)
     isHere = 'isHere' in cdata
     isPlaceholder = 'isPlaceholder' in cdata
+
+    # manually adjust position of here, otherwise it's more or less random
+    if isHere:
+        hereDx = 0.75 if 'dx' not in cdata else cdata['dx']
+        hereDy = -0.75 if 'dy' not in cdata else cdata['dy']
+        parent = circles[cdata['parentIndex']]
+        px, py, pr = (parent.ex['cx'], parent.ex['cy'], parent.ex['cr'])
+        cx = px + hereDx * pr
+        cy = py + hereDy * pr
+
+    circles[i].ex['cx'] = cx
+    circles[i].ex['cy'] = cy
+    circles[i].ex['cr'] = cr * 0.5
+
+    # add labels
     collectionName = cdata['id']
     unit = cdata['unit'] if 'unit' in cdata else 'objects'
     countFormatted = formatNumber(cdata['datum'])
