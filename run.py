@@ -89,6 +89,8 @@ circleLookup = dict([(c.ex['id'], c) for c in circles])
 for i, c in enumerate(circles):
     if 'parent' in c.ex and c.ex['parent'] in circleLookup:
         circles[i].ex['parentIndex'] = circleLookup[c.ex['parent']].ex['index']
+    else:
+        circles[i].ex['parentIndex'] = -1
 
 # circ.bubbles(circles)
 
@@ -271,4 +273,25 @@ for i, c in enumerate(circles):
             loadedImage = Image.open(cdata['image'])
             imageCache[cdata['image']] = loadedImage
         circles[i].ex['image'] = loadedImage
-drawCircles(circles, "output/test.png", config, a.WIDTH, a.HEIGHT, (0, 0, 1.0), RESOLUTION, font, subfont)
+
+# generate a path that zooms out from HERE then zooms back into HERE
+path = []
+hereNode = circleLookup[here['id']]
+node = circles[hereNode.ex['index']]
+while True:
+    path.append(node)
+    parentIndex = node.ex['parentIndex']
+    if parentIndex < 0:
+        break
+    node = circles[parentIndex]
+pathReversed = list(reversed(path[:-1]))
+path += pathReversed
+
+if a.DEBUG:
+    drawCircles(circles, "output/test.png", config, a.WIDTH, a.HEIGHT, (0, 0, 1.0), RESOLUTION, font, subfont)
+
+zoomDuration = config['zoomDuration']
+restDuration = config['restDuration']
+for i in range(len(path)-1):
+    fromNode = path[i]
+    toNode = path[i+1]
