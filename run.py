@@ -101,6 +101,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
     baseIm = Image.new(mode="RGBA", size=(w, h), color=bgColor)
     draw = ImageDraw.Draw(baseIm)
     x0, y0, windowWidth = offset
+    pprint(offset)
     x1 = x0 + windowWidth
     y1 = y0 + windowWidth
 
@@ -164,7 +165,17 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             maskDraw = ImageDraw.Draw(mask)
             maskDraw.ellipse([0, 0, imw, imh], fill=255)
             compositeImage = alphaMask(resizedImage, mask)
-            baseIm.alpha_composite(compositeImage, (roundInt(cx0), roundInt(cy0)))
+            pasteX = roundInt(cx0)
+            pasteY = roundInt(cy0)
+            cropX = 0
+            cropY = 0
+            if pasteX < 0:
+                cropX = -pasteX
+                pasteX = 0
+            if pasteY < 0:
+                cropY = -pasteY
+                pasteY = 0
+            baseIm.alpha_composite(compositeImage, (pasteX, pasteY), (cropX, cropY))
 
         # draw circle with no image
         else:
@@ -208,6 +219,25 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
 
     makeDirectories(filename)
     baseIm.save(filename)
+
+def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution, font, subfont):
+
+    cr0 = fromNode.ex['cr']
+    cw0 = cr0 * 2
+    cx0 = norm(fromNode.ex['cx'], (-1, 1)) - cr0
+    cy0 = norm(fromNode.ex['cy'], (1, -1)) - cr0
+
+    cr1 = toNode.ex['cr']
+    cw1 = cr1 * 2
+    cx1 = norm(toNode.ex['cx'], (-1, 1)) - cr1
+    cy1 = norm(toNode.ex['cy'], (1, -1)) - cr1
+
+    t = ease(t)
+    offsetX = lerp((cx0, cx1), t)
+    offsetY = lerp((cy0, cy1), t)
+    offsetW = lerp((cw0, cw1), t)
+
+    drawCircles(circles, filename, config, w, h, (offsetX, offsetY, offsetW), resolution, font, subfont)
 
 # load font
 font = ImageFont.truetype(font=config["font"], size=roundInt(config["fontSize"]*RESOLUTION))
@@ -295,3 +325,5 @@ restDuration = config['restDuration']
 for i in range(len(path)-1):
     fromNode = path[i]
     toNode = path[i+1]
+    if a.DEBUG:
+        tweenNodes(circles, f'output/tween_test_{i}.png', fromNode, toNode, 0.0, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont)

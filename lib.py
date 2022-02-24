@@ -2,6 +2,7 @@
 
 import itertools
 import json
+import math
 from operator import itemgetter
 import os
 from PIL import Image
@@ -21,6 +22,9 @@ def alphaMask(im, mask):
 
 def createLookup(arr, key):
     return dict([(str(item[key]), item) for item in arr])
+
+def ease(n):
+    return (math.sin((n+1.5)*math.pi)+1.0) / 2.0
 
 def flattenTree(nodes):
     results = []
@@ -63,6 +67,10 @@ def isBetween(value, ab, inclusive=True):
         return a <= value <= b
     else:
         return a < value < b
+
+def lerp(ab, amount):
+    a, b = ab
+    return (b-a) * amount + a
 
 def makeDirectories(filenames):
     if not isinstance(filenames, list):
