@@ -123,7 +123,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         # normalize the circle data
         cx = norm(cx, (-1, 1))
         cy = norm(cy, (1, -1))
-        circles[i].ex['nxy'] = (cx, cy)
+
         # cr = cr * 0.5
         if level > 1:
             cr = max(cr - packPadding, 0.0000001)
@@ -134,6 +134,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             circles[i].ex['isVisible'] = False
             continue
         circles[i].ex['isVisible'] = True
+        circles[i].ex['nxy'] = (cx, cy)
 
         # get bounds
         cx0 = cx - cr
@@ -213,8 +214,6 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
     # Draw labels
     for c in circles:
         cdata = c.ex
-        cx = cdata['cx']
-        cy = cdata['cy']
         if cdata['labelOpacity'] <= 0 or not cdata['isVisible']:
             continue
         isHere = 'isHere' in cdata
@@ -287,11 +286,12 @@ for i, c in enumerate(circles):
 
     # add labels
     collectionName = cdata['id']
-    unit = cdata['unit'] if 'unit' in cdata else 'objects'
+    prefix = cdata['prefix'] if 'prefix' in cdata else config['defaultPrefix']
+    unit = cdata['unit'] if 'unit' in cdata else config['defaultUnit']
     countFormatted = formatNumber(cdata['datum'])
     lines = []
     lines.append(collectionName)
-    lines.append(f'{countFormatted} {unit}')
+    lines.append(f'{prefix}{countFormatted} {unit}')
     if isHere:
         lines = ['You are here']
     lineCount = len(lines)

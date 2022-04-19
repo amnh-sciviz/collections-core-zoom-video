@@ -6,6 +6,7 @@
   "hereColor": "#9a3044",
   "labelColor": "#000000",
   "colorPalette": ["#74d7ca", "#51b7c4", "#ffffff", "#dddddd"],
+  "defaultPrefix": "Over ",
   "defaultUnit": "objects",
   "font": "fonts/Open_Sans/OpenSans-SemiBold.ttf",
   "subheadingFont": "fonts/Open_Sans/OpenSans-Regular.ttf",
