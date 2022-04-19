@@ -20,6 +20,27 @@ def alphaMask(im, mask):
         mask = mask.resize((w, h), PIL.Image.BICUBIC)
     return Image.composite(im, transparentImg, mask)
 
+# https://stackoverflow.com/questions/401847/circle-rectangle-collision-detection-intersection
+def circleRectIntersects(circle, rect):
+    circleDistanceX = abs(circle['x'] - rect['x'])
+    circleDistanceY = abs(circle['y'] - rect['y'])
+
+    if circleDistanceX > (rect['w']/2.0 + circle['r']):
+        return False
+
+    if circleDistanceY > (rect['h']/2.0 + circle['r']):
+        return False
+
+    if circleDistanceX <= (rect['w']/2.0):
+        return True
+
+    if circleDistanceY <= (rect['h']/2.0):
+        return True
+
+    cornerDistance_sq = (circleDistanceX - rect['w']/2.0) ** 2 + (circleDistanceY - rect['h']/2.0) ** 2;
+
+    return (cornerDistance_sq <= (circle['r'] ** 2))
+
 def createLookup(arr, key):
     return dict([(str(item[key]), item) for item in arr])
 

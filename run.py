@@ -101,7 +101,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
     baseIm = Image.new(mode="RGBA", size=(w, h), color=bgColor)
     draw = ImageDraw.Draw(baseIm)
     x0, y0, windowWidth = offset
-    pprint(offset)
+    # pprint(offset)
     x1 = x0 + windowWidth
     y1 = y0 + windowWidth
 
@@ -127,15 +127,26 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         # cr = cr * 0.5
         if level > 1:
             cr = max(cr - packPadding, 0.0000001)
-        # check bounds
+
+        circle = {'x': cx, 'y': cy, 'r': cr}
+        rect = {'x': (x1 - x0) * 0.5 + x0, 'y': (y1 - y0) * 0.5 + y0, 'w': (x1 - x0), 'h': (y1 - y0)}
+        if not circleRectIntersects(circle, rect):
+            circles[i].ex['isVisible'] = False
+            continue
+        circles[i].ex['isVisible'] = True
+
+        # get bounds
         cx0 = cx - cr
         cx1 = cx + cr
         cy0 = cy - cr
         cy1 = cy + cr
-        if not (isBetween(cx0, (x0, x1)) and isBetween(cy0, (y0, y1)) or isBetween(cx0, (x0, x1)) and isBetween(cy1, (y0, y1)) or isBetween(cx1, (x0, x1)) and isBetween(cy0, (y0, y1)) or isBetween(cx1, (x0, x1)) and isBetween(cy1, (y0, y1))):
-            circles[i].ex['isVisible'] = False
-            continue
-        circles[i].ex['isVisible'] = True
+
+        # check inner bounds to see if it's full bleed
+        innerCr = cr / (math.sqrt(2))
+        innerCx0 = cx - innerCr
+        innerCx1 = cx + innerCr
+        innerCy0 = cy - innerCr
+        innerCy1 = cy + innerCr
 
         # convert to true x, y
         cx0 = norm(cx0, (x0, x1)) * w
@@ -143,15 +154,22 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         cy0 = norm(cy0, (y0, y1)) * h
         cy1 = norm(cy1, (y0, y1)) * h
 
+        innerCx0 = norm(innerCx0, (x0, x1)) * w
+        innerCx1 = norm(innerCx1, (x0, x1)) * w
+        innerCy0 = norm(innerCy0, (y0, y1)) * h
+        innerCy1 = norm(innerCy1, (y0, y1)) * h
+        isFullBleed = innerCx0 < 0 and innerCy0 < 0 and innerCx1 > w and innerCy1 > h
+
         # draw shadow
-        shadowIm = Image.new(mode="RGBA", size=(w, h), color=(0,0,0,0))
-        shadowDraw = ImageDraw.Draw(shadowIm)
-        shadowWidth = config["shadowWidth"]
-        shadowBlurRadius = config["shadowBlurRadius"]
-        shadowOpacity = roundInt(config["shadowOpacity"] * 255)
-        shadowDraw.ellipse([cx0, cy0, cx1+shadowWidth, cy1+shadowWidth], fill=(0,0,0,shadowOpacity))
-        shadowIm = shadowIm.filter(ImageFilter.GaussianBlur(shadowBlurRadius))
-        baseIm.alpha_composite(shadowIm, (0, 0))
+        if not isFullBleed:
+            shadowIm = Image.new(mode="RGBA", size=(w, h), color=(0,0,0,0))
+            shadowDraw = ImageDraw.Draw(shadowIm)
+            shadowWidth = config["shadowWidth"]
+            shadowBlurRadius = config["shadowBlurRadius"]
+            shadowOpacity = roundInt(config["shadowOpacity"] * 255)
+            shadowDraw.ellipse([cx0, cy0, cx1+shadowWidth, cy1+shadowWidth], fill=(0,0,0,shadowOpacity))
+            shadowIm = shadowIm.filter(ImageFilter.GaussianBlur(shadowBlurRadius))
+            baseIm.alpha_composite(shadowIm, (0, 0))
 
         # draw circle with image
         if 'image' in cdata:
@@ -179,7 +197,11 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
 
         # draw circle with no image
         else:
-            draw.ellipse([cx0, cy0, cx1, cy1], fill=fillColor)
+            if isFullBleed:
+                draw.rectangle([0, 0, w, h], fill=fillColor)
+
+            else:
+                draw.ellipse([cx0, cy0, cx1, cy1], fill=fillColor)
 
         # draw outline around here
         if isHere:
@@ -317,8 +339,8 @@ while True:
 pathReversed = list(reversed(path[:-1]))
 path += pathReversed
 
-if a.DEBUG:
-    drawCircles(circles, "output/test.png", config, a.WIDTH, a.HEIGHT, (0, 0, 1.0), RESOLUTION, font, subfont)
+# if a.DEBUG:
+#     drawCircles(circles, "output/test.png", config, a.WIDTH, a.HEIGHT, (0, 0, 1.0), RESOLUTION, font, subfont)
 
 zoomDuration = config['zoomDuration']
 restDuration = config['restDuration']
