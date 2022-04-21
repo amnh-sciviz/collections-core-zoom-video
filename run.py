@@ -269,7 +269,7 @@ def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution,
     offsetY = lerp((cy0, cy1), t)
     offsetW = lerp((cw0, cw1), t)
 
-    threshold = 0.25
+    threshold = 0.667
     zoomingIn = (toLevel > fromLevel)
     zoomingOut = (not zoomingIn)
     for i, circle in enumerate(circles):
@@ -280,17 +280,17 @@ def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution,
         isLabelHeader = False
         opacity = 0
         if t < threshold and hasParent and cdata['parent'] == fromId:
-            opacity = roundInt((1.0 - t / threshold) * 255.0)
+            opacity = roundInt(ease(1.0 - t / threshold) * 255.0)
 
         elif t > (1.0 - threshold) and hasParent and cdata['parent'] == toId:
-            opacity = roundInt(norm(t, (1.0 - threshold, 1.0)) * 255.0)
+            opacity = roundInt(ease(norm(t, (1.0 - threshold, 1.0))) * 255.0)
 
         elif t < threshold and cdata['id'] == fromId:
-            opacity = roundInt((1.0 - t / threshold) * 255.0)
+            opacity = roundInt(ease(1.0 - t / threshold) * 255.0)
             isLabelHeader = True
 
         elif t > (1.0 - threshold) and cdata['id'] == toId:
-            opacity = roundInt(norm(t, (1.0 - threshold, 1.0)) * 255.0)
+            opacity = roundInt(ease(norm(t, (1.0 - threshold, 1.0))) * 255.0)
             isLabelHeader = True
 
         if isHere:
@@ -376,8 +376,8 @@ while True:
     if parentIndex < 0:
         break
     node = circles[parentIndex]
-pathReversed = list(reversed(path[:-1]))
-path += pathReversed
+# pathReversed = list(reversed(path[:-1]))
+# path += pathReversed
 
 # if a.DEBUG:
 #     drawCircles(circles, "output/test.png", config, a.WIDTH, a.HEIGHT, (0, 0, 1.0), RESOLUTION, font, subfont)
@@ -391,8 +391,11 @@ zoomDuration = config['zoomDuration']
 restDuration = config['restDuration']
 zoomFrames = msToFrame(zoomDuration, a.FPS)
 restFrames = msToFrame(restDuration, a.FPS)
-totalFrames = (len(path)-1) * (zoomFrames + restFrames)
+halfRestFrames = roundInt(restFrames / 2)
+totalPathFrames = (len(path)-1) * (zoomFrames + restFrames)
+totalFrames = totalPathFrames * 2
 currentFrame = 1
+frameFilenames = []
 if not a.DEBUG:
     print(f'Rendering frames to {(outputFramePattern % "*")}...')
 for i in range(len(path)-1):
@@ -402,21 +405,39 @@ for i in range(len(path)-1):
         tweenNodes(circles, f'output/tween_test_{i}.png', fromNode, toNode, 0.0, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont)
     else:
         referenceFrame = None
-        for i in range(restFrames):
+        for i in range(halfRestFrames):
             frameFilename = outputFramePattern % zeroPad(currentFrame, totalFrames)
             if i == 0:
                 tweenNodes(circles, frameFilename, fromNode, toNode, 0.0, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont)
                 referenceFrame = frameFilename
             else:
                 shutil.copyfile(referenceFrame, frameFilename)
-            printProgress(currentFrame, totalFrames)
+            printProgress(currentFrame, totalPathFrames)
+            frameFilenames.append(frameFilename)
             currentFrame += 1
 
         for i in range(zoomFrames):
+            frameFilename = outputFramePattern % zeroPad(currentFrame, totalFrames)
             t = 1.0 * i / (zoomFrames-1)
-            tweenNodes(circles, outputFramePattern % zeroPad(currentFrame, totalFrames), fromNode, toNode, t, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont)
-            printProgress(currentFrame, totalFrames)
+            tweenNodes(circles, frameFilename, fromNode, toNode, t, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont)
+            printProgress(currentFrame, totalPathFrames)
+            referenceFrame = frameFilename
+            frameFilenames.append(frameFilename)
             currentFrame += 1
+
+        for i in range(halfRestFrames):
+            frameFilename = outputFramePattern % zeroPad(currentFrame, totalFrames)
+            shutil.copyfile(referenceFrame, frameFilename)
+            printProgress(currentFrame, totalPathFrames)
+            frameFilenames.append(frameFilename)
+            currentFrame += 1
+
+print('Reversing frames...')
+framesReversed = list(reversed(frameFilenames[:]))
+for fn in framesReversed:
+    frameFilename = outputFramePattern % zeroPad(currentFrame, totalFrames)
+    shutil.copyfile(fn, frameFilename)
+    currentFrame += 1
 
 if not a.DEBUG:
     outfile = a.OUTPUT_FILE if a.OUTPUT_FILE != "" else f'output/{a.HERE_KEY}.mp4'

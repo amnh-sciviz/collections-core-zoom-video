@@ -7,6 +7,7 @@ import math
 from operator import itemgetter
 import os
 from PIL import Image
+import subprocess
 import sys
 
 def addIndices(arr, keyName="index", startIndex=0):
