@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
+import glob
 import itertools
 import json
 import math
 from operator import itemgetter
 import os
 from PIL import Image
+import sys
 
 def addIndices(arr, keyName="index", startIndex=0):
     for i, item in enumerate(arr):
@@ -40,6 +42,39 @@ def circleRectIntersects(circle, rect):
     cornerDistance_sq = (circleDistanceX - rect['w']/2.0) ** 2 + (circleDistanceY - rect['h']/2.0) ** 2;
 
     return (cornerDistance_sq <= (circle['r'] ** 2))
+
+def compileFrames(infile, fps, outfile, padZeros, quality="high"):
+    print("Compiling frames...")
+    padStr = '%0'+str(padZeros)+'d'
+
+    # https://trac.ffmpeg.org/wiki/Encode/H.264
+    # presets: veryfast, faster, fast, medium, slow, slower, veryslow
+    #   slower = better quality
+    # crf: 0 is lossless, 23 is the default, and 51 is worst possible quality
+    #   17 or 18 to be visually lossless or nearly so
+    preset = "veryslow"
+    crf = "18"
+    if quality=="medium":
+        preset = "medium"
+        crf = "23"
+    elif quality=="low":
+        preset = "medium"
+        crf = "28"
+
+    command = ['ffmpeg','-y',
+                '-framerate',str(fps)+'/1',
+                '-i',infile % padStr,
+                '-c:v','libx264',
+                '-preset', preset,
+                '-crf', crf,
+                '-r',str(fps),
+                '-pix_fmt','yuv420p',
+                # '-q:v','1',
+                outfile]
+
+    print(" ".join(command))
+    finished = subprocess.check_call(command)
+    print("Done.")
 
 def createLookup(arr, key):
     return dict([(str(item[key]), item) for item in arr])
@@ -101,6 +136,9 @@ def makeDirectories(filenames):
         if len(dirname) > 0 and not os.path.exists(dirname):
             os.makedirs(dirname)
 
+def msToFrame(ms, fps):
+    return roundInt((ms / 1000.0) * fps)
+
 def norm(value, ab):
     a, b = ab
     n = 0.0
@@ -108,12 +146,28 @@ def norm(value, ab):
         n = 1.0 * (value - a) / (b - a)
     return n
 
+def printProgress(step, total, prepend=""):
+    sys.stdout.write('\r')
+    sys.stdout.write("%s%s%%" % (prepend, round(1.0*step/total*100,2)))
+    sys.stdout.flush()
+
 def readJSON(filename):
     data = {}
     if os.path.isfile(filename):
         with open(filename, encoding="utf8") as f:
             data = json.load(f)
     return data
+
+def removeFiles(listOrString):
+    filenames = listOrString
+    if not isinstance(listOrString, list) and "*" in listOrString:
+        filenames = glob.glob(listOrString)
+    elif not isinstance(listOrString, list):
+        filenames = [listOrString]
+    print("Removing %s files" % len(filenames))
+    for fn in filenames:
+        if os.path.isfile(fn):
+            os.remove(fn)
 
 def roundInt(n):
     return int(round(n))
@@ -138,3 +192,7 @@ def wrapNumber(value, ab):
     if isBetween(value, ab):
         return value
     return (value - a) % (b - a + 1) + a
+
+def zeroPad(value, total):
+    padding = len(str(total))
+    return str(value).zfill(padding)

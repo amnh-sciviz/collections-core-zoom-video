@@ -5,6 +5,7 @@ import circlify as circ
 import os
 from PIL import Image, ImageColor, ImageDraw, ImageFilter, ImageFont
 from pprint import pprint
+import shutil
 import sys
 
 from lib import *
@@ -15,6 +16,7 @@ parser.add_argument('-config', dest="CONFIG_FILE", default="config.json", help="
 parser.add_argument('-here', dest="HERE_KEY", default="trilobites", help="Which media array this video is embedded in; it should map to a key in 'mediaArrays' in config file")
 parser.add_argument('-width', dest="WIDTH", default=1080, type=int, help="Width of video")
 parser.add_argument('-height', dest="HEIGHT", default=1080, type=float, help="Height of video")
+parser.add_argument('-fps', dest="FPS", default=30, type=int, help="Frames per second of video")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="", help="Name of the output file; leave blank and it will be output/{HERE_KEY}.mp4")
 parser.add_argument('-debug', dest="DEBUG", action="store_true", help="Just output an image of the data")
 a = parser.parse_args()
@@ -380,10 +382,43 @@ path += pathReversed
 # if a.DEBUG:
 #     drawCircles(circles, "output/test.png", config, a.WIDTH, a.HEIGHT, (0, 0, 1.0), RESOLUTION, font, subfont)
 
+outputFramePattern = f'output/frames/{a.HERE_KEY}/frame.%s.png'
+if not a.DEBUG:
+    makeDirectories(outputFramePattern)
+    removeFiles(outputFramePattern % '*')
+
 zoomDuration = config['zoomDuration']
 restDuration = config['restDuration']
+zoomFrames = msToFrame(zoomDuration, a.FPS)
+restFrames = msToFrame(restDuration, a.FPS)
+totalFrames = (len(path)-1) * (zoomFrames + restFrames)
+currentFrame = 1
+if not a.DEBUG:
+    print(f'Rendering frames to {(outputFramePattern % "*")}...')
 for i in range(len(path)-1):
     fromNode = path[i]
     toNode = path[i+1]
     if a.DEBUG:
         tweenNodes(circles, f'output/tween_test_{i}.png', fromNode, toNode, 0.0, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont)
+    else:
+        referenceFrame = None
+        for i in range(restFrames):
+            frameFilename = outputFramePattern % zeroPad(currentFrame, totalFrames)
+            if i == 0:
+                tweenNodes(circles, frameFilename, fromNode, toNode, 0.0, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont)
+                referenceFrame = frameFilename
+            else:
+                shutil.copyfile(referenceFrame, frameFilename)
+            printProgress(currentFrame, totalFrames)
+            currentFrame += 1
+
+        for i in range(zoomFrames):
+            t = 1.0 * i / (zoomFrames-1)
+            tweenNodes(circles, outputFramePattern % zeroPad(currentFrame, totalFrames), fromNode, toNode, t, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont)
+            printProgress(currentFrame, totalFrames)
+            currentFrame += 1
+
+if not a.DEBUG:
+    outfile = a.OUTPUT_FILE if a.OUTPUT_FILE != "" else f'output/{a.HERE_KEY}.mp4'
+    padZeros = len(str(totalFrames))
+    compileFrames(outputFramePattern, a.FPS, outfile, padZeros)
