@@ -154,6 +154,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         cx1 = norm(cx1, (x0, x1)) * w
         cy0 = norm(cy0, (y0, y1)) * h
         cy1 = norm(cy1, (y0, y1)) * h
+        circles[i].ex['trueRadius'] = (cx1 - cx0) * 0.5
 
         innerCx0 = norm(innerCx0, (x0, x1)) * w
         innerCx1 = norm(innerCx1, (x0, x1)) * w
@@ -217,6 +218,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         if cdata['labelOpacity'] <= 0 or not cdata['isVisible']:
             continue
         isHere = 'isHere' in cdata
+        isLabelHeader = cdata['isLabelHeader']
         labelColor = cdata['labelColor']
         labelColor = tuple(labelColor + [cdata['labelOpacity']])
         cx, cy = cdata['nxy']
@@ -227,7 +229,9 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         cy = norm(cy, (y0, y1)) * h
         ly = cy - labelHeight * 0.5
         if isHere:
-            ly = cy + labelHeight * 0.5
+            ly = cy + cdata['trueRadius'] + cdata['labelSpacing']
+        elif isLabelHeader:
+            ly = cy - cdata['trueRadius'] * 0.95 + cdata['labelSpacing']
         for i, line in enumerate(labelLines):
             lw, lh = line['size']
             lx = cx - labelWidth * 0.5 + (labelWidth - lw) * 0.5
@@ -243,6 +247,11 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
 
 def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution, font, subfont):
 
+    fromId = fromNode.ex['id']
+    toId = toNode.ex['id']
+    fromLevel = fromNode.ex['level']
+    toLevel = toNode.ex['level']
+
     cr0 = fromNode.ex['cr']
     cw0 = cr0 * 2
     cx0 = norm(fromNode.ex['cx'], (-1, 1)) - cr0
@@ -257,6 +266,36 @@ def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution,
     offsetX = lerp((cx0, cx1), t)
     offsetY = lerp((cy0, cy1), t)
     offsetW = lerp((cw0, cw1), t)
+
+    threshold = 0.25
+    zoomingIn = (toLevel > fromLevel)
+    zoomingOut = (not zoomingIn)
+    for i, circle in enumerate(circles):
+        cdata = circle.ex
+        level = cdata['level']
+        hasParent = 'parent' in cdata
+        isHere = 'isHere' in cdata
+        isLabelHeader = False
+        opacity = 0
+        if t < threshold and hasParent and cdata['parent'] == fromId:
+            opacity = roundInt((1.0 - t / threshold) * 255.0)
+
+        elif t > (1.0 - threshold) and hasParent and cdata['parent'] == toId:
+            opacity = roundInt(norm(t, (1.0 - threshold, 1.0)) * 255.0)
+
+        elif t < threshold and cdata['id'] == fromId:
+            opacity = roundInt((1.0 - t / threshold) * 255.0)
+            isLabelHeader = True
+
+        elif t > (1.0 - threshold) and cdata['id'] == toId:
+            opacity = roundInt(norm(t, (1.0 - threshold, 1.0)) * 255.0)
+            isLabelHeader = True
+
+        if isHere:
+            opacity = 255
+
+        circles[i].ex['labelOpacity'] = opacity
+        circles[i].ex['isLabelHeader'] = isLabelHeader
 
     drawCircles(circles, filename, config, w, h, (offsetX, offsetY, offsetW), resolution, font, subfont)
 
@@ -307,8 +346,7 @@ for i, c in enumerate(circles):
     circles[i].ex['label'] = lines
     circles[i].ex['labelWidth'] = max(l['size'][0] for l in lines)
     circles[i].ex['labelHeight'] = sum(l['size'][1] for l in lines) + (lineCount-1) * lineSpacing
-    opacity = 255 if cdata['level'] == 2 else 0
-    circles[i].ex['labelOpacity'] = opacity
+    circles[i].ex['labelOpacity'] = 0
     if isHere:
         circles[i].ex['labelColor'] = list(ImageColor.getrgb(config['hereColor']))
         circles[i].ex['labelOpacity'] = 255
