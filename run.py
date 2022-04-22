@@ -101,7 +101,9 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
     w, h = (w*resolution, h*resolution)
     bgColor = config['bgColor']
     baseIm = Image.new(mode="RGBA", size=(w, h), color=bgColor)
+    txtIm = Image.new(mode="RGBA", size=(w, h), color=(255, 255, 255, 0))
     draw = ImageDraw.Draw(baseIm)
+    drawTxt = ImageDraw.Draw(txtIm)
     x0, y0, windowWidth = offset
     # pprint(offset)
     x1 = x0 + windowWidth
@@ -238,8 +240,10 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             lw, lh = line['size']
             lx = cx - labelWidth * 0.5 + (labelWidth - lw) * 0.5
             tfont = subfont if line['isLastLine'] else font
-            draw.text((lx, ly), line['text'], font=tfont, fill=labelColor)
+            drawTxt.text((lx, ly), line['text'], font=tfont, fill=labelColor)
             ly += lh + cdata['labelSpacing']
+
+    baseIm = Image.alpha_composite(baseIm, txtIm)
 
     if resolution > 1:
         baseIm = baseIm.resize((roundInt(w/resolution), roundInt(h/resolution)), resample=Image.LANCZOS)
