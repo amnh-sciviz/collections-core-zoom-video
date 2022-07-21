@@ -211,7 +211,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
 
         # draw outline around here
         if isHere:
-            draw.ellipse([cx0, cy0, cx1, cy1], fill=None, outline=tuple(cdata['labelColor'] + [255]), width=4)
+            draw.ellipse([cx0, cy0, cx1, cy1], fill=None, outline=config['hereColor'], width=4)
 
 
         # pprint([text, cx0, cy0, cx1, cy1, fillColor])
@@ -219,23 +219,35 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
     # Draw labels
     for c in circles:
         cdata = c.ex
-        if cdata['labelOpacity'] <= 0 or not cdata['isVisible']:
+        if not cdata['isVisible']:
             continue
+
         isHere = 'isHere' in cdata
-        isLabelHeader = cdata['isLabelHeader']
-        labelColor = cdata['labelColor']
-        labelColor = tuple(labelColor + [cdata['labelOpacity']])
-        cx, cy = cdata['nxy']
-        labelLines = cdata['label']
         labelWidth = cdata['labelWidth']
         labelHeight = cdata['labelHeight']
+        labelColor = cdata['labelColor']
+        isLabelHeader = cdata['isLabelHeader']
+        cx, cy = cdata['nxy']
         cx = norm(cx, (x0, x1)) * w
         cy = norm(cy, (y0, y1)) * h
-        ly = cy - labelHeight * 0.5
+        labelLines = cdata['label']
+
         if isHere:
+            text = 'You are here'
+            lw, lh = font.getsize(text)
             ly = cy + cdata['trueRadius'] + cdata['labelSpacing']
-        elif isLabelHeader:
+            lx = cx - labelWidth * 0.5 + (labelWidth - lw) * 0.5
+            drawTxt.text((lx, ly), text, font=font, fill=config['hereColor'])
+
+        if cdata['labelOpacity'] <= 0:
+            continue
+
+        labelColor = tuple(labelColor + [cdata['labelOpacity']])
+        ly = cy - labelHeight * 0.5
+
+        if isLabelHeader:
             ly = cy - cdata['trueRadius'] * 0.95 + cdata['labelSpacing']
+
         for i, line in enumerate(labelLines):
             lw, lh = line['size']
             lx = cx - labelWidth * 0.5 + (labelWidth - lw) * 0.5
@@ -297,9 +309,6 @@ def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution,
             opacity = roundInt(ease(norm(t, (1.0 - threshold, 1.0))) * 255.0)
             isLabelHeader = True
 
-        if isHere:
-            opacity = 255
-
         circles[i].ex['labelOpacity'] = opacity
         circles[i].ex['isLabelHeader'] = isLabelHeader
 
@@ -337,8 +346,8 @@ for i, c in enumerate(circles):
     lines = []
     lines.append(collectionName)
     lines.append(f'{prefix}{countFormatted} {unit}')
-    if isHere:
-        lines = ['You are here']
+    # if isHere:
+    #     lines = ['You are here']
     lineCount = len(lines)
     for j, line in enumerate(lines):
         label = {}
@@ -353,11 +362,7 @@ for i, c in enumerate(circles):
     circles[i].ex['labelWidth'] = max(l['size'][0] for l in lines)
     circles[i].ex['labelHeight'] = sum(l['size'][1] for l in lines) + (lineCount-1) * lineSpacing
     circles[i].ex['labelOpacity'] = 0
-    if isHere:
-        circles[i].ex['labelColor'] = list(ImageColor.getrgb(config['hereColor']))
-        circles[i].ex['labelOpacity'] = 255
-    else:
-        circles[i].ex['labelColor'] = list(ImageColor.getrgb(config['labelColor']))
+    circles[i].ex['labelColor'] = list(ImageColor.getrgb(config['labelColor']))
     circles[i].ex['labelSpacing'] = lineSpacing
 
     # load images
