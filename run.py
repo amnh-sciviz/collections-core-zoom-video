@@ -5,6 +5,7 @@ import circlify as circ
 import os
 from PIL import Image, ImageColor, ImageDraw, ImageFilter, ImageFont
 from pprint import pprint
+import random
 import shutil
 import sys
 
@@ -19,6 +20,8 @@ parser.add_argument('-height', dest="HEIGHT", default=1080, type=float, help="He
 parser.add_argument('-fps', dest="FPS", default=30, type=int, help="Frames per second of video")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="", help="Name of the output file; leave blank and it will be output/{HERE_KEY}.mp4")
 parser.add_argument('-debug', dest="DEBUG", action="store_true", help="Just output an image of the data")
+parser.add_argument('-nonumbers', dest="NO_NUMBERS", action="store_true", help="Omit number labels?")
+parser.add_argument('-equal', dest="EQUAL_SIZE", action="store_true", help="All sibling circles equal size?")
 a = parser.parse_args()
 # Parse arguments
 
@@ -75,6 +78,21 @@ flattenedData = sorted(flattenedData, key=lambda d: -d['level'])
 for i, d in enumerate(flattenedData):
     if 'datum' not in d:
         flattenedData[i]['datum'] = sum([dd['datum'] for dd in flattenedData if 'parent' in dd and dd['parent']==d['id'] and 'datum' in dd])
+
+# adjust data if all are equal size
+if a.EQUAL_SIZE:
+    flattenedData = sorted(flattenedData, key=lambda d: d['level'])
+    for i, d in enumerate(flattenedData):
+        children = [dd for dd in flattenedData if 'parent' in dd and dd['parent'] == d['id']]
+        count = len(children)
+        if count <= 0:
+            continue
+        total = d['datum']
+        per = 1.0 * total / count
+        for j, dd in enumerate(flattenedData):
+            if 'parent' in dd and dd['parent'] == d['id']:
+                flattenedData[j]['datum'] = per
+
 dataLookup = createLookup(flattenedData, 'id')
 # flattenedData = sorted(flattenedData, key=lambda d: d['level'])
 # pprint(flattenedData)
@@ -232,25 +250,34 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         cy = norm(cy, (y0, y1)) * h
         labelLines = cdata['label']
 
-        if isHere:
-            text = 'You are here'
-            lw, lh = font.getsize(text)
-            ly = cy + cdata['trueRadius'] + cdata['labelSpacing']
-            lx = cx - labelWidth * 0.5 + (labelWidth - lw) * 0.5
-            drawTxt.text((lx, ly), text, font=font, fill=config['hereColor'])
+        # if isHere:
+        #     text = 'You are here'
+        #     lw, lh = font.getsize(text)
+        #     ly = cy + cdata['trueRadius'] + cdata['labelSpacing']
+        #     lx = cx - labelWidth * 0.5 + (labelWidth - lw) * 0.5
+        #     if lx < 0:
+        #         lx = 0
+        #     drawTxt.text((lx, ly), text, font=font, fill=config['hereColor'])
+        #     continue
 
-        if cdata['labelOpacity'] <= 0:
+        if not isHere and cdata['labelOpacity'] <= 0:
             continue
 
         labelColor = tuple(labelColor + [cdata['labelOpacity']])
-        ly = cy - labelHeight * 0.5
+        if isHere:
+            labelColor = config['hereColor']
 
+        ly = cy - labelHeight * 0.5
         if isLabelHeader:
             ly = cy - cdata['trueRadius'] * 0.95 + cdata['labelSpacing']
+        if isHere:
+            ly = cy + cdata['trueRadius'] + cdata['labelSpacing']
 
         for i, line in enumerate(labelLines):
             lw, lh = line['size']
             lx = cx - labelWidth * 0.5 + (labelWidth - lw) * 0.5
+            if lx < 0 and isHere:
+                lx = 0
             tfont = subfont if line['isLastLine'] else font
             drawTxt.text((lx, ly), line['text'], font=tfont, fill=labelColor)
             ly += lh + cdata['labelSpacing']
@@ -345,14 +372,16 @@ for i, c in enumerate(circles):
     countFormatted = formatNumber(cdata['datum'])
     lines = []
     lines.append(collectionName)
-    lines.append(f'{prefix}{countFormatted} {unit}')
-    # if isHere:
-    #     lines = ['You are here']
+    if not a.NO_NUMBERS:
+        lines.append(f'{prefix}{countFormatted} {unit}')
+    if isHere:
+        lines = ['You are here']
+        lines.append('('+collectionName+')')
     lineCount = len(lines)
     for j, line in enumerate(lines):
         label = {}
         label['text'] = line
-        label['isLastLine'] = (j == lineCount-1 and not isHere)
+        label['isLastLine'] = j == lineCount-1
         lw, lh = font.getsize(line)
         if label['isLastLine']:
             lw, lh = subfont.getsize(line)
@@ -412,6 +441,8 @@ for i in range(len(path)-1):
     toNode = path[i+1]
     if a.DEBUG:
         tweenNodes(circles, f'output/tween_test_{i}.png', fromNode, toNode, 0.0, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont)
+        if i >= (len(path)-2):
+            tweenNodes(circles, f'output/tween_test_{i+1}.png', fromNode, toNode, 1.0, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont)
     else:
         referenceFrame = None
         for i in range(halfRestFrames):
