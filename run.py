@@ -79,6 +79,15 @@ for i, d in enumerate(flattenedData):
     if 'datum' not in d:
         flattenedData[i]['datum'] = sum([dd['datum'] for dd in flattenedData if 'parent' in dd and dd['parent']==d['id'] and 'datum' in dd])
 
+# add color palette if they don't exist
+flattenedData = sorted(flattenedData, key=lambda d: d['level'])
+for i, d in enumerate(flattenedData):
+    if 'colorPalette' not in d and 'parent' in d:
+        for j, dd in enumerate(flattenedData):
+            if dd['id'] == d['parent']:
+                flattenedData[i]['colorPalette'] = dd['colorPalette']
+                break
+
 # adjust data if all are equal size
 if a.EQUAL_SIZE:
     flattenedData = sorted(flattenedData, key=lambda d: d['level'])
@@ -116,7 +125,7 @@ for i, c in enumerate(circles):
 
 def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfont):
     packPadding = 1.0 * config['packPadding'] / w
-    w, h = (w*resolution, h*resolution)
+    w, h = (roundInt(w*resolution), roundInt(h*resolution))
     bgColor = config['bgColor']
     baseIm = Image.new(mode="RGBA", size=(w, h), color=bgColor)
     txtIm = Image.new(mode="RGBA", size=(w, h), color=(255, 255, 255, 0))
@@ -140,8 +149,10 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             continue
         text = cdata['id']
         level = cdata['level']
-        colorIndex = wrapNumber(level - 1, (0, len(config['colorPalette'])-1))
-        fillColor = config['colorPalette'][colorIndex]
+        fillColor = "#000000"
+        if 'colorPalette' in cdata:   
+            colorIndex = wrapNumber(level - 1, (0, len(cdata['colorPalette'])-1))
+            fillColor = cdata['colorPalette'][colorIndex]
         # normalize the circle data
         cx = norm(cx, (-1, 1))
         cy = norm(cy, (1, -1))
@@ -202,7 +213,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             imh = roundInt(abs(cy1-cy0))
             if imw <= 0 or imh <= 0:
                 continue
-            resizedImage = loadedImage.resize((imw, imh), resample=Image.LANCZOS)
+            resizedImage = loadedImage.resize((imw, imh), resample=Image.Resampling.LANCZOS)
             mask = Image.new(mode="L", size=(imw, imh), color=0)
             maskDraw = ImageDraw.Draw(mask)
             maskDraw.ellipse([0, 0, imw, imh], fill=255)
@@ -285,7 +296,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
     baseIm = Image.alpha_composite(baseIm, txtIm)
 
     if resolution > 1:
-        baseIm = baseIm.resize((roundInt(w/resolution), roundInt(h/resolution)), resample=Image.LANCZOS)
+        baseIm = baseIm.resize((roundInt(w/resolution), roundInt(h/resolution)), resample=Image.Resampling.LANCZOS)
 
     makeDirectories(filename)
     baseIm.save(filename)
@@ -382,9 +393,12 @@ for i, c in enumerate(circles):
         label = {}
         label['text'] = line
         label['isLastLine'] = j == lineCount-1
-        lw, lh = font.getsize(line)
+        # lw, lh = font.getsize(line)
+        left, top, right, bottom = font.getbbox(line)
         if label['isLastLine']:
-            lw, lh = subfont.getsize(line)
+             left, top, right, bottom = subfont.getbbox(line)
+        lw = right - left
+        lh = bottom - top
         label['size'] = (lw, lh)
         lines[j] = label
     circles[i].ex['label'] = lines

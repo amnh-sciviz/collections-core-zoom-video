@@ -5,7 +5,6 @@
   "bgColor": "#000000",
   "hereColor": "#e0c67c",
   "labelColor": "#ffffff",
-  "colorPalette": ["#1e2938", "#396791", "#4081b2", "#579ac4"],
   "defaultPrefix": "Over ",
   "defaultUnit": "objects",
   "font": "fonts/Open_Sans/OpenSans-SemiBold.ttf",
@@ -22,65 +21,105 @@
   },
   "data": [{
     "id": "AMNH Collections",
+    "colorPalette": ["#1e2938", "#396791", "#4081b2", "#579ac4"],
     "children": [
       {
-        "id": "Earth and Planetary Sciences",
+        "id": "Library",
+        "colorPalette": ["#a30166", "#68184a", "#b51579"],
         "children": [
-          {"id": "EPS/Mineralogy", "datum": 126527, "image": "img/Dinosaur.png"},
-          {"id": "EPS/Meteorites", "datum": 5294, "image": "img/Dinosaur.png"},
-          {"id": "Tektites", "datum": 921, "image": "img/Dinosaur.png"},
-          {"id": "EPS/Mineral Deposits", "datum": 13441, "image": "img/Dinosaur.png"},
-          {"id": "EPS/Petrology", "datum": 24603, "image": "img/Dinosaur.png"},
-          {"id": "Astro/Observations", "datum": 45, "unit": "TB", "image": "img/Dinosaur.png"},
-          {"id": "Astro/Simulations", "datum": 50, "unit": "TB", "image": "img/Dinosaur.png"},
-          {"id": "Astro/Instruments", "datum": 2, "image": "img/Dinosaur.png"}
+          {"id": "Books & Journals", "children": [
+            {"id": "Print book titles", "datum": 159789},
+            {"id": "Print journal titles", "datum": 20991},
+            {"id": "E-journal titles", "datum": 5500},
+            {"id": "Rare print books and journals", "datum": 15000, "displayNumber": "6855 titles 15,000 volumes"}
+          ]},
+          {"id": "Manuscripts & Archives", "children": [
+            {"id": "Collections", "datum": 2642},
+            {"id": "Manuscript materials", "datum": 2000, "displayNumber": "2000 linear feet"},
+            {"id": "Reels of microfilm", "datum": 1300}
+          ]},
+          {"id": "Art & Memorabilia", "datum": 3000},
+          {"id": "Photographs", "children": [
+            {"id": "Negatives", "datum": 990000},
+            {"id": "Lantern slides", "datum": 70000},
+            {"id": "Color slides and transparencies", "datum": 160000},
+            {"id": "Prints", "datum": 280000},
+            {"id": "Photo albums", "datum": 199},
+            {"id": "Digital assets", "datum": 76000}
+          ]},
+          {"id": "Film & video", "children": [
+            {"id": "Film reels", "datum": 3200},
+            {"id": "Video cassettes", "datum": 2000},
+            {"id": "Digital assets", "datum": 1423}
+          ]}
+        ]
+      },{
+        "id": "Physical sciences",
+        "colorPalette": ["#643378", "#42244f", "#6e4180"],
+        "children": [
+          {"id": "Earth & Planetary Sciences", "children": [
+            {"id": "Mineralogy", "datum": 138975},
+            {"id": "Meteorites", "datum": 4545},
+            {"id": "Mineral deposits", "datum": 13449},
+            {"id": " Drill core, ft", "datum": 26000, "displayNumber": "More than 26000 feet"},
+            {"id": "Petrology", "datum": 24608}
+          ]},
+          {"id": "Astrophysics", "children": [
+            {"id": "Observations: Universe, Galaxies, Stars, Planets, Unclassified Objects", "datum": 4500000, "displayNumber": "45TB"},
+            {"id": "Simulations: Universe, Galaxies, Stars, Planets, Unclassified Objects", "datum": 5000000, "displayNumber": "50TB"},
+            {"id": "Instruments: Imaging, Spectroscopy", "datum": 200000, "displayNumber": "2TB"}
+          ]}
         ]
       },{
         "id": "Anthropology",
+        "colorPalette": ["#b9322e", "#6e2b29", "#932926"],
         "children": [
-          {"id": "Archaeology", "datum": 340641, "image": "img/Dinosaur.png"},
-          {"id": "Ethnology", "datum": 169893, "image": "img/Dinosaur.png"},
-          {"id": "Biology", "datum": 23009, "image": "img/Dinosaur.png"},
-          {"id": "Other (casts, molds)", "datum": 7215, "image": "img/Dinosaur.png"}
+          {"id": "Archaeology", "datum": 340641},
+          {"id": "Ethnology", "datum": 169893},
+          {"id": "Biology", "datum": 23009},
+          {"id": "Other (casts, molds)", "datum": 7215}
         ]
       },{
         "id": "Vertebrate Zoology",
+        "colorPalette": ["#ff7e32", "#a25f38", "#d67f4c"],
         "children": [
-          {"id": "Herpetology", "datum": 376154, "image": "img/Dinosaur.png"},
-          {"id": "Ichthyology", "datum": 3231638, "image": "img/Dinosaur.png"},
-          {"id": "Mammalogy", "datum": 279812, "image": "img/Dinosaur.png"},
-          {"id": "Ornithology", "datum": 890540, "image": "img/Dinosaur.png"}
+          {"id": "Herpetology", "datum": 376154},
+          {"id": "Ichthyology", "datum": 3231638},
+          {"id": "Mammalogy", "datum": 279812},
+          {"id": "Ornithology", "datum": 890540}
         ]
       },{
         "id": "Paleontology",
+        "colorPalette": ["#006bb4", "#174767", "#205c85"],
         "children": [
           {"id": "Fossil Vertebrates", "children": [
-            {"id": "Fossil Amphibians, Reptiles, and Birds", "datum": 33232, "image": "img/Pterosaur.png"},
-            {"id": "Fossil Fish", "datum": 28687, "image": "img/Megalodon.png"},
-            {"id": "Fossil Mammals", "datum": 400000, "image": "img/Mammoth.png"}
+            {"id": "Fossil Amphibians, Reptiles, and Birds", "datum": 33232},
+            {"id": "Fossil Fish", "datum": 28687},
+            {"id": "Fossil Mammals", "datum": 400000}
           ]},
-          {"id": "Fossil Invertebrates", "datum": 5120869, "image": "img/Ammonite.png"},
-          {"id": "Fossil Plants", "datum": 440, "image": "img/Alethopteris.png"}
+          {"id": "Fossil Invertebrates", "datum": 5120869},
+          {"id": "Fossil Plants", "datum": 50000, "displayNumber": 440}
         ]
       },{
         "id": "Invertebrate Zoology",
+        "colorPalette": ["#3e9f42", "#306933", "#448546"],
         "children": [
-          {"id": "Amber", "datum": 12744, "image": "img/Dinosaur.png"},
-          {"id": "Arachnida", "datum": 1216768, "image": "img/Dinosaur.png"},
-          {"id": "Cnidaria", "datum": 8826, "image": "img/Dinosaur.png"},
-          {"id": "Coleoptera", "datum": 1982780, "image": "img/Dinosaur.png"},
-          {"id": "Crustacea", "datum": 116500, "image": "img/Dinosaur.png"},
-          {"id": "Diptera", "datum": 1138717, "image": "img/Dinosaur.png"},
-          {"id": "Hemiptera", "datum": 976518, "image": "img/Dinosaur.png"},
-          {"id": "Hymenoptera", "datum": 8724094, "image": "img/Dinosaur.png"},
-          {"id": "Isoptera", "datum": 1000000, "image": "img/Dinosaur.png"},
-          {"id": "Lepidoptera", "datum": 2263456, "image": "img/Dinosaur.png"},
-          {"id": "Minor Orders", "datum": 824644, "image": "img/Dinosaur.png"},
-          {"id": "Misc. Bulk", "datum": 33597, "image": "img/Dinosaur.png"},
-          {"id": "Mollusca", "datum": 1606459, "image": "img/Dinosaur.png"},
+          {"id": "Amber", "datum": 12744},
+          {"id": "Arachnida", "datum": 1216768},
+          {"id": "Cnidaria", "datum": 8826},
+          {"id": "Coleoptera", "datum": 1982780},
+          {"id": "Crustacea", "datum": 116500},
+          {"id": "Diptera", "datum": 1138717},
+          {"id": "Hemiptera", "datum": 976518},
+          {"id": "Hymenoptera", "datum": 8724094},
+          {"id": "Isoptera", "datum": 1000000},
+          {"id": "Lepidoptera", "datum": 2263456},
+          {"id": "Minor Orders", "datum": 824644},
+          {"id": "Misc. Bulk", "datum": 33597},
+          {"id": "Mollusca", "datum": 1606459},
           {"id": "Myriapoda", "datum": 79880},
-          {"id": "Other Invert Phyla", "datum": 3399856, "image": "img/Dinosaur.png"},
-          {"id": "Protists", "datum": 47895, "image": "img/Dinosaur.png"}
+          {"id": "Other Invert Phyla", "datum": 3399856},
+          {"id": "Protists", "datum": 47895}
         ]
       }
     ]
