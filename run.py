@@ -309,7 +309,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
     baseIm = Image.alpha_composite(baseIm, txtIm)
 
     if resolution > 1:
-        baseIm = baseIm.resize((roundInt(w/resolution), roundInt(h/resolution)), resample=Image.Resampling.LANCZOS)
+        baseIm = baseIm.resize((roundInt(w/resolution), roundInt(h/resolution)), resample=Image.LANCZOS)
 
     makeDirectories(filename)
     baseIm.save(filename)
