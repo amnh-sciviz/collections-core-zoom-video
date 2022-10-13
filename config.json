@@ -18,7 +18,7 @@
   "imageBlend": 0.05,
   "mediaArrays": {
     "trilobites": {"id": "Trilobites", "parent": "Fossil Invertebrates", "datum": 50000},
-    "megalodon": {"id": "Megalodon", "parent": "Fossil Fish", "datum": 10000}
+    "megalodon": {"id": "Megalodon", "parent": "Fossil Fish", "datum": 20000, "dx": 0.5, "dy": -0.5}
   },
   "data": [{
     "id": "AMNH Collections",
@@ -101,8 +101,8 @@
           {"id": "Fossil Vertebrates", 
            "image": "img/_02_Fossil_Vertabrates.png",
            "children": [
-            {"id": "Fossil Amphibians, Reptiles, and Birds", "datum": 33232, "image": "img/_03_Fossil_Amph_Rep_Birds.png"},
-            {"id": "Fossil Fish", "datum": 28687, "image": "img/_03_Fossil_Fish.png"},
+            {"id": "Fossil Amphibians, Reptiles, and Birds", "datum": 90000, "displayNumber": 33232, "image": "img/_03_Fossil_Amph_Rep_Birds.png"},
+            {"id": "Fossil Fish", "datum": 75000, "displayNumber": 28687, "image": "img/_03_Fossil_Fish.png"},
             {"id": "Fossil Mammals", "datum": 400000, "image": "img/_03_Fossil_Mammals.png"}
           ]},
           {"id": "Fossil Invertebrates", "datum": 5120869, "image": "img/_02_Fossil_Invertabrates.png"},
