@@ -147,7 +147,8 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         cr = cdata['cr']
         isHere = 'isHere' in cdata
         isPlaceholder = 'isPlaceholder' in cdata
-        if isPlaceholder:
+        circleOpacity = cdata['circleOpacity']
+        if isPlaceholder or circleOpacity <= 0:
             circles[i].ex['isVisible'] = False
             continue
         text = cdata['id']
@@ -219,13 +220,17 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             imh = roundInt(abs(cy1-cy0))
             if imw <= 0 or imh <= 0:
                 continue
-            blendedImage = Image.blend(backgroundImage, loadedImage, imageBlend)
-            blendedImage = blendedImage.convert("RGB")
+            blendedImage = backgroundImage
+            if imageBlend > 0:
+                blendedImage = Image.blend(backgroundImage, loadedImage, imageBlend)
+                blendedImage = blendedImage.convert("RGB")
             resizedImage = blendedImage.resize((imw, imh), resample=Image.Resampling.LANCZOS)
             mask = Image.new(mode="L", size=(imw, imh), color=0)
             maskDraw = ImageDraw.Draw(mask)
             maskDraw.ellipse([0, 0, imw, imh], fill=255)
             compositeImage = alphaMask(resizedImage, mask)
+            if circleOpacity < 1:
+                compositeImage.putalpha(roundInt(circleOpacity * 255))
             pasteX = roundInt(cx0)
             pasteY = roundInt(cy0)
             cropX = 0
@@ -340,6 +345,7 @@ def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution,
         hasParent = 'parent' in cdata
         isHere = 'isHere' in cdata
         isLabelHeader = False
+        circleOpacity = 1
         imageOpacity = 0
         labelOpacity = 0
         if t < threshold and hasParent and cdata['parent'] == fromId:
@@ -360,6 +366,16 @@ def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution,
             labelOpacity = roundInt(ease(norm(t, (1.0 - threshold, 1.0))) * 255.0)
             isLabelHeader = True
 
+        maxLevel = max(fromLevel, toLevel)
+        deltaLevel = level - maxLevel
+        if deltaLevel == 1:
+            circleOpacity = imageOpacity
+        elif deltaLevel > 1:
+            circleOpacity = 0
+        if isHere:
+            circleOpacity = 1
+
+        circles[i].ex['circleOpacity'] = circleOpacity
         circles[i].ex['imageOpacity'] = imageOpacity
         circles[i].ex['labelOpacity'] = labelOpacity
         circles[i].ex['isLabelHeader'] = isLabelHeader
