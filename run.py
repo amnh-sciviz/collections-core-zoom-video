@@ -25,6 +25,9 @@ parser.add_argument('-equal', dest="EQUAL_SIZE", action="store_true", help="All 
 a = parser.parse_args()
 # Parse arguments
 
+# Allow large images
+Image.MAX_IMAGE_PIXELS = None
+
 RESOLUTION = 2
 
 # testData = [
@@ -149,10 +152,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             continue
         text = cdata['id']
         level = cdata['level']
-        fillColor = "#000000"
-        if 'colorPalette' in cdata:   
-            colorIndex = wrapNumber(level - 1, (0, len(cdata['colorPalette'])-1))
-            fillColor = cdata['colorPalette'][colorIndex]
+        fillColor = cdata['fillColor']
         # normalize the circle data
         cx = norm(cx, (-1, 1))
         cy = norm(cy, (1, -1))
@@ -208,12 +208,20 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
 
         # draw circle with image
         if 'image' in cdata:
+            imageOpacity = cdata['imageOpacity']
+            imageBlend = config['imageBlend']
+            if 'imageBlend' in cdata:
+                imageBlend = cdata['imageBlend']
+            imageBlend = imageBlend * imageOpacity
+            backgroundImage = cdata['bgImage'].copy()
             loadedImage = cdata['image'].copy()
             imw = roundInt(abs(cx1-cx0))
             imh = roundInt(abs(cy1-cy0))
             if imw <= 0 or imh <= 0:
                 continue
-            resizedImage = loadedImage.resize((imw, imh), resample=Image.Resampling.LANCZOS)
+            blendedImage = Image.blend(backgroundImage, loadedImage, imageBlend)
+            blendedImage = blendedImage.convert("RGB")
+            resizedImage = blendedImage.resize((imw, imh), resample=Image.Resampling.LANCZOS)
             mask = Image.new(mode="L", size=(imw, imh), color=0)
             maskDraw = ImageDraw.Draw(mask)
             maskDraw.ellipse([0, 0, imw, imh], fill=255)
@@ -332,22 +340,28 @@ def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution,
         hasParent = 'parent' in cdata
         isHere = 'isHere' in cdata
         isLabelHeader = False
-        opacity = 0
+        imageOpacity = 0
+        labelOpacity = 0
         if t < threshold and hasParent and cdata['parent'] == fromId:
-            opacity = roundInt(ease(1.0 - t / threshold) * 255.0)
+            theta = ease(1.0 - t / threshold)
+            labelOpacity = roundInt(theta * 255.0)
+            imageOpacity = theta
 
         elif t > (1.0 - threshold) and hasParent and cdata['parent'] == toId:
-            opacity = roundInt(ease(norm(t, (1.0 - threshold, 1.0))) * 255.0)
+            theta = ease(norm(t, (1.0 - threshold, 1.0)))
+            labelOpacity = roundInt(theta * 255.0)
+            imageOpacity = theta
 
         elif t < threshold and cdata['id'] == fromId:
-            opacity = roundInt(ease(1.0 - t / threshold) * 255.0)
+            labelOpacity = roundInt(ease(1.0 - t / threshold) * 255.0)
             isLabelHeader = True
 
         elif t > (1.0 - threshold) and cdata['id'] == toId:
-            opacity = roundInt(ease(norm(t, (1.0 - threshold, 1.0))) * 255.0)
+            labelOpacity = roundInt(ease(norm(t, (1.0 - threshold, 1.0))) * 255.0)
             isLabelHeader = True
 
-        circles[i].ex['labelOpacity'] = opacity
+        circles[i].ex['imageOpacity'] = imageOpacity
+        circles[i].ex['labelOpacity'] = labelOpacity
         circles[i].ex['isLabelHeader'] = isLabelHeader
 
     drawCircles(circles, filename, config, w, h, (offsetX, offsetY, offsetW), resolution, font, subfont)
@@ -408,6 +422,14 @@ for i, c in enumerate(circles):
     circles[i].ex['labelColor'] = list(ImageColor.getrgb(config['labelColor']))
     circles[i].ex['labelSpacing'] = lineSpacing
 
+    fillColor = "#000000"
+    if 'colorPalette' in cdata:   
+        colorIndex = wrapNumber(cdata['level'] - 1, (0, len(cdata['colorPalette'])-1))
+        fillColor = cdata['colorPalette'][colorIndex]
+    if isHere:
+        fillColor = config['hereColor']
+    circles[i].ex['fillColor'] = fillColor
+
     # load images
     if 'image' in cdata:
         loadedImage = None
@@ -416,12 +438,14 @@ for i, c in enumerate(circles):
         else:
             loadedImage = Image.open(cdata['image'])
             imageCache[cdata['image']] = loadedImage
+        circles[i].ex['bgImage'] = Image.new(loadedImage.mode, loadedImage.size, color=fillColor)
         circles[i].ex['image'] = loadedImage
 
 # generate a path that zooms out from HERE then zooms back into HERE
 path = []
 hereNode = circleLookup[here['id']]
 node = circles[hereNode.ex['index']]
+node = circles[node.ex['parentIndex']]
 while True:
     path.append(node)
     parentIndex = node.ex['parentIndex']
