@@ -224,7 +224,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             if imageBlend > 0:
                 blendedImage = Image.blend(backgroundImage, loadedImage, imageBlend)
                 blendedImage = blendedImage.convert("RGB")
-            resizedImage = blendedImage.resize((imw, imh), resample=Image.Resampling.LANCZOS)
+            resizedImage = blendedImage.resize((imw, imh), resample=Image.LANCZOS)
             mask = Image.new(mode="L", size=(imw, imh), color=0)
             maskDraw = ImageDraw.Draw(mask)
             maskDraw.ellipse([0, 0, imw, imh], fill=255)
