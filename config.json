@@ -15,7 +15,7 @@
   "shadowWidth": 3,
   "shadowBlurRadius": 5,
   "shadowOpacity": 0.4,
-  "imageBlend": 0.05,
+  "imageBlend": 0.125,
   "mediaArrays": {
     "trilobites": {"id": "Trilobites", "parent": "Fossil Invertebrates", "datum": 50000},
     "megalodon": {"id": "Megalodon", "parent": "Fossil Fish", "datum": 20000, "dx": 0.5, "dy": -0.5}
