@@ -74,6 +74,7 @@ for i, d in enumerate(flattenedData):
             }
             children.append(placeholder)
         flattenedData[i]['children'] = children
+        flattenedData[i]['hereParent'] = True
         break
 
 # add datums where they don't exist
@@ -348,6 +349,7 @@ def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution,
         level = cdata['level']
         hasParent = 'parent' in cdata
         isHere = 'isHere' in cdata
+        isHereParent = 'hereParent' in cdata
         isLabelHeader = False
         circleOpacity = 1
         imageOpacity = 0
@@ -378,6 +380,9 @@ def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution,
             circleOpacity = 0
         if isHere:
             circleOpacity = 1
+
+        if isHereParent and circleOpacity > 0:
+            imageOpacity = 1
 
         circles[i].ex['circleOpacity'] = circleOpacity
         circles[i].ex['imageOpacity'] = imageOpacity
