@@ -202,7 +202,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             shadowDraw = ImageDraw.Draw(shadowIm)
             shadowWidth = config["shadowWidth"]
             shadowBlurRadius = config["shadowBlurRadius"]
-            shadowOpacity = roundInt(config["shadowOpacity"] * 255)
+            shadowOpacity = roundInt(config["shadowOpacity"] * circleOpacity * 255)
             shadowDraw.ellipse([cx0, cy0, cx1+shadowWidth, cy1+shadowWidth], fill=(0,0,0,shadowOpacity))
             shadowIm = shadowIm.filter(ImageFilter.GaussianBlur(shadowBlurRadius))
             baseIm.alpha_composite(shadowIm, (0, 0))
@@ -223,14 +223,18 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             blendedImage = backgroundImage
             if imageBlend > 0:
                 blendedImage = Image.blend(backgroundImage, loadedImage, imageBlend)
-                blendedImage = blendedImage.convert("RGB")
+                blendedImage = blendedImage.convert("RGBA")
             resizedImage = blendedImage.resize((imw, imh), resample=Image.LANCZOS)
             mask = Image.new(mode="L", size=(imw, imh), color=0)
             maskDraw = ImageDraw.Draw(mask)
             maskDraw.ellipse([0, 0, imw, imh], fill=255)
             compositeImage = alphaMask(resizedImage, mask)
+            # https://github.com/python-pillow/Pillow/issues/4687#issuecomment-643567573
+            # change the transparency without affecting transparent background
             if circleOpacity < 1:
-                compositeImage.putalpha(roundInt(circleOpacity * 255))
+                tempImage = compositeImage.copy()
+                tempImage.putalpha(roundInt(circleOpacity * 255))
+                compositeImage.paste(tempImage, compositeImage)
             pasteX = roundInt(cx0)
             pasteY = roundInt(cy0)
             cropX = 0
