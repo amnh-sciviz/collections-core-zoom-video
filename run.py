@@ -232,10 +232,10 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             compositeImage = alphaMask(resizedImage, mask)
             # https://github.com/python-pillow/Pillow/issues/4687#issuecomment-643567573
             # change the transparency without affecting transparent background
-            if circleOpacity < 1:
-                tempImage = compositeImage.copy()
-                tempImage.putalpha(roundInt(circleOpacity * 255))
-                compositeImage.paste(tempImage, compositeImage)
+            tempImage = compositeImage.copy()
+            tempImage.putalpha(roundInt(circleOpacity * 255))
+            compositeImage.paste(tempImage, compositeImage)
+            
             pasteX = roundInt(cx0)
             pasteY = roundInt(cy0)
             cropX = 0
@@ -377,12 +377,15 @@ def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution,
         if deltaLevel == 1:
             circleOpacity = imageOpacity
         elif deltaLevel > 1:
-            circleOpacity = 0
+            circleOpacity = 0.0
         if isHere:
-            circleOpacity = 1
+            circleOpacity = 1.0
 
         if isHereParent and circleOpacity > 0:
-            imageOpacity = 1
+            imageOpacity = 1.0
+
+        # set texture opacity to within a range
+        imageOpacity = lerp((0.4, 1.0), imageOpacity)
 
         circles[i].ex['circleOpacity'] = circleOpacity
         circles[i].ex['imageOpacity'] = imageOpacity
@@ -431,7 +434,7 @@ for i, c in enumerate(circles):
     for j, line in enumerate(lines):
         label = {}
         label['text'] = line
-        label['isLastLine'] = j == lineCount-1
+        label['isLastLine'] = (j == lineCount-1 and j > 0)
         # lw, lh = font.getsize(line)
         left, top, right, bottom = font.getbbox(line)
         if label['isLastLine']:
