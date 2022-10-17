@@ -20,8 +20,8 @@ parser.add_argument('-height', dest="HEIGHT", default=1080, type=float, help="He
 parser.add_argument('-fps', dest="FPS", default=30, type=int, help="Frames per second of video")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="", help="Name of the output file; leave blank and it will be output/{HERE_KEY}.mp4")
 parser.add_argument('-debug', dest="DEBUG", action="store_true", help="Just output an image of the data")
-parser.add_argument('-nonumbers', dest="NO_NUMBERS", action="store_true", help="Omit number labels?")
-parser.add_argument('-equal', dest="EQUAL_SIZE", action="store_true", help="All sibling circles equal size?")
+# parser.add_argument('-nonumbers', dest="NO_NUMBERS", action="store_true", help="Omit number labels?")
+# parser.add_argument('-equal', dest="EQUAL_SIZE", action="store_true", help="All sibling circles equal size?")
 a = parser.parse_args()
 # Parse arguments
 
@@ -93,18 +93,18 @@ for i, d in enumerate(flattenedData):
                 break
 
 # adjust data if all are equal size
-if a.EQUAL_SIZE:
-    flattenedData = sorted(flattenedData, key=lambda d: d['level'])
-    for i, d in enumerate(flattenedData):
-        children = [dd for dd in flattenedData if 'parent' in dd and dd['parent'] == d['id']]
-        count = len(children)
-        if count <= 0:
-            continue
-        total = d['datum']
-        per = 1.0 * total / count
-        for j, dd in enumerate(flattenedData):
-            if 'parent' in dd and dd['parent'] == d['id']:
-                flattenedData[j]['datum'] = per
+# if a.EQUAL_SIZE:
+#     flattenedData = sorted(flattenedData, key=lambda d: d['level'])
+#     for i, d in enumerate(flattenedData):
+#         children = [dd for dd in flattenedData if 'parent' in dd and dd['parent'] == d['id']]
+#         count = len(children)
+#         if count <= 0:
+#             continue
+#         total = d['datum']
+#         per = 1.0 * total / count
+#         for j, dd in enumerate(flattenedData):
+#             if 'parent' in dd and dd['parent'] == d['id']:
+#                 flattenedData[j]['datum'] = per
 
 dataLookup = createLookup(flattenedData, 'id')
 # flattenedData = sorted(flattenedData, key=lambda d: d['level'])
@@ -307,7 +307,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             lx = cx - labelWidth * 0.5 + (labelWidth - lw) * 0.5
             if lx < 0 and isHere:
                 lx = 0
-            tfont = subfont if line['isLastLine'] else font
+            tfont = subfont if line['isSubtitle'] else font
             drawTxt.text((lx, ly), line['text'], font=tfont, fill=labelColor)
             ly += lh + cdata['labelSpacing']
 
@@ -385,7 +385,7 @@ def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution,
             imageOpacity = 1.0
 
         # set texture opacity to within a range
-        imageOpacity = lerp((0.4, 1.0), imageOpacity)
+        imageOpacity = lerp((config['imageBlendBackground'], 1.0), imageOpacity)
 
         circles[i].ex['circleOpacity'] = circleOpacity
         circles[i].ex['imageOpacity'] = imageOpacity
@@ -424,20 +424,29 @@ for i, c in enumerate(circles):
     unit = cdata['unit'] if 'unit' in cdata else config['defaultUnit']
     countFormatted = formatNumber(cdata['datum'])
     lines = []
-    lines.append(collectionName)
-    if not a.NO_NUMBERS:
-        lines.append(f'{prefix}{countFormatted} {unit}')
+    lines += collectionName.split('\n')
+    hasSubtitle = False
+    if cdata['level'] <= 2:
+        if 'displayNumber' in cdata and isNumber(cdata['displayNumber']):
+            countFormatted = formatNumber(cdata['displayNumber'])
+            lines.append(f'{prefix}{countFormatted} {unit}')
+        elif 'displayNumber' in cdata:
+            lines.append(cdata['displayNumber'])
+        else:
+            lines.append(f'{prefix}{countFormatted} {unit}')
+        hasSubtitle = True
     if isHere:
         lines = ['You are here']
         lines.append('('+collectionName+')')
+        hasSubtitle = True
     lineCount = len(lines)
     for j, line in enumerate(lines):
         label = {}
         label['text'] = line
-        label['isLastLine'] = (j == lineCount-1 and j > 0)
+        label['isSubtitle'] = (hasSubtitle and j == lineCount-1 and j > 0)
         # lw, lh = font.getsize(line)
         left, top, right, bottom = font.getbbox(line)
-        if label['isLastLine']:
+        if label['isSubtitle']:
              left, top, right, bottom = subfont.getbbox(line)
         lw = right - left
         lh = bottom - top

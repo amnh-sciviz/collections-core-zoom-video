@@ -11,11 +11,12 @@
   "subheadingFont": "fonts/Open_Sans/OpenSans-Regular.ttf",
   "fontSize": 22,
   "subheadingFontSize": 18,
-  "lineSpacing": 2,
+  "lineSpacing": 4,
   "shadowWidth": 3,
   "shadowBlurRadius": 5,
   "shadowOpacity": 0.4,
-  "imageBlend": 0.125,
+  "imageBlend": 0.1,
+  "imageBlendBackground": 0.33,
   "mediaArrays": {
     "trilobites": {"id": "Trilobites", "parent": "Fossil Invertebrates", "datum": 50000},
     "megalodon": {"id": "Megalodon", "parent": "Fossil Fish", "datum": 20000, "dx": 0.5, "dy": -0.5}
@@ -33,7 +34,7 @@
             {"id": "Print book titles", "datum": 159789},
             {"id": "Print journal titles", "datum": 20991},
             {"id": "E-journal titles", "datum": 5500},
-            {"id": "Rare print books and journals", "datum": 15000, "displayNumber": "6855 titles 15,000 volumes"}
+            {"id": "Rare print books\nand journals", "datum": 15000, "displayNumber": "6855 titles 15,000 volumes"}
           ]},
           {"id": "Manuscripts & Archives", "children": [
             {"id": "Collections", "datum": 2642},
@@ -44,7 +45,7 @@
           {"id": "Photographs", "children": [
             {"id": "Negatives", "datum": 990000},
             {"id": "Lantern slides", "datum": 70000},
-            {"id": "Color slides and transparencies", "datum": 160000},
+            {"id": "Color slides and\ntransparencies", "datum": 160000},
             {"id": "Prints", "datum": 280000},
             {"id": "Photo albums", "datum": 199},
             {"id": "Digital assets", "datum": 76000}
@@ -68,8 +69,8 @@
             {"id": "Petrology", "datum": 24608}
           ]},
           {"id": "Astrophysics", "children": [
-            {"id": "Observations: Universe, Galaxies, Stars, Planets, Unclassified Objects", "datum": 4500000, "displayNumber": "45TB"},
-            {"id": "Simulations: Universe, Galaxies, Stars, Planets, Unclassified Objects", "datum": 5000000, "displayNumber": "50TB"},
+            {"id": "Observations: Universe,\nGalaxies, Stars, Planets,\nUnclassified Objects", "datum": 4500000, "displayNumber": "45TB"},
+            {"id": "Simulations: Universe,\nGalaxies, Stars, Planets,\nUnclassified Objects", "datum": 5000000, "displayNumber": "50TB"},
             {"id": "Instruments: Imaging, Spectroscopy", "datum": 200000, "displayNumber": "2TB"}
           ]}
         ]
@@ -101,7 +102,7 @@
           {"id": "Fossil Vertebrates", 
            "image": "img/_02_Fossil_Vertabrates.png",
            "children": [
-            {"id": "Fossil Amphibians, Reptiles, and Birds", "datum": 90000, "displayNumber": 33232, "image": "img/_03_Fossil_Amph_Rep_Birds.png"},
+            {"id": "Fossil Amphibians,\nReptiles, and Birds", "datum": 90000, "displayNumber": 33232, "image": "img/_03_Fossil_Amph_Rep_Birds.png"},
             {"id": "Fossil Fish", "datum": 75000, "displayNumber": 28687, "image": "img/_03_Fossil_Fish.png"},
             {"id": "Fossil Mammals", "datum": 400000, "image": "img/_03_Fossil_Mammals.png"}
           ]},
