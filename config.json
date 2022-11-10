@@ -5,10 +5,11 @@
   "bgColor": "#000000",
   "hereColor": "#e0c67c",
   "labelColor": "#ffffff",
-  "defaultPrefix": "~",
+  "defaultPrefix": "",
+  "defaultSuffix": "+",
   "defaultUnit": "objects",
-  "font": "fonts/Open_Sans/OpenSans-Bold.ttf",
-  "subheadingFont": "fonts/Open_Sans/OpenSans-Regular.ttf",
+  "font": "fonts/AngletSans/AgletSans-Semibold.ttf",
+  "subheadingFont": "fonts/AngletSans/AgletSans-SemiboldItalic.ttf",
   "fontSize": 22,
   "subheadingFontSize": 18,
   "lineSpacing": 4,
@@ -25,11 +26,14 @@
   "data": [{
     "id": "AMNH Collections",
     "colorPalette": ["#1e2938", "#396791", "#4081b2", "#579ac4"],
+    "image": "img/_01_Paleontology_Overview.png",
+    "displayNumber": "36,000,000+ objects, 500+ TB",
     "children": [
       {
         "id": "Library",
         "colorPalette": ["#a30166", "#68184a", "#b51579"],
         "image": "img/_01_Paleontology_Overview.png",
+        "displayNumber": "2,000,000+\nobjects, titles, volumes",
         "children": [
           {"id": "Books & Journals", "children": [
             {"id": "Print book titles", "datum": 159789},
@@ -58,9 +62,10 @@
           ]}
         ]
       },{
-        "id": "Physical sciences",
+        "id": "Physical Sciences",
         "colorPalette": ["#643378", "#42244f", "#6e4180"],
         "image": "img/_01_Paleontology_Overview.png",
+        "displayNumber": "166,700+ objects,\n500+ TB",
         "children": [
           {"id": "Earth & Planetary Sciences", "children": [
             {"id": "Mineralogy", "datum": 138975},
@@ -80,10 +85,10 @@
         "colorPalette": ["#b9322e", "#6e2b29", "#932926"],
         "image": "img/_01_Paleontology_Overview.png",
         "children": [
-          {"id": "Archaeology", "datum": 340641},
-          {"id": "Ethnology", "datum": 169893},
-          {"id": "Biology", "datum": 23009},
-          {"id": "Other (casts, molds)", "datum": 7215}
+          {"id": "Archaeology", "datum": 340407},
+          {"id": "Ethnology", "datum": 211723},
+          {"id": "Biological\nAnthropology", "datum": 20999},
+          {"id": "Anthropology Archives", "datum": 27780}
         ]
       },{
         "id": "Vertebrate Zoology",
@@ -106,7 +111,7 @@
           {"id": "Fossil Vertebrates", 
            "image": "img/_02_Fossil_Vertabrates.png",
            "children": [
-            {"id": "Fossil Amphibians,\nReptiles, and Birds", "datum": 90000, "displayNumber": 33232, "image": "img/_03_Fossil_Amph_Rep_Birds.png"},
+            {"id": "Fossil Amphibians,\nReptiles and Birds", "datum": 90000, "displayNumber": 33232, "image": "img/_03_Fossil_Amph_Rep_Birds.png"},
             {"id": "Fossil Fish", "datum": 75000, "displayNumber": 28687, "image": "img/_03_Fossil_Fish.png"},
             {"id": "Fossil Mammals", "datum": 400000, "image": "img/_03_Fossil_Mammals.png"}
           ]},
@@ -118,22 +123,20 @@
         "colorPalette": ["#3e9f42", "#306933", "#448546"],
         "image": "img/_01_Paleontology_Overview.png",
         "children": [
-          {"id": "Amber", "datum": 12744},
           {"id": "Arachnida", "datum": 1216768},
           {"id": "Cnidaria", "datum": 8826},
-          {"id": "Coleoptera", "datum": 1982780},
-          {"id": "Crustacea", "datum": 116500},
-          {"id": "Diptera", "datum": 1138717},
-          {"id": "Hemiptera", "datum": 976518},
-          {"id": "Hymenoptera", "datum": 8724094},
-          {"id": "Isoptera", "datum": 1000000},
-          {"id": "Lepidoptera", "datum": 2263456},
-          {"id": "Minor Orders", "datum": 824644},
-          {"id": "Misc. Bulk", "datum": 33597},
+          {"id": "Echinodermata", "datum": 9000},
+          {"id": "Insecta", "children": [
+            {"id": "Coleoptera", "datum": 1982842},
+            {"id": "Diptera", "datum": 1138717},
+            {"id": "Hemiptera", "datum": 976518},
+            {"id": "Hymenoptera", "datum": 8727302},
+            {"id": "Isoptera", "datum": 1000000},
+            {"id": "Lepidoptera", "datum": 3000000},
+            {"id": "Minor insect orders", "datum": 824644}
+          ]},
           {"id": "Mollusca", "datum": 1606459},
-          {"id": "Myriapoda", "datum": 79880},
-          {"id": "Other Invert Phyla", "datum": 3399856},
-          {"id": "Protists", "datum": 47895}
+          {"id": "Other Invert Phyla\n(incl Crustacea,\nMyriapoda, protists)", "datum": 3644131}
         ]
       }
     ]

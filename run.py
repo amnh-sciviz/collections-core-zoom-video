@@ -79,9 +79,13 @@ for i, d in enumerate(flattenedData):
 
 # add datums where they don't exist
 flattenedData = sorted(flattenedData, key=lambda d: -d['level'])
+def trueDatum(dd):
+    if 'displayNumber' in dd and isNumber(dd['displayNumber']):
+        return dd['displayNumber']
+    return dd['datum']
 for i, d in enumerate(flattenedData):
     if 'datum' not in d:
-        flattenedData[i]['datum'] = sum([dd['datum'] for dd in flattenedData if 'parent' in dd and dd['parent']==d['id'] and 'datum' in dd])
+        flattenedData[i]['datum'] = sum([trueDatum(dd) for dd in flattenedData if 'parent' in dd and dd['parent']==d['id'] and 'datum' in dd])
 
 # add color palette if they don't exist
 flattenedData = sorted(flattenedData, key=lambda d: d['level'])
@@ -421,22 +425,25 @@ for i, c in enumerate(circles):
     # add labels
     collectionName = cdata['id']
     prefix = cdata['prefix'] if 'prefix' in cdata else config['defaultPrefix']
+    suffix = cdata['suffix'] if 'suffix' in cdata else config['defaultSuffix']
     unit = cdata['unit'] if 'unit' in cdata else config['defaultUnit']
-    countFormatted = formatNumber(cdata['datum'])
+    roundedDatum = smartRound(cdata['datum'])
+    roundedDatum = roundInt(roundedDatum)
+    countFormatted = formatNumber(roundedDatum)
     lines = []
     lines += collectionName.split('\n')
     subtitleLines = 0
     if cdata['level'] <= 2:
         if 'displayNumber' in cdata and isNumber(cdata['displayNumber']):
             countFormatted = formatNumber(cdata['displayNumber'])
-            lines.append(f'{prefix}{countFormatted}')
+            lines.append(f'{prefix}{countFormatted}{suffix}')
             lines.append(unit)
             subtitleLines = 2
         elif 'displayNumber' in cdata:
             lines += cdata['displayNumber'].split('\n')
             subtitleLines = len(cdata['displayNumber'].split('\n'))
         else:
-            lines.append(f'{prefix}{countFormatted}')
+            lines.append(f'{prefix}{countFormatted}{suffix}')
             lines.append(unit)
             subtitleLines = 2
     if isHere:

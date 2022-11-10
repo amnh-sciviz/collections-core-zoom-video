@@ -126,6 +126,13 @@ def isBetween(value, ab, inclusive=True):
     else:
         return a < value < b
 
+def isNumber(n):
+    try:
+        float(n)
+    except ValueError:
+        return False
+    return True
+
 def lerp(ab, amount):
     a, b = ab
     return (b-a) * amount + a
@@ -173,6 +180,18 @@ def removeFiles(listOrString):
 
 def roundInt(n):
     return int(round(n))
+
+def floorToNearest(n, nearest):
+    return 1.0 * math.floor(1.0*n/nearest) * nearest
+
+def smartRound(n):
+    if n < 1000:
+        return n
+    if n < 1000000:
+        return floorToNearest(n, 1000)
+    if n < 10000000:
+        return floorToNearest(n, 10000)
+    return floorToNearest(n, 100000)
 
 def unflattenData(nodes):
     nodeLookup = createLookup(nodes, 'id')
