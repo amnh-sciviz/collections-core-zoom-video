@@ -5,7 +5,7 @@
   "bgColor": "#000000",
   "hereColor": "#e0c67c",
   "labelColor": "#ffffff",
-  "defaultPrefix": "Over ",
+  "defaultPrefix": "~",
   "defaultUnit": "objects",
   "font": "fonts/Open_Sans/OpenSans-Bold.ttf",
   "subheadingFont": "fonts/Open_Sans/OpenSans-Regular.ttf",
@@ -19,7 +19,8 @@
   "imageBlendBackground": 0.33,
   "mediaArrays": {
     "trilobites": {"id": "Trilobites", "parent": "Fossil Invertebrates", "datum": 50000},
-    "megalodon": {"id": "Megalodon", "parent": "Fossil Fish", "datum": 20000, "dx": 0.5, "dy": -0.5}
+    "megalodon": {"id": "Megalodon", "parent": "Fossil Fish", "datum": 20000, "dx": 0.5, "dy": -0.5},
+    "box-turtles": {"id": "Box turtles", "parent": "Reptiles", "datum": 20000}
   },
   "data": [{
     "id": "AMNH Collections",
@@ -87,12 +88,15 @@
       },{
         "id": "Vertebrate Zoology",
         "colorPalette": ["#ff7e32", "#a25f38", "#d67f4c"],
-        "image": "img/_01_Paleontology_Overview.png",
+        "image": "img/Vertebrate_Zoology.png",
         "children": [
-          {"id": "Herpetology", "datum": 376154},
-          {"id": "Ichthyology", "datum": 3231638},
-          {"id": "Mammalogy", "datum": 279812},
-          {"id": "Ornithology", "datum": 890540}
+          {"id": "Herpetology", "image": "img/Herpetology.png", "children": [
+            {"id": "Amphibians", "datum": 186814, "image": "img/Amphibians.png"},
+            {"id": "Reptiles", "datum": 173210, "image": "img/Reptiles.png"}
+          ]},
+          {"id": "Ichthyology", "datum": 3235579, "image": "img/Icthyology.png"},
+          {"id": "Mammalogy", "datum": 292975, "image": "img/Mammalogy.png"},
+          {"id": "Ornithology", "datum": 891374, "image": "img/Ornithology.png"}
         ]
       },{
         "id": "Paleontology",

@@ -425,25 +425,29 @@ for i, c in enumerate(circles):
     countFormatted = formatNumber(cdata['datum'])
     lines = []
     lines += collectionName.split('\n')
-    hasSubtitle = False
+    subtitleLines = 0
     if cdata['level'] <= 2:
         if 'displayNumber' in cdata and isNumber(cdata['displayNumber']):
             countFormatted = formatNumber(cdata['displayNumber'])
-            lines.append(f'{prefix}{countFormatted} {unit}')
+            lines.append(f'{prefix}{countFormatted}')
+            lines.append(unit)
+            subtitleLines = 2
         elif 'displayNumber' in cdata:
-            lines.append(cdata['displayNumber'])
+            lines += cdata['displayNumber'].split('\n')
+            subtitleLines = len(cdata['displayNumber'].split('\n'))
         else:
-            lines.append(f'{prefix}{countFormatted} {unit}')
-        hasSubtitle = True
+            lines.append(f'{prefix}{countFormatted}')
+            lines.append(unit)
+            subtitleLines = 2
     if isHere:
         lines = ['You are here']
         lines.append('('+collectionName+')')
-        hasSubtitle = True
+        subtitleLines = 1
     lineCount = len(lines)
     for j, line in enumerate(lines):
         label = {}
         label['text'] = line
-        label['isSubtitle'] = (hasSubtitle and j == lineCount-1 and j > 0)
+        label['isSubtitle'] = (subtitleLines > 0 and j > 0 and j >= lineCount-subtitleLines)
         # lw, lh = font.getsize(line)
         left, top, right, bottom = font.getbbox(line)
         if label['isSubtitle']:

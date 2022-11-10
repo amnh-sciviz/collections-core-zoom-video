@@ -1,1 +1,1 @@
-python run.py -array trilobites -fps 15 -width 720 -height 720 -nonumbers -debug
+python run.py -array box-turtles -debug
