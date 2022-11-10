@@ -3,7 +3,7 @@
   "restDuration": 2000,
   "packPadding": 4,
   "bgColor": "#000000",
-  "hereColor": "#e0c67c",
+  "hereImage": "img/icons/you_are_here.png",
   "labelColor": "#ffffff",
   "defaultPrefix": "",
   "defaultSuffix": "+",
@@ -19,7 +19,7 @@
   "imageBlend": 0.1,
   "imageBlendBackground": 0.33,
   "mediaArrays": {
-    "trilobites": {"id": "Trilobites", "parent": "Fossil Invertebrates", "datum": 50000},
+    "trilobites": {"id": "Trilobites", "parent": "Fossil Invertebrates", "datum": 80000, "image": "img/arrays/Trilobites.png"},
     "megalodon": {"id": "Megalodon", "parent": "Fossil Fish", "datum": 20000, "dx": 0.5, "dy": -0.5},
     "box-turtles": {"id": "Box turtles", "parent": "Reptiles", "datum": 20000}
   },

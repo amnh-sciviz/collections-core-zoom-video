@@ -54,6 +54,12 @@ if a.HERE_KEY not in config['mediaArrays']:
     sys.exit()
 here = config['mediaArrays'][a.HERE_KEY]
 here['isHere'] = True
+hereImage = Image.open(config['hereImage'])
+hereW, hereH = hereImage.size
+hereImageRatio = hereW / hereH
+hereImageWidth = roundInt(a.WIDTH * RESOLUTION * 0.075)
+hereImageHeight = roundInt(hereImageWidth / hereImageRatio)
+hereImage = hereImage.resize((hereImageWidth, hereImageHeight), resample=Image.LANCZOS)
 for i, d in enumerate(flattenedData):
     if d['id'] == here['parent']:
         here['level'] = d['level'] + 1
@@ -131,6 +137,19 @@ for i, c in enumerate(circles):
 
 # circ.bubbles(circles)
 
+def getCropCoords(x, y):
+    pasteX = roundInt(x)
+    pasteY = roundInt(y)
+    cropX = 0
+    cropY = 0
+    if pasteX < 0:
+        cropX = -pasteX
+        pasteX = 0
+    if pasteY < 0:
+        cropY = -pasteY
+        pasteY = 0
+    return pasteX, pasteY, cropX, cropY
+
 def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfont):
     packPadding = 1.0 * config['packPadding'] / w
     w, h = (roundInt(w*resolution), roundInt(h*resolution))
@@ -201,6 +220,36 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         innerCy1 = norm(innerCy1, (y0, y1)) * h
         isFullBleed = innerCx0 < 0 and innerCy0 < 0 and innerCx1 > w and innerCy1 > h
 
+        if isHere:
+            deltaX = 0
+            deltaY = 0
+            if 'image' in cdata:
+                # paste array image
+                imw0, imh0 = cdata['image'].size
+                imRatio = imw0 / imh0
+                loadedImage = cdata['image'].copy()
+                imw = roundInt(abs(cx1-cx0))
+                imh = roundInt(abs(cy1-cy0))
+                if imRatio >= 1:
+                    deltaY = (imw - imh) * 0.5
+                    imh = roundInt(imw / imRatio)
+                else:
+                    deltaX = (imh - imw) * 0.5
+                    imw = roundInt(imh / imRatio)
+                if imw <= 0 or imh <= 0:
+                    continue
+                resizedImage = loadedImage.resize((imw, imh), resample=Image.LANCZOS)
+                pasteX, pasteY, cropX, cropY = getCropCoords(cx0+deltaX, cy0+deltaY)
+                baseIm.alpha_composite(resizedImage, (pasteX, pasteY), (cropX, cropY))
+            # paste here label
+            imw = roundInt(abs(cx1-cx0))
+            imh = roundInt(abs(cy1-cy0))
+            deltaX2 = (imw - hereImageWidth) * 0.5
+            resizedImage = loadedImage.resize((imw, imh), resample=Image.LANCZOS)
+            pasteX, pasteY, cropX, cropY = getCropCoords(cx0+deltaX2, cy0+deltaY-hereImageHeight)
+            baseIm.alpha_composite(hereImage, (pasteX, pasteY), (cropX, cropY))
+            continue
+
         # draw shadow
         if not isFullBleed:
             shadowIm = Image.new(mode="RGBA", size=(w, h), color=(0,0,0,0))
@@ -240,16 +289,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             tempImage.putalpha(roundInt(circleOpacity * 255))
             compositeImage.paste(tempImage, compositeImage)
             
-            pasteX = roundInt(cx0)
-            pasteY = roundInt(cy0)
-            cropX = 0
-            cropY = 0
-            if pasteX < 0:
-                cropX = -pasteX
-                pasteX = 0
-            if pasteY < 0:
-                cropY = -pasteY
-                pasteY = 0
+            pasteX, pasteY, cropX, cropY = getCropCoords(cx0, cy0)
             baseIm.alpha_composite(compositeImage, (pasteX, pasteY), (cropX, cropY))
 
         # draw circle with no image
@@ -259,10 +299,6 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
 
             else:
                 draw.ellipse([cx0, cy0, cx1, cy1], fill=fillColor)
-
-        # draw outline around here
-        if isHere:
-            draw.ellipse([cx0, cy0, cx1, cy1], fill=None, outline=config['hereColor'], width=4)
 
 
         # pprint([text, cx0, cy0, cx1, cy1, fillColor])
@@ -274,6 +310,8 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             continue
 
         isHere = 'isHere' in cdata
+        if isHere:
+            continue
         labelWidth = cdata['labelWidth']
         labelHeight = cdata['labelHeight']
         labelColor = cdata['labelColor']
@@ -283,34 +321,15 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         cy = norm(cy, (y0, y1)) * h
         labelLines = cdata['label']
 
-        # if isHere:
-        #     text = 'You are here'
-        #     lw, lh = font.getsize(text)
-        #     ly = cy + cdata['trueRadius'] + cdata['labelSpacing']
-        #     lx = cx - labelWidth * 0.5 + (labelWidth - lw) * 0.5
-        #     if lx < 0:
-        #         lx = 0
-        #     drawTxt.text((lx, ly), text, font=font, fill=config['hereColor'])
-        #     continue
-
-        if not isHere and cdata['labelOpacity'] <= 0:
-            continue
-
         labelColor = tuple(labelColor + [cdata['labelOpacity']])
-        if isHere:
-            labelColor = config['hereColor']
 
         ly = cy - labelHeight * 0.5
         if isLabelHeader:
             ly = cy - cdata['trueRadius'] * 0.95 + cdata['labelSpacing']
-        if isHere:
-            ly = cy + cdata['trueRadius'] + cdata['labelSpacing']
 
         for i, line in enumerate(labelLines):
             lw, lh = line['size']
             lx = cx - labelWidth * 0.5 + (labelWidth - lw) * 0.5
-            if lx < 0 and isHere:
-                lx = 0
             tfont = subfont if line['isSubtitle'] else font
             drawTxt.text((lx, ly), line['text'], font=tfont, fill=labelColor)
             ly += lh + cdata['labelSpacing']
@@ -474,8 +493,6 @@ for i, c in enumerate(circles):
     if 'colorPalette' in cdata:   
         colorIndex = wrapNumber(cdata['level'] - 1, (0, len(cdata['colorPalette'])-1))
         fillColor = cdata['colorPalette'][colorIndex]
-    if isHere:
-        fillColor = config['hereColor']
     circles[i].ex['fillColor'] = fillColor
 
     # load images
