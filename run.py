@@ -181,11 +181,11 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             continue
         text = cdata['id']
         level = cdata['level']
-        # don't try to draw anything greater than grandparent
-        deltaLevel = min(fromLevel - level, toLevel - level)
-        if deltaLevel > 1:
-            circles[i].ex['isVisible'] = False
-            continue
+        # # don't try to draw anything greater than grandparent
+        # deltaLevel = min(fromLevel - level, toLevel - level)
+        # if deltaLevel > 1:
+        #     circles[i].ex['isVisible'] = False
+        #     continue
         fillColor = cdata['fillColor']
         # normalize the circle data
         cx = norm(cx, (-1, 1))
@@ -231,19 +231,20 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
 
         if isHere:
             circles[i].ex['bounds'] = (cx0, cy0, cx1, cy1)
-            multiplier = 1.333
-            imw = roundInt(abs(cx1-cx0))
-            imh = roundInt(abs(cy1-cy0))
-            imw1 = roundInt(imw * multiplier)
-            imh1 = roundInt(imh * multiplier)
-            deltaX = (imw1 - imw) * 0.5
-            deltaY = (imh1 - imh) * 0.5
-            cx0 = cx0 - deltaX
-            cy0 = cy0 - deltaY - deltaY * 0.6667
-            cx1 = cx1 + deltaX
-            cy1 = cy1 + deltaY - deltaY * 0.6667
-            # draw circle
-            draw.ellipse([cx0, cy0, cx1, cy1], fill=config['hereColor'])
+            if 'image' in cdata:
+                multiplier = 1.333
+                imw = roundInt(abs(cx1-cx0))
+                imh = roundInt(abs(cy1-cy0))
+                imw1 = roundInt(imw * multiplier)
+                imh1 = roundInt(imh * multiplier)
+                deltaX = (imw1 - imw) * 0.5
+                deltaY = (imh1 - imh) * 0.5
+                cx0 = cx0 - deltaX
+                cy0 = cy0 - deltaY - deltaY * 0.6667
+                cx1 = cx1 + deltaX
+                cy1 = cy1 + deltaY - deltaY * 0.6667
+                # draw circle
+                draw.ellipse([cx0, cy0, cx1, cy1], fill=config['hereColor'])
             # draw graphics later
             continue
 
@@ -275,19 +276,35 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             if imageBlend > 0:
                 blendedImage = Image.blend(backgroundImage, loadedImage, imageBlend)
                 blendedImage = blendedImage.convert("RGBA")
-            resizedImage = blendedImage.resize((imw, imh), resample=Image.LANCZOS)
-            mask = Image.new(mode="L", size=(imw, imh), color=0)
-            maskDraw = ImageDraw.Draw(mask)
-            maskDraw.ellipse([0, 0, imw, imh], fill=255)
-            compositeImage = alphaMask(resizedImage, mask)
-            # https://github.com/python-pillow/Pillow/issues/4687#issuecomment-643567573
-            # change the transparency without affecting transparent background
-            tempImage = compositeImage.copy()
-            tempImage.putalpha(roundInt(circleOpacity * 255))
-            compositeImage.paste(tempImage, compositeImage)
-            
-            pasteX, pasteY, cropX, cropY = getCropCoords(cx0, cy0)
-            baseIm.alpha_composite(compositeImage, (pasteX, pasteY), (cropX, cropY))
+            if isFullBleed:
+                imw0, imh0 = blendedImage.size
+                scale = imw / imw0
+                pasteX, pasteY, cropX, cropY = getCropCoords(cx0, cy0)
+                nx = 1.0 * cropX / imw
+                ny = 1.0 * cropY / imh
+                cropX = roundInt(nx * imw0)
+                cropY = roundInt(ny * imh0)
+                cropW = w / scale
+                cropH = h / scale
+                cropX1 = roundInt(cropX + cropW)
+                cropY1 = roundInt(cropY + cropH)
+                croppedImage = blendedImage.crop((cropX, cropY, cropX1, cropY1))
+                resizedImage = croppedImage.resize((w, h), resample=Image.LANCZOS)
+                baseIm.alpha_composite(resizedImage, (0, 0))
+                
+            else:
+                resizedImage = blendedImage.resize((imw, imh), resample=Image.LANCZOS)
+                mask = Image.new(mode="L", size=(imw, imh), color=0)
+                maskDraw = ImageDraw.Draw(mask)
+                maskDraw.ellipse([0, 0, imw, imh], fill=255)
+                compositeImage = alphaMask(resizedImage, mask)
+                # https://github.com/python-pillow/Pillow/issues/4687#issuecomment-643567573
+                # change the transparency without affecting transparent background
+                tempImage = compositeImage.copy()
+                tempImage.putalpha(roundInt(circleOpacity * 255))
+                compositeImage.paste(tempImage, compositeImage)
+                pasteX, pasteY, cropX, cropY = getCropCoords(cx0, cy0)
+                baseIm.alpha_composite(compositeImage, (pasteX, pasteY), (cropX, cropY))
 
         # draw circle with no image
         else:
