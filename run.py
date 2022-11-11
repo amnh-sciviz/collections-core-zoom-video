@@ -60,9 +60,11 @@ hereImageRatio = hereW / hereH
 hereImageWidth = roundInt(a.WIDTH * RESOLUTION * 0.075)
 hereImageHeight = roundInt(hereImageWidth / hereImageRatio)
 hereImage = hereImage.resize((hereImageWidth, hereImageHeight), resample=Image.LANCZOS)
+hereLevel = None
 for i, d in enumerate(flattenedData):
     if d['id'] == here['parent']:
-        here['level'] = d['level'] + 1
+        hereLevel = d['level'] + 1
+        here['level'] = hereLevel
         children = [here]
         leftover = d['datum'] - here['datum']
         otherCount = 1
@@ -73,7 +75,7 @@ for i, d in enumerate(flattenedData):
                 value = leftover - (otherCount-1) * leftoverPerOther
             placeholder = {
                 'id': f'Placeholder {j+1}',
-                'level': d['level'] + 1,
+                'level': hereLevel,
                 'isPlaceholder': True,
                 'parent': d['id'],
                 'datum': value
@@ -150,7 +152,7 @@ def getCropCoords(x, y):
         pasteY = 0
     return pasteX, pasteY, cropX, cropY
 
-def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfont):
+def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfont, fromNode, toNode):
     packPadding = 1.0 * config['packPadding'] / w
     w, h = (roundInt(w*resolution), roundInt(h*resolution))
     bgColor = config['bgColor']
@@ -162,6 +164,8 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
     # pprint(offset)
     x1 = x0 + windowWidth
     y1 = y0 + windowWidth
+    fromLevel = fromNode.ex['level']
+    toLevel = toNode.ex['level']
 
     # Draw circles
     for i, c in enumerate(circles):
@@ -177,6 +181,11 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             continue
         text = cdata['id']
         level = cdata['level']
+        # don't try to draw anything greater than grandparent
+        deltaLevel = min(fromLevel - level, toLevel - level)
+        if deltaLevel > 1:
+            circles[i].ex['isVisible'] = False
+            continue
         fillColor = cdata['fillColor']
         # normalize the circle data
         cx = norm(cx, (-1, 1))
@@ -439,7 +448,7 @@ def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution,
         circles[i].ex['labelOpacity'] = labelOpacity
         circles[i].ex['isLabelHeader'] = isLabelHeader
 
-    drawCircles(circles, filename, config, w, h, (offsetX, offsetY, offsetW), resolution, font, subfont)
+    drawCircles(circles, filename, config, w, h, (offsetX, offsetY, offsetW), resolution, font, subfont, fromNode, toNode)
 
 # load font
 font = ImageFont.truetype(font=config["font"], size=roundInt(config["fontSize"]*RESOLUTION))
@@ -534,7 +543,7 @@ for i, c in enumerate(circles):
 path = []
 hereNode = circleLookup[here['id']]
 node = circles[hereNode.ex['index']]
-node = circles[node.ex['parentIndex']] # uncomment this to not zoom all the way in
+# node = circles[node.ex['parentIndex']] # uncomment this to not zoom all the way in
 while True:
     path.append(node)
     parentIndex = node.ex['parentIndex']
