@@ -221,33 +221,21 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         isFullBleed = innerCx0 < 0 and innerCy0 < 0 and innerCx1 > w and innerCy1 > h
 
         if isHere:
-            deltaX = 0
-            deltaY = 0
-            if 'image' in cdata:
-                # paste array image
-                imw0, imh0 = cdata['image'].size
-                imRatio = imw0 / imh0
-                loadedImage = cdata['image'].copy()
-                imw = roundInt(abs(cx1-cx0))
-                imh = roundInt(abs(cy1-cy0))
-                if imRatio >= 1:
-                    deltaY = (imw - imh) * 0.5
-                    imh = roundInt(imw / imRatio)
-                else:
-                    deltaX = (imh - imw) * 0.5
-                    imw = roundInt(imh / imRatio)
-                if imw <= 0 or imh <= 0:
-                    continue
-                resizedImage = loadedImage.resize((imw, imh), resample=Image.LANCZOS)
-                pasteX, pasteY, cropX, cropY = getCropCoords(cx0+deltaX, cy0+deltaY)
-                baseIm.alpha_composite(resizedImage, (pasteX, pasteY), (cropX, cropY))
-            # paste here label
+            circles[i].ex['bounds'] = (cx0, cy0, cx1, cy1)
+            multiplier = 1.333
             imw = roundInt(abs(cx1-cx0))
             imh = roundInt(abs(cy1-cy0))
-            deltaX2 = (imw - hereImageWidth) * 0.5
-            resizedImage = loadedImage.resize((imw, imh), resample=Image.LANCZOS)
-            pasteX, pasteY, cropX, cropY = getCropCoords(cx0+deltaX2, cy0+deltaY-hereImageHeight)
-            baseIm.alpha_composite(hereImage, (pasteX, pasteY), (cropX, cropY))
+            imw1 = roundInt(imw * multiplier)
+            imh1 = roundInt(imh * multiplier)
+            deltaX = (imw1 - imw) * 0.5
+            deltaY = (imh1 - imh) * 0.5
+            cx0 = cx0 - deltaX
+            cy0 = cy0 - deltaY - deltaY * 0.6667
+            cx1 = cx1 + deltaX
+            cy1 = cy1 + deltaY - deltaY * 0.6667
+            # draw circle
+            draw.ellipse([cx0, cy0, cx1, cy1], fill=config['hereColor'])
+            # draw graphics later
             continue
 
         # draw shadow
@@ -335,6 +323,42 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             ly += lh + cdata['labelSpacing']
 
     baseIm = Image.alpha_composite(baseIm, txtIm)
+
+    # draw here on top
+    for c in circles:
+        cdata = c.ex
+        isHere = 'isHere' in cdata
+        if not isHere:
+            continue
+        cx0, cy0, cx1, cy1 = cdata['bounds']
+        deltaX = 0
+        deltaY = 0
+        if 'image' in cdata:
+            # paste array image
+            imw0, imh0 = cdata['image'].size
+            imRatio = imw0 / imh0
+            loadedImage = cdata['image'].copy()
+            imw = roundInt(abs(cx1-cx0))
+            imh = roundInt(abs(cy1-cy0))
+            if imRatio >= 1: # landscape image
+                deltaY = (imw - imh) * 0.5
+                imh = roundInt(imw / imRatio)
+            else: # portrait image
+                deltaX = (imh - imw) * 0.5
+                imw = roundInt(imh / imRatio)
+            if imw <= 0 or imh <= 0:
+                continue
+            resizedImage = loadedImage.resize((imw, imh), resample=Image.LANCZOS)
+            pasteX, pasteY, cropX, cropY = getCropCoords(cx0+deltaX, cy0+deltaY)
+            baseIm.alpha_composite(resizedImage, (pasteX, pasteY), (cropX, cropY))
+        # paste here label
+        imw = roundInt(abs(cx1-cx0))
+        imh = roundInt(abs(cy1-cy0))
+        deltaX2 = (imw - hereImageWidth) * 0.5
+        resizedImage = loadedImage.resize((imw, imh), resample=Image.LANCZOS)
+        pasteX, pasteY, cropX, cropY = getCropCoords(cx0+deltaX2, cy0+deltaY-hereImageHeight)
+        baseIm.alpha_composite(hereImage, (pasteX, pasteY), (cropX, cropY))
+        break
 
     if resolution > 1:
         baseIm = baseIm.resize((roundInt(w/resolution), roundInt(h/resolution)), resample=Image.LANCZOS)
@@ -510,7 +534,7 @@ for i, c in enumerate(circles):
 path = []
 hereNode = circleLookup[here['id']]
 node = circles[hereNode.ex['index']]
-node = circles[node.ex['parentIndex']]
+node = circles[node.ex['parentIndex']] # uncomment this to not zoom all the way in
 while True:
     path.append(node)
     parentIndex = node.ex['parentIndex']
