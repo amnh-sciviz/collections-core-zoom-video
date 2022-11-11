@@ -20,7 +20,7 @@
   "imageBlend": 0.1,
   "imageBlendBackground": 0.33,
   "mediaArrays": {
-    "trilobites": {"id": "Trilobites", "parent": "Fossil Invertebrates", "datum": 80000, "image": "img/arrays/Trilobites.png"},
+    "trilobites": {"id": "Trilobites", "parent": "Fossil Invertebrates", "datum": 80000, "image": "img/arrays/Trilobites.png", "dx": 0.85, "dy": 0},
     "megalodon": {"id": "Megalodon", "parent": "Fossil Fish", "datum": 20000, "dx": 0.5, "dy": -0.5},
     "box-turtles": {"id": "Box turtles", "parent": "Reptiles", "datum": 20000}
   },
