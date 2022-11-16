@@ -240,9 +240,9 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
                 deltaX = (imw1 - imw) * 0.5
                 deltaY = (imh1 - imh) * 0.5
                 cx0 = cx0 - deltaX
-                cy0 = cy0 - deltaY - deltaY * 0.6667
+                cy0 = cy0 - deltaY
                 cx1 = cx1 + deltaX
-                cy1 = cy1 + deltaY - deltaY * 0.6667
+                cy1 = cy1 + deltaY
                 # draw circle
                 draw.ellipse([cx0, cy0, cx1, cy1], fill=config['hereColor'])
             # draw graphics later
@@ -367,11 +367,11 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             imw = roundInt(abs(cx1-cx0))
             imh = roundInt(abs(cy1-cy0))
             if imRatio >= 1: # landscape image
-                deltaY = (imw - imh) * 0.5
                 imh = roundInt(imw / imRatio)
+                deltaY = (imw - imh) * 0.5
             else: # portrait image
-                deltaX = (imh - imw) * 0.5
                 imw = roundInt(imh / imRatio)
+                deltaX = (imh - imw) * 0.5
             if imw <= 0 or imh <= 0:
                 continue
             resizedImage = loadedImage.resize((imw, imh), resample=Image.LANCZOS)
