@@ -594,7 +594,7 @@ if not a.DEBUG:
 for i in range(len(path)-1):
     fromNode = path[i]
     toNode = path[i+1]
-    print(f'Rendering frames from node {fromNode.ex["id"]} to {toNode.ex["id"]}')
+    print(f'Rendering frames from node {fromNode.ex["id"]} to {toNode.ex["id"]} ({i+1} of {len(path)})')
     if a.DEBUG:
         tweenNodes(circles, f'output/tween_test_{i}.png', fromNode, toNode, 0.0, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont)
         if i >= (len(path)-2):
@@ -611,6 +611,7 @@ for i in range(len(path)-1):
         zoomDurationTo = roundInt(lerp((zoomDurationMin, zoomDurationMax), 1.0 - nTo))
         zoomFramesTo = msToFrame(zoomDurationTo, a.FPS)
         totalPathFrames = restFramesFrom + restFramesTo + zoomFramesTo
+        currentPathFrame = 1
 
         referenceFrame = None
         for i in range(restFramesFrom):
@@ -620,24 +621,27 @@ for i in range(len(path)-1):
                 referenceFrame = frameFilename
             else:
                 shutil.copyfile(referenceFrame, frameFilename)
-            printProgress(currentFrame, totalPathFrames)
+            printProgress(currentPathFrame, totalPathFrames)
             frameFilenames.append(frameFilename)
+            currentPathFrame += 1
             currentFrame += 1
 
         for i in range(zoomFramesTo):
             frameFilename = outputFramePattern % zeroPad(currentFrame, totalFrames)
             t = 1.0 * i / (zoomFramesTo-1)
             tweenNodes(circles, frameFilename, fromNode, toNode, t, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont)
-            printProgress(currentFrame, totalPathFrames)
+            printProgress(currentPathFrame, totalPathFrames)
             referenceFrame = frameFilename
             frameFilenames.append(frameFilename)
+            currentPathFrame += 1
             currentFrame += 1
 
         for i in range(restFramesTo):
             frameFilename = outputFramePattern % zeroPad(currentFrame, totalFrames)
             shutil.copyfile(referenceFrame, frameFilename)
-            printProgress(currentFrame, totalPathFrames)
+            printProgress(currentPathFrame, totalPathFrames)
             frameFilenames.append(frameFilename)
+            currentPathFrame += 1
             currentFrame += 1
 
 print('Reversing frames...')
