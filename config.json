@@ -1,5 +1,5 @@
 {
-  "zoomDurationMin": 500,
+  "zoomDurationMin": 1000,
   "zoomDurationMax": 3000,
   "restDurationMax": 3200,
   "restDurationMin": 200,

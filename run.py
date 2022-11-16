@@ -591,9 +591,13 @@ currentFrame = 1
 frameFilenames = []
 if not a.DEBUG:
     print(f'Rendering frames to {(outputFramePattern % "*")}...')
+deltas = [(1.0 * path[i+1].ex['datum'] / path[i].ex['datum']) for i in range(len(path)-1)]
+minDelta = min(deltas)
+maxDelta = max(deltas)
 for i in range(len(path)-1):
     fromNode = path[i]
     toNode = path[i+1]
+    delta = 1.0 * path[i+1].ex['datum'] / path[i].ex['datum']
     print(f'Rendering frames from node {fromNode.ex["id"]} to {toNode.ex["id"]} ({i+1} of {len(path)})')
     if a.DEBUG:
         tweenNodes(circles, f'output/tween_test_{i}.png', fromNode, toNode, 0.0, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont)
@@ -608,7 +612,8 @@ for i in range(len(path)-1):
         restDurationTo = lerp((restDurationMin, restDurationMax), 1.0 - nTo)
         restDurationTo = roundInt(restDurationTo * 0.5)
         restFramesTo = msToFrame(restDurationTo, a.FPS)
-        zoomDurationTo = roundInt(lerp((zoomDurationMin, zoomDurationMax), 1.0 - nTo))
+        nZoom = norm(delta, (minDelta, maxDelta))
+        zoomDurationTo = roundInt(lerp((zoomDurationMin, zoomDurationMax), nZoom))
         zoomFramesTo = msToFrame(zoomDurationTo, a.FPS)
         totalPathFrames = restFramesFrom + restFramesTo + zoomFramesTo
         currentPathFrame = 1
