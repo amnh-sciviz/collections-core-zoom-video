@@ -594,7 +594,7 @@ if not a.DEBUG:
 for i in range(len(path)-1):
     fromNode = path[i]
     toNode = path[i+1]
-    print(f'Rendering frames from node {fromNode.ex['id']} to {toNode.ex['id']}')
+    print(f'Rendering frames from node {fromNode.ex["id"]} to {toNode.ex["id"]}')
     if a.DEBUG:
         tweenNodes(circles, f'output/tween_test_{i}.png', fromNode, toNode, 0.0, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont)
         if i >= (len(path)-2):
@@ -603,7 +603,7 @@ for i in range(len(path)-1):
         nFrom = norm(fromNode.ex['level'], (minLevel, maxLevel))
         restDurationFrom = lerp((restDurationMin, restDurationMax), 1.0 - nFrom)
         restDurationFrom = roundInt(restDurationFrom * 0.5)
-        restFramesFrom = msToFrame(restFramesFrom, a.FPS)
+        restFramesFrom = msToFrame(restDurationFrom, a.FPS)
         nTo = norm(fromNode.ex['level'], (minLevel, maxLevel))
         restDurationTo = lerp((restDurationMin, restDurationMax), 1.0 - nTo)
         restDurationTo = roundInt(restDurationTo * 0.5)
