@@ -97,6 +97,8 @@ for i, d in enumerate(flattenedData):
 
 # add color palette if they don't exist
 flattenedData = sorted(flattenedData, key=lambda d: d['level'])
+minLevel = flattenedData[0]['level']
+maxLevel = flattenedData[-1]['level']
 for i, d in enumerate(flattenedData):
     if 'colorPalette' not in d and 'parent' in d:
         for j, dd in enumerate(flattenedData):
@@ -578,13 +580,13 @@ if not a.DEBUG:
     makeDirectories(outputFramePattern)
     removeFiles(outputFramePattern % '*')
 
-zoomDuration = config['zoomDuration']
-restDuration = config['restDuration']
-zoomFrames = msToFrame(zoomDuration, a.FPS)
-restFrames = msToFrame(restDuration, a.FPS)
-halfRestFrames = roundInt(restFrames / 2)
-totalPathFrames = (len(path)-1) * (zoomFrames + restFrames)
-totalFrames = totalPathFrames * 2
+zoomDurationMin = config['zoomDurationMin']
+zoomDurationMax = config['zoomDurationMax']
+restDurationMin = config['restDurationMin']
+restDurationMax = config['restDurationMax']
+zoomFrames = msToFrame(zoomDurationMax, a.FPS)
+restFrames = msToFrame(restDurationMax, a.FPS)
+totalFrames = (len(path)-1) * (zoomFrames + restFrames) * 2
 currentFrame = 1
 frameFilenames = []
 if not a.DEBUG:
@@ -592,13 +594,26 @@ if not a.DEBUG:
 for i in range(len(path)-1):
     fromNode = path[i]
     toNode = path[i+1]
+    print(f'Rendering frames from node {fromNode.ex['id']} to {toNode.ex['id']}')
     if a.DEBUG:
         tweenNodes(circles, f'output/tween_test_{i}.png', fromNode, toNode, 0.0, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont)
         if i >= (len(path)-2):
             tweenNodes(circles, f'output/tween_test_{i+1}.png', fromNode, toNode, 1.0, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont)
     else:
+        nFrom = norm(fromNode.ex['level'], (minLevel, maxLevel))
+        restDurationFrom = lerp((restDurationMin, restDurationMax), 1.0 - nFrom)
+        restDurationFrom = roundInt(restDurationFrom * 0.5)
+        restFramesFrom = msToFrame(restFramesFrom, a.FPS)
+        nTo = norm(fromNode.ex['level'], (minLevel, maxLevel))
+        restDurationTo = lerp((restDurationMin, restDurationMax), 1.0 - nTo)
+        restDurationTo = roundInt(restDurationTo * 0.5)
+        restFramesTo = msToFrame(restDurationTo, a.FPS)
+        zoomDurationTo = roundInt(lerp((zoomDurationMin, zoomDurationMax), 1.0 - nTo))
+        zoomFramesTo = msToFrame(zoomDurationTo, a.FPS)
+        totalPathFrames = restFramesFrom + restFramesTo + zoomFramesTo
+
         referenceFrame = None
-        for i in range(halfRestFrames):
+        for i in range(restFramesFrom):
             frameFilename = outputFramePattern % zeroPad(currentFrame, totalFrames)
             if i == 0:
                 tweenNodes(circles, frameFilename, fromNode, toNode, 0.0, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont)
@@ -609,16 +624,16 @@ for i in range(len(path)-1):
             frameFilenames.append(frameFilename)
             currentFrame += 1
 
-        for i in range(zoomFrames):
+        for i in range(zoomFramesTo):
             frameFilename = outputFramePattern % zeroPad(currentFrame, totalFrames)
-            t = 1.0 * i / (zoomFrames-1)
+            t = 1.0 * i / (zoomFramesTo-1)
             tweenNodes(circles, frameFilename, fromNode, toNode, t, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont)
             printProgress(currentFrame, totalPathFrames)
             referenceFrame = frameFilename
             frameFilenames.append(frameFilename)
             currentFrame += 1
 
-        for i in range(halfRestFrames):
+        for i in range(restFramesTo):
             frameFilename = outputFramePattern % zeroPad(currentFrame, totalFrames)
             shutil.copyfile(referenceFrame, frameFilename)
             printProgress(currentFrame, totalPathFrames)

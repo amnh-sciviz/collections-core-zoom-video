@@ -1,6 +1,8 @@
 {
-  "zoomDuration": 3000,
-  "restDuration": 2000,
+  "zoomDurationMin": 500,
+  "zoomDurationMax": 3000,
+  "restDurationMax": 3200,
+  "restDurationMin": 200,
   "packPadding": 4,
   "bgColor": "#000000",
   "hereImage": "img/icons/you_are_here.png",
