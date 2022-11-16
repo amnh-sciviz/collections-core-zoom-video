@@ -655,3 +655,6 @@ if not a.DEBUG:
     outfile = a.OUTPUT_FILE if a.OUTPUT_FILE != "" else f'output/{a.HERE_KEY}.mp4'
     padZeros = len(str(totalFrames))
     compileFrames(outputFramePattern, a.FPS, outfile, padZeros)
+
+print('Done.')
+print('===============================')
