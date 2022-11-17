@@ -606,10 +606,14 @@ for i in range(len(path)-1):
     else:
         nFrom = norm(fromNode.ex['level'], (minLevel, maxLevel))
         restDurationFrom = lerp((restDurationMin, restDurationMax), 1.0 - nFrom)
+        if 'isHere' in fromNode.ex:
+            restDurationFrom = restDurationMax * 0.5
         restDurationFrom = roundInt(restDurationFrom * 0.5)
         restFramesFrom = msToFrame(restDurationFrom, a.FPS)
         nTo = norm(fromNode.ex['level'], (minLevel, maxLevel))
         restDurationTo = lerp((restDurationMin, restDurationMax), 1.0 - nTo)
+        if 'isHere' in toNode.ex:
+            restDurationTo = restDurationMax * 0.5
         restDurationTo = roundInt(restDurationTo * 0.5)
         restFramesTo = msToFrame(restDurationTo, a.FPS)
         nZoom = norm(delta, (minDelta, maxDelta))
