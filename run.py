@@ -328,6 +328,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         isHere = 'isHere' in cdata
         if isHere:
             continue
+        isHereParent = 'hereParent' in cdata
         labelWidth = cdata['labelWidth']
         labelHeight = cdata['labelHeight']
         labelColor = cdata['labelColor']
@@ -340,7 +341,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         labelColor = tuple(labelColor + [cdata['labelOpacity']])
 
         ly = cy - labelHeight * 0.5
-        if isLabelHeader:
+        if isLabelHeader and not isHereParent:
             ly = cy - cdata['trueRadius'] * 0.95 + cdata['labelSpacing']
 
         for i, line in enumerate(labelLines):
