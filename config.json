@@ -30,7 +30,7 @@
     "id": "AMNH Collections",
     "colorPalette": ["#1e2938", "#396791", "#4081b2", "#579ac4"],
     "image": "img/_01_Paleontology_Overview.png",
-    "displayNumber": "36,000,000+ objects, 500+ TB",
+    "displayNumber": "36,000,000+ objects, 500+ TB of data",
     "children": [
       {
         "id": "Library",
@@ -68,7 +68,7 @@
         "id": "Physical Sciences",
         "colorPalette": ["#643378", "#42244f", "#6e4180"],
         "image": "img/_01_Paleontology_Overview.png",
-        "displayNumber": "166,700+ objects,\n500+ TB",
+        "displayNumber": "166,700+ objects,\n500+ TB of data",
         "children": [
           {"id": "Earth & Planetary Sciences", "children": [
             {"id": "Mineralogy", "datum": 138975},
@@ -78,9 +78,9 @@
             {"id": "Petrology", "datum": 24608}
           ]},
           {"id": "Astrophysics", "children": [
-            {"id": "Observations: Universe,\nGalaxies, Stars, Planets,\nUnclassified Objects", "datum": 4500000, "displayNumber": "45TB"},
-            {"id": "Simulations: Universe,\nGalaxies, Stars, Planets,\nUnclassified Objects", "datum": 5000000, "displayNumber": "50TB"},
-            {"id": "Instruments: Imaging, Spectroscopy", "datum": 200000, "displayNumber": "2TB"}
+            {"id": "Observations: Universe,\nGalaxies, Stars, Planets,\nUnclassified Objects", "datum": 4500000, "displayNumber": "45TB of data"},
+            {"id": "Simulations: Universe,\nGalaxies, Stars, Planets,\nUnclassified Objects", "datum": 5000000, "displayNumber": "50TB of data"},
+            {"id": "Instruments: Imaging, Spectroscopy", "datum": 200000, "displayNumber": "2TB of data"}
           ]}
         ]
       },{
