@@ -448,6 +448,10 @@ def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution,
             labelOpacity = roundInt(ease(norm(t, (1.0 - threshold, 1.0))) * 255.0)
             isLabelHeader = True
 
+        # don't fade in/out here parent since position does not move
+        if (cdata['id'] == fromId and isHereParent and zoomingOut) or (cdata['id'] == toId and isHereParent and zoomingIn):
+            labelOpacity = 1.0
+
         maxLevel = max(fromLevel, toLevel)
         deltaLevel = level - maxLevel
         if deltaLevel == 1:
