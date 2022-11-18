@@ -15,7 +15,7 @@
   "subheadingFont": "fonts/AngletSans/AgletSans-SemiboldItalic.ttf",
   "fontSize": 22,
   "subheadingFontSize": 18,
-  "lineSpacing": 4,
+  "lineSpacing": 6,
   "shadowWidth": 3,
   "shadowBlurRadius": 5,
   "shadowOpacity": 0.4,
