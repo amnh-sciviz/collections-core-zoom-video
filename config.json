@@ -24,164 +24,164 @@
   "imageBlend": 0.1,
   "imageBlendBackground": 0.33,
   "mediaArrays": {
-    "trilobites": {"id": "Trilobites", "parent": "Fossil Invertebrates", "datum": 80000, "image": "img/arrays/Trilobites.png", "dx": 0.85, "dy": 0},
-    "megalodon": {"id": "Megalodon", "parent": "Fossil Fish", "datum": 20000, "dx": 0.5, "dy": -0.5},
-    "box-turtles": {"id": "Box turtles", "parent": "Reptiles", "datum": 20000}
+    "trilobites": {"id": "Trilobites", "parent": "Fossil Invertebrates", "datum": 80000, "image": "img/hero/Hero_Trilobite.png", "dx": 0.85, "dy": 0},
+    "megalodon": {"id": "Megalodon", "parent": "Fossil Fish", "datum": 20000, "dx": 0.5, "dy": -0.5, "image": "img/hero/Hero_Megalodon-Shark-Teeth.png"},
+    "box-turtles": {"id": "Box turtles", "parent": "Reptiles", "datum": 20000, "image": "img/hero/Hero_Box_Turtles.png"}
   },
   "data": [{
     "id": "American Museum of Natural History Collections",
     "colorPalette": ["#1e2938", "#396791", "#4081b2", "#579ac4"],
-    "image": "img/_01_Paleontology_Overview.png",
+    "image": "img/wallpapers/AMNH_Collections_WP.png",
     "displayNumber": "36,000,000+ objects, 500+ TB of data",
     "children": [
       {
         "id": "Library",
         "colorPalette": ["#a30166", "#68184a", "#b51579"],
-        "image": "img/_01_Paleontology_Overview.png",
+        "image": "img/wallpapers/Library/Library_Wallpaper.png",
         "displayNumber": "2,000,000+\nobjects",
         "children": [
-          {"id": "Books & Journals", "children": [
-            {"id": "Print book titles", "datum": 159789},
-            {"id": "Print journal titles", "datum": 20991},
-            {"id": "E-journal titles", "datum": 5500},
-            {"id": "Rare print books\nand journals", "datum": 15000, "displayNumber": "6855 titles 15,000 volumes"}
+          {"id": "Books & Journals", "image": "img/wallpapers/Library/Books and Journals/BooksandJournals.png", "children": [
+            {"id": "Print book titles", "image": "img/wallpapers/Library/Books and Journals/SubCollections/PrintbookTitles.png", "datum": 159789},
+            {"id": "Print journal titles", "image": "img/wallpapers/Library/Books and Journals/SubCollections/PrintJournalTitles.png", "datum": 20991},
+            {"id": "E-journal titles", "image": "img/wallpapers/Library/Books and Journals/SubCollections/EJournalTitles.png", "datum": 5500},
+            {"id": "Rare print books\nand journals", "image": "img/wallpapers/Library/Books and Journals/SubCollections/RarePrintBooksandJournals.png", "datum": 15000, "displayNumber": "6855 titles 15,000 volumes"}
           ]},
-          {"id": "Manuscripts & Archives", "children": [
-            {"id": "Collections", "datum": 2642},
-            {"id": "Manuscript materials", "datum": 2000, "displayNumber": "2000 linear feet"},
-            {"id": "Reels of microfilm", "datum": 1300}
+          {"id": "Manuscripts & Archives", "image": "img/wallpapers/Library/Manuscript and Archives/Manuscripts&Archives.png", "children": [
+            {"id": "Collections", "image": "img/wallpapers/Library/Manuscript and Archives/SubCollections/Collections.png", "datum": 2642},
+            {"id": "Manuscript materials", "image": "img/wallpapers/Library/Manuscript and Archives/SubCollections/ManuscriptMaterials.png", "datum": 2000, "displayNumber": "2000 linear feet"},
+            {"id": "Reels of microfilm", "image": "img/wallpapers/Library/Manuscript and Archives/SubCollections/Reels_of_Microfilm.png", "datum": 1300}
           ]},
-          {"id": "Art & Memorabilia", "datum": 3000},
-          {"id": "Photographs", "children": [
-            {"id": "Negatives", "datum": 990000},
-            {"id": "Lantern slides", "datum": 70000},
-            {"id": "Color slides and\ntransparencies", "datum": 160000},
-            {"id": "Prints", "datum": 280000},
-            {"id": "Photo albums", "datum": 199},
-            {"id": "Digital assets", "datum": 76000}
+          {"id": "Art & Memorabilia", "image": "img/wallpapers/Library/Art and Memorabilia/ArtandMemorabilia.png", "datum": 3000},
+          {"id": "Photographs", "image": "img/wallpapers/Library/Photographs/Photographs.png", "children": [
+            {"id": "Negatives", "image": "img/wallpapers/Library/Photographs/SubCollections/Negatives.png", "datum": 990000},
+            {"id": "Lantern slides", "image": "img/wallpapers/Library/Photographs/SubCollections/LanternSlides.png", "datum": 70000},
+            {"id": "Color slides and\ntransparencies", "image": "img/wallpapers/Library/Photographs/SubCollections/ColorSlidesTransparencies.png", "datum": 160000},
+            {"id": "Prints", "image": "img/wallpapers/Library/Photographs/SubCollections/Prints.png", "datum": 280000},
+            {"id": "Photo albums", "image": "img/wallpapers/Library/Photographs/SubCollections/PhotoAlbums.png", "datum": 199},
+            {"id": "Digital assets", "image": "img/wallpapers/Library/Photographs/SubCollections/DigitalAssets.png", "datum": 76000}
           ]},
-          {"id": "Film & video", "children": [
-            {"id": "Film reels", "datum": 3200},
-            {"id": "Video cassettes", "datum": 2000},
-            {"id": "Digital assets", "datum": 1423}
+          {"id": "Film & video", "image": "img/wallpapers/Library/Film and Video/Film&Video.png", "children": [
+            {"id": "Film reels", "image": "img/wallpapers/Library/Film and Video/SubCollections/FilmReels.png", "datum": 3200},
+            {"id": "Video cassettes", "image": "img/wallpapers/Library/Film and Video/SubCollections/Video_Cassettes.png", "datum": 2000},
+            {"id": "Digital assets", "image": "img/wallpapers/Library/Film and Video/SubCollections/Digital_Assets.png", "datum": 1423}
           ]}
         ]
       },{
         "id": "Physical Sciences",
         "colorPalette": ["#643378", "#42244f", "#6e4180"],
-        "image": "img/_01_Paleontology_Overview.png",
+        "image": "img/wallpapers/Physical Science/Physical_Sciences_Wallpaper-01.png",
         "displayNumber": "166,700+ objects,\n500+ TB of data",
         "children": [
-          {"id": "Earth & Planetary Sciences", "children": [
-            {"id": "Mineralogy", "datum": 138975},
-            {"id": "Meteorites", "datum": 4545},
-            {"id": "Mineral deposits", "datum": 13449},
-            {"id": " Drill core, ft", "datum": 26000, "displayNumber": "More than 26000 feet"},
-            {"id": "Petrology", "datum": 24608}
+          {"id": "Earth & Planetary Sciences", "image": "img/wallpapers/Physical Science/Earth&PlanetarySciences/EarthandPlanetarySciences.png", "children": [
+            {"id": "Mineralogy", "image": "img/wallpapers/Physical Science/Earth&PlanetarySciences/SubCollections/Mineralogy.png", "datum": 138975},
+            {"id": "Meteorites", "image": "img/wallpapers/Physical Science/Earth&PlanetarySciences/SubCollections/Meteorites.png", "datum": 4545},
+            {"id": "Mineral deposits", "image": "img/wallpapers/Physical Science/Earth&PlanetarySciences/SubCollections/MineralDeposits-01.png", "datum": 13449},
+            {"id": "Drill core", "image": "img/wallpapers/Physical Science/Earth&PlanetarySciences/SubCollections/DrillCores.png", "datum": 26000, "displayNumber": "More than 26000 feet"},
+            {"id": "Petrology", "image": "img/wallpapers/Physical Science/Earth&PlanetarySciences/SubCollections/Petrology.png", "datum": 24608}
           ]},
-          {"id": "Astrophysics", "children": [
-            {"id": "Observations: Universe,\nGalaxies, Stars, Planets,\nUnclassified Objects", "datum": 4500000, "displayNumber": "45TB of data"},
-            {"id": "Simulations: Universe,\nGalaxies, Stars, Planets,\nUnclassified Objects", "datum": 5000000, "displayNumber": "50TB of data"},
-            {"id": "Instruments: Imaging, Spectroscopy", "datum": 200000, "displayNumber": "2TB of data"}
+          {"id": "Astrophysics", "image": "img/wallpapers/Physical Science/Astrophysics/Astrophysics-01.png", "children": [
+            {"id": "Observations: Universe,\nGalaxies, Stars, Planets,\nUnclassified Objects", "image": "img/wallpapers/Physical Science/Astrophysics/Sub Collections/Observations.png", "datum": 4500000, "displayNumber": "45TB of data"},
+            {"id": "Simulations: Universe,\nGalaxies, Stars, Planets,\nUnclassified Objects", "image": "img/wallpapers/Physical Science/Astrophysics/Sub Collections/Simulations.png", "datum": 5000000, "displayNumber": "50TB of data"},
+            {"id": "Instruments: Imaging, Spectroscopy", "image": "img/wallpapers/Physical Science/Astrophysics/Sub Collections/Instruments.png", "datum": 200000, "displayNumber": "2TB of data"}
           ]}
         ]
       },{
         "id": "Anthropology",
         "colorPalette": ["#b9322e", "#6e2b29", "#932926"],
-        "image": "img/_01_Paleontology_Overview.png",
+        "image": "img/wallpapers/Anthropology/AnthropologyWallpapers.png",
         "unit": "artifacts",
         "children": [
-          {"id": "Archaeology", "children": [
-            {"id": "North American Archaeology", "datum": 166684},
-            {"id": "Mexican & Central American\nArchaelology", "datum": 58884},
-            {"id": "South American Archaeology", "datum": 57945},
-            {"id": "Asian Archaeology", "datum": 15311},
-            {"id": "African Archaeology", "datum": 6500},
-            {"id": "Pacific Archaeology", "datum": 13503},
-            {"id": "European Archaeology", "datum": 21580}
+          {"id": "Archaeology", "image": "img/wallpapers/Anthropology/Archeology/ArcheologyWallpaper.png", "children": [
+            {"id": "North American Archaeology", "image": "img/wallpapers/Anthropology/Archeology/SubCollections/NorthAmericanArcheology.png", "datum": 166684},
+            {"id": "Mexican & Central American\nArchaelology", "image": "img/wallpapers/Anthropology/Archeology/SubCollections/MexicanandCentralAmericanArcheology.png", "datum": 58884},
+            {"id": "South American Archaeology", "image": "img/wallpapers/Anthropology/Archeology/SubCollections/SouthAmericanArcheology.png", "datum": 57945},
+            {"id": "Asian Archaeology", "image": "img/wallpapers/Anthropology/Archeology/SubCollections/AsianArcheology.png", "datum": 15311},
+            {"id": "African Archaeology", "image": "img/wallpapers/Anthropology/Archeology/SubCollections/AfricanArcheology.png", "datum": 6500},
+            {"id": "Pacific Archaeology", "image": "img/wallpapers/Anthropology/Archeology/SubCollections/PacificArcheology.png", "datum": 13503},
+            {"id": "European Archaeology", "image": "img/wallpapers/Anthropology/Archeology/SubCollections/EuropeanArcheology.png", "datum": 21580}
           ]},
-          {"id": "Ethnology", "children": [
-            {"id": "North American Ethnology", "datum": 51673},
-            {"id": "Mexican & Central American\nEthnology", "datum": 7917},
-            {"id": "South American Ethnology", "datum": 21778},
-            {"id": "Asian Ethnology", "datum": 62895},
-            {"id": "African Ethnology", "datum": 38110},
-            {"id": "Pacific Ethnology", "datum": 28035},
-            {"id": "European Ethnology", "datum": 1315}
+          {"id": "Ethnology", "image": "img/wallpapers/Anthropology/Ethnology/AnthropologyEthnology.png", "children": [
+            {"id": "North American Ethnology", "image": "img/wallpapers/Anthropology/Ethnology/SubCollections/NorthAmericanEthnology.png", "datum": 51673},
+            {"id": "Mexican & Central American\nEthnology", "image": "img/wallpapers/Anthropology/Ethnology/SubCollections/MexicanandCentralAmericanEthnology.png", "datum": 7917},
+            {"id": "South American Ethnology", "image": "img/wallpapers/Anthropology/Ethnology/SubCollections/SouthAmericanEthnology.png", "datum": 21778},
+            {"id": "Asian Ethnology", "image": "img/wallpapers/Anthropology/Ethnology/SubCollections/AsianEthnology.png", "datum": 62895},
+            {"id": "African Ethnology", "image": "img/wallpapers/Anthropology/Ethnology/SubCollections/AfricanEthnology.png", "datum": 38110},
+            {"id": "Pacific Ethnology", "image": "img/wallpapers/Anthropology/Ethnology/SubCollections/PacificEthnology.png", "datum": 28035},
+            {"id": "European Ethnology", "image": "img/wallpapers/Anthropology/Ethnology/SubCollections/EuropeanEthnology.png", "datum": 1315}
           ]},
-          {"id": "Biological\nAnthropology", "children": [
-            {"id": "North American", "datum": 8731},
-            {"id": "Mexican & Central American", "datum": 1560},
-            {"id": "South American", "datum": 2017},
-            {"id": "Asian", "datum": 906},
-            {"id": "African", "datum": 1695},
-            {"id": "Pacific", "datum": 2446},
-            {"id": "European", "datum": 3644}
+          {"id": "Biological\nAnthropology", "image": "img/wallpapers/Anthropology/Biology/AnthropologyBiology.png", "children": [
+            {"id": "North American", "image": "img/wallpapers/Anthropology/Biology/SubCollections/NorthAmericanBiology.png", "datum": 8731},
+            {"id": "Mexican & Central American", "image": "img/wallpapers/Anthropology/Biology/SubCollections/MexicanandCentralAmericanBiology.png", "datum": 1560},
+            {"id": "South American", "image": "img/wallpapers/Anthropology/Biology/SubCollections/SouthAmericanBiology.png", "datum": 2017},
+            {"id": "Asian", "image": "img/wallpapers/Anthropology/Biology/SubCollections/AsianBiology.png", "datum": 906},
+            {"id": "African", "image": "img/wallpapers/Anthropology/Biology/SubCollections/AfricanBiology.png", "datum": 1695},
+            {"id": "Pacific", "image": "img/wallpapers/Anthropology/Biology/SubCollections/PacificBiology.png", "datum": 2446},
+            {"id": "European", "image": "img/wallpapers/Anthropology/Biology/SubCollections/EuropeanBiology.png", "datum": 3644}
           ]},
-          {"id": "Anthropology Archives", "children": [
-            {"id": "Archives & Manuscripts", "displayNumber": "1071 linear feet", "datum": 1071},
-            {"id": "Artwork", "datum": 280},
-            {"id": "Photographs", "datum": 25000},
-            {"id": "Sound recodings", "datum": 2500}
+          {"id": "Anthropology Archives", "image": "img/wallpapers/Anthropology/Archives/AnthropologyArchives.png", "children": [
+            {"id": "Archives & Manuscripts", "image": "img/wallpapers/Anthropology/Archives/SubCollections/ArchivesandManuscripts.png", "displayNumber": "1071 linear feet", "datum": 1071},
+            {"id": "Artwork", "image": "img/wallpapers/Anthropology/Archives/SubCollections/Artwork.png", "datum": 280},
+            {"id": "Photographs", "image": "img/wallpapers/Anthropology/Archives/SubCollections/Photographs.png", "datum": 25000},
+            {"id": "Sound recodings", "image": "img/wallpapers/Anthropology/Archives/SubCollections/SoundRecordings.png", "datum": 2500}
           ]}
         ]
       },{
         "id": "Paleontology",
         "colorPalette": ["#006bb4", "#174767", "#205c85"],
-        "image": "img/_01_Paleontology_Overview.png",
+        "image": "img/wallpapers/Paleontology/_01_Paleontology_Overview.png",
         "unit": "specimens",
         "children": [
           {"id": "Fossil Vertebrates", 
-           "image": "img/_02_Fossil_Vertabrates.png",
+           "image": "img/wallpapers/Paleontology/_02_Fossil_Vertabrates.png",
            "children": [
-            {"id": "Fossil Amphibians,\nReptiles and Birds", "datum": 90000, "displayNumber": 33232, "image": "img/_03_Fossil_Amph_Rep_Birds.png"},
-            {"id": "Fossil Fish", "datum": 75000, "displayNumber": 28687, "image": "img/_03_Fossil_Fish.png"},
-            {"id": "Fossil Mammals", "datum": 400000, "image": "img/_03_Fossil_Mammals.png"}
+            {"id": "Fossil Amphibians,\nReptiles and Birds", "datum": 90000, "displayNumber": 33232, "image": "img/wallpapers/Paleontology/_03_Fossil_Amph_Rep_Birds.png"},
+            {"id": "Fossil Fish", "datum": 75000, "displayNumber": 28687, "image": "img/wallpapers/Paleontology/_03_Fossil_Fish.png"},
+            {"id": "Fossil Mammals", "datum": 400000, "image": "img/wallpapers/Paleontology/_03_Fossil_Mammals.png"}
           ]},
-          {"id": "Fossil Invertebrates", "datum": 5120869, "image": "img/_02_Fossil_Invertabrates.png"},
-          {"id": "Fossil Plants", "datum": 50000, "displayNumber": 440, "image": "img/_02_Fossil_Plants.png"}
+          {"id": "Fossil Invertebrates", "datum": 5120869, "image": "img/wallpapers/Paleontology/_02_Fossil_Invertabrates.png"},
+          {"id": "Fossil Plants", "datum": 50000, "displayNumber": 440, "image": "img/wallpapers/Paleontology/_02_Fossil_Plants.png"}
         ]
       },{
         "id": "Invertebrate Zoology",
         "colorPalette": ["#3e9f42", "#306933", "#448546"],
-        "image": "img/_01_Paleontology_Overview.png",
+        "image": "img/wallpapers/Invertebrate Zoology/Invertebrate_Zoology.png",
         "unit": "specimens",
         "children": [
-          {"id": "Arachnida", "datum": 1216768},
-          {"id": "Insecta", "children": [
-            {"id": "Coleoptera", "datum": 1982842},
-            {"id": "Diptera", "datum": 1138717},
-            {"id": "Hemiptera", "datum": 976518},
-            {"id": "Hymenoptera", "datum": 8727302},
-            {"id": "Isoptera", "datum": 1000000},
-            {"id": "Lepidoptera", "datum": 3000000},
-            {"id": "Minor insect orders", "datum": 824644}
+          {"id": "Arachnida", "datum": 1216768, "image": "img/wallpapers/Invertebrate Zoology/Arachnida/Arachnida.png"},
+          {"id": "Insecta", "image": "img/wallpapers/Invertebrate Zoology/Insecta/Insecta.png", "children": [
+            {"id": "Coleoptera", "image": "img/wallpapers/Invertebrate Zoology/Insecta/SubCollections/Coleoptera.png", "datum": 1982842},
+            {"id": "Diptera", "image": "img/wallpapers/Invertebrate Zoology/Insecta/SubCollections/Diptera.png", "datum": 1138717},
+            {"id": "Hemiptera", "image": "img/wallpapers/Invertebrate Zoology/Insecta/SubCollections/Hemiptera.png", "datum": 976518},
+            {"id": "Hymenoptera", "image": "img/wallpapers/Invertebrate Zoology/Insecta/SubCollections/Hymenoptera.png", "datum": 8727302},
+            {"id": "Isoptera", "image": "img/wallpapers/Invertebrate Zoology/Insecta/SubCollections/Isoptera.png", "datum": 1000000},
+            {"id": "Lepidoptera", "image": "img/wallpapers/Invertebrate Zoology/Insecta/SubCollections/Lepidoptera.png", "datum": 3000000},
+            {"id": "Minor insect orders", "image": "img/wallpapers/Invertebrate Zoology/Insecta/Insecta.png", "datum": 824644}
           ]},
-          {"id": "Mollusca", "datum": 1606459},
-          {"id": "Cnidaria", "datum": 8826},
-          {"id": "Echinodermata", "datum": 9000},
-          {"id": "Other Invert Phyla\n(incl Crustacea,\nMyriapoda, protists)", "datum": 3644131}
+          {"id": "Mollusca", "image": "img/wallpapers/Invertebrate Zoology/Mollusca.png", "datum": 1606459},
+          {"id": "Cnidaria", "image": "img/wallpapers/Invertebrate Zoology/Cnidaria.png", "datum": 8826},
+          {"id": "Echinodermata", "image": "img/wallpapers/Invertebrate Zoology/Echnodermata.png", "datum": 9000},
+          {"id": "Other Invert Phyla\n(incl Crustacea,\nMyriapoda, protists)", "image": "img/wallpapers/Invertebrate Zoology/Other_Invert_Phyla.png", "datum": 3644131}
         ]
       },{
         "id": "Vertebrate Zoology",
         "colorPalette": ["#ff7e32", "#a25f38", "#d67f4c"],
-        "image": "img/Vertebrate_Zoology.png",
+        "image": "img/wallpapers/Vertebrate Zoology/Vertebrate_Zoology.png",
         "unit": "specimens",
         "children": [
-          {"id": "Herpetology", "image": "img/Herpetology.png", "children": [
-            {"id": "Amphibians", "datum": 186814, "image": "img/Amphibians.png"},
-            {"id": "Reptiles", "datum": 173210, "image": "img/Reptiles.png"}
+          {"id": "Herpetology", "image": "img/wallpapers/Vertebrate Zoology/Herpetology/Herpetology.png", "children": [
+            {"id": "Amphibians", "datum": 186814, "image": "img/wallpapers/Vertebrate Zoology/Herpetology/SubCollections/Amphibians.png"},
+            {"id": "Reptiles", "datum": 173210, "image": "img/wallpapers/Vertebrate Zoology/Herpetology/SubCollections/Reptiles.png"}
           ]},
-          {"id": "Ichthyology", "datum": 3235579, "image": "img/Icthyology.png"},
-          {"id": "Mammalogy", "image": "img/Mammalogy.png", "children": [
-            {"id": "Bats", "datum": 64227},
-            {"id": "Horned Mammals", "datum": 9813},
-            {"id": "Primates", "datum": 10816},
-            {"id": "Hoofed mammals", "datum": 12200},
-            {"id": "Whales", "datum": 661},
-            {"id": "Elephants", "datum": 205}
+          {"id": "Ichthyology", "datum": 3235579, "image": "img/wallpapers/Vertebrate Zoology/Icthyology/Icthyology.png"},
+          {"id": "Mammalogy", "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/Mammalogy.png", "children": [
+            {"id": "Bats", "datum": 64227, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Bats.png"},
+            {"id": "Horned Mammals", "datum": 9813, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Horned_Mammals.png"},
+            {"id": "Primates", "datum": 10816, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Primates.png"},
+            {"id": "Hoofed mammals", "datum": 12200, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Hoofed_Mammals.png"},
+            {"id": "Whales", "datum": 661, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Whales.png"},
+            {"id": "Elephants", "datum": 205, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Elephants.png"}
           ]},
-          {"id": "Ornithology", "datum": 891374, "image": "img/Ornithology.png"}
+          {"id": "Ornithology", "datum": 891374, "image": "img/wallpapers/Vertebrate Zoology/Ornithology/Ornithology.png"}
         ]
       }
     ]
