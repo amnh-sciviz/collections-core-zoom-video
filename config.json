@@ -91,24 +91,39 @@
         "image": "img/_01_Paleontology_Overview.png",
         "unit": "artifacts",
         "children": [
-          {"id": "Archaeology", "datum": 340407},
-          {"id": "Ethnology", "datum": 211723},
-          {"id": "Biological\nAnthropology", "datum": 20999},
-          {"id": "Anthropology Archives", "datum": 27780}
-        ]
-      },{
-        "id": "Vertebrate Zoology",
-        "colorPalette": ["#ff7e32", "#a25f38", "#d67f4c"],
-        "image": "img/Vertebrate_Zoology.png",
-        "unit": "specimens",
-        "children": [
-          {"id": "Herpetology", "image": "img/Herpetology.png", "children": [
-            {"id": "Amphibians", "datum": 186814, "image": "img/Amphibians.png"},
-            {"id": "Reptiles", "datum": 173210, "image": "img/Reptiles.png"}
+          {"id": "Archaeology", "children": [
+            {"id": "North American Archaeology", "datum": 166684},
+            {"id": "Mexican & Central American\nArchaelology", "datum": 58884},
+            {"id": "South American Archaeology", "datum": 57945},
+            {"id": "Asian Archaeology", "datum": 15311},
+            {"id": "African Archaeology", "datum": 6500},
+            {"id": "Pacific Archaeology", "datum": 13503},
+            {"id": "European Archaeology", "datum": 21580}
           ]},
-          {"id": "Ichthyology", "datum": 3235579, "image": "img/Icthyology.png"},
-          {"id": "Mammalogy", "datum": 292975, "image": "img/Mammalogy.png"},
-          {"id": "Ornithology", "datum": 891374, "image": "img/Ornithology.png"}
+          {"id": "Ethnology", "children": [
+            {"id": "North American Ethnology", "datum": 51673},
+            {"id": "Mexican & Central American\nEthnology", "datum": 7917},
+            {"id": "South American Ethnology", "datum": 21778},
+            {"id": "Asian Ethnology", "datum": 62895},
+            {"id": "African Ethnology", "datum": 38110},
+            {"id": "Pacific Ethnology", "datum": 28035},
+            {"id": "European Ethnology", "datum": 1315}
+          ]},
+          {"id": "Biological\nAnthropology", "children": [
+            {"id": "North American", "datum": 8731},
+            {"id": "Mexican & Central American", "datum": 1560},
+            {"id": "South American", "datum": 2017},
+            {"id": "Asian", "datum": 906},
+            {"id": "African", "datum": 1695},
+            {"id": "Pacific", "datum": 2446},
+            {"id": "European", "datum": 3644}
+          ]},
+          {"id": "Anthropology Archives", "children": [
+            {"id": "Archives & Manuscripts", "displayNumber": "1071 linear feet", "datum": 1071},
+            {"id": "Artwork", "datum": 280},
+            {"id": "Photographs", "datum": 25000},
+            {"id": "Sound recodings", "datum": 2500}
+          ]}
         ]
       },{
         "id": "Paleontology",
@@ -133,8 +148,6 @@
         "unit": "specimens",
         "children": [
           {"id": "Arachnida", "datum": 1216768},
-          {"id": "Cnidaria", "datum": 8826},
-          {"id": "Echinodermata", "datum": 9000},
           {"id": "Insecta", "children": [
             {"id": "Coleoptera", "datum": 1982842},
             {"id": "Diptera", "datum": 1138717},
@@ -145,7 +158,30 @@
             {"id": "Minor insect orders", "datum": 824644}
           ]},
           {"id": "Mollusca", "datum": 1606459},
+          {"id": "Cnidaria", "datum": 8826},
+          {"id": "Echinodermata", "datum": 9000},
           {"id": "Other Invert Phyla\n(incl Crustacea,\nMyriapoda, protists)", "datum": 3644131}
+        ]
+      },{
+        "id": "Vertebrate Zoology",
+        "colorPalette": ["#ff7e32", "#a25f38", "#d67f4c"],
+        "image": "img/Vertebrate_Zoology.png",
+        "unit": "specimens",
+        "children": [
+          {"id": "Herpetology", "image": "img/Herpetology.png", "children": [
+            {"id": "Amphibians", "datum": 186814, "image": "img/Amphibians.png"},
+            {"id": "Reptiles", "datum": 173210, "image": "img/Reptiles.png"}
+          ]},
+          {"id": "Ichthyology", "datum": 3235579, "image": "img/Icthyology.png"},
+          {"id": "Mammalogy", "image": "img/Mammalogy.png", "children": [
+            {"id": "Bats", "datum": 64227},
+            {"id": "Horned Mammals", "datum": 9813},
+            {"id": "Primates", "datum": 10816},
+            {"id": "Hoofed mammals", "datum": 12200},
+            {"id": "Whales", "datum": 661},
+            {"id": "Elephants", "datum": 205}
+          ]},
+          {"id": "Ornithology", "datum": 891374, "image": "img/Ornithology.png"}
         ]
       }
     ]
