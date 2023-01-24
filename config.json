@@ -6,13 +6,15 @@
   "packPadding": 4,
   "bgColor": "#000000",
   "hereImage": "img/icons/you_are_here.png",
-  "hereColor": "#e0c67c",
+  "hereColor": "#ffffff",
   "labelColor": "#ffffff",
   "defaultPrefix": "",
   "defaultSuffix": "+",
   "defaultUnit": "objects",
+  "titleFont": "fonts/AngletSans/AgletSans-Semibold.ttf",
   "font": "fonts/AngletSans/AgletSans-Semibold.ttf",
   "subheadingFont": "fonts/AngletSans/AgletSans-SemiboldItalic.ttf",
+  "titleFontSize": 28,
   "fontSize": 22,
   "subheadingFontSize": 18,
   "lineSpacing": 6,
@@ -27,7 +29,7 @@
     "box-turtles": {"id": "Box turtles", "parent": "Reptiles", "datum": 20000}
   },
   "data": [{
-    "id": "AMNH Collections",
+    "id": "American Museum of Natural History Collections",
     "colorPalette": ["#1e2938", "#396791", "#4081b2", "#579ac4"],
     "image": "img/_01_Paleontology_Overview.png",
     "displayNumber": "36,000,000+ objects, 500+ TB of data",
@@ -36,7 +38,7 @@
         "id": "Library",
         "colorPalette": ["#a30166", "#68184a", "#b51579"],
         "image": "img/_01_Paleontology_Overview.png",
-        "displayNumber": "2,000,000+\nobjects, titles, volumes",
+        "displayNumber": "2,000,000+\nobjects",
         "children": [
           {"id": "Books & Journals", "children": [
             {"id": "Print book titles", "datum": 159789},
@@ -87,6 +89,7 @@
         "id": "Anthropology",
         "colorPalette": ["#b9322e", "#6e2b29", "#932926"],
         "image": "img/_01_Paleontology_Overview.png",
+        "unit": "artifacts",
         "children": [
           {"id": "Archaeology", "datum": 340407},
           {"id": "Ethnology", "datum": 211723},
@@ -97,6 +100,7 @@
         "id": "Vertebrate Zoology",
         "colorPalette": ["#ff7e32", "#a25f38", "#d67f4c"],
         "image": "img/Vertebrate_Zoology.png",
+        "unit": "specimens",
         "children": [
           {"id": "Herpetology", "image": "img/Herpetology.png", "children": [
             {"id": "Amphibians", "datum": 186814, "image": "img/Amphibians.png"},
@@ -110,6 +114,7 @@
         "id": "Paleontology",
         "colorPalette": ["#006bb4", "#174767", "#205c85"],
         "image": "img/_01_Paleontology_Overview.png",
+        "unit": "specimens",
         "children": [
           {"id": "Fossil Vertebrates", 
            "image": "img/_02_Fossil_Vertabrates.png",
@@ -125,6 +130,7 @@
         "id": "Invertebrate Zoology",
         "colorPalette": ["#3e9f42", "#306933", "#448546"],
         "image": "img/_01_Paleontology_Overview.png",
+        "unit": "specimens",
         "children": [
           {"id": "Arachnida", "datum": 1216768},
           {"id": "Cnidaria", "datum": 8826},
