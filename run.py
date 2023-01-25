@@ -250,8 +250,12 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             # draw graphics later
             continue
 
+        imw = roundInt(abs(cx1-cx0))
+        imh = roundInt(abs(cy1-cy0))
+        tooLarge = imw >= 20000
+
         # draw shadow
-        if not isFullBleed:
+        if not isFullBleed and not tooLarge:
             shadowIm = Image.new(mode="RGBA", size=(w, h), color=(0,0,0,0))
             shadowDraw = ImageDraw.Draw(shadowIm)
             shadowWidth = config["shadowWidth"]
@@ -270,22 +274,20 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             imageBlend = imageBlend * imageOpacity
             backgroundImage = cdata['bgImage'].copy()
             loadedImage = cdata['image'].copy()
-            imw = roundInt(abs(cx1-cx0))
-            imh = roundInt(abs(cy1-cy0))
             if imw <= 0 or imh <= 0:
                 continue
             blendedImage = backgroundImage
             if imageBlend > 0:
                 blendedImage = Image.blend(backgroundImage, loadedImage, imageBlend)
                 blendedImage = blendedImage.convert("RGBA")
-            if isFullBleed:
+            if isFullBleed or tooLarge:
                 imw0, imh0 = blendedImage.size
                 scale = imw / imw0
                 pasteX, pasteY, cropX, cropY = getCropCoords(cx0, cy0)
                 nx = 1.0 * cropX / imw
                 ny = 1.0 * cropY / imh
-                cropX = roundInt(nx * imw0)
-                cropY = roundInt(ny * imh0)
+                cropX = max(roundInt(nx * imw0), 0)
+                cropY = max(roundInt(ny * imh0), 0)
                 cropW = w / scale
                 cropH = h / scale
                 cropX1 = roundInt(cropX + cropW)
@@ -565,6 +567,19 @@ for i, c in enumerate(circles):
             loadedImage = imageCache[cdata['image']]
         else:
             loadedImage = Image.open(cdata['image'])
+            # ensure the image is a square
+            imw, imh = loadedImage.size
+            if imw != imh:
+                newW = max(imw, imh)
+                transparentImg = Image.new(mode="RGBA", size=(newW, newW), color=(0, 0, 0, 0))
+                pasteX = 0
+                pasteY = 0
+                if imw > imh:
+                    pasteY = roundInt((newW - imh) * 0.5)
+                else:
+                    pasteX = roundInt((newW - imw) * 0.5)
+                transparentImg.paste(loadedImage, (pasteX, pasteY))
+                loadedImage = transparentImg
             imageCache[cdata['image']] = loadedImage
         circles[i].ex['bgImage'] = Image.new(loadedImage.mode, loadedImage.size, color=fillColor)
         circles[i].ex['image'] = loadedImage

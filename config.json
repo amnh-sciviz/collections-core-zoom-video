@@ -6,7 +6,7 @@
   "packPadding": 4,
   "bgColor": "#000000",
   "hereImage": "img/icons/you_are_here.png",
-  "hereColor": "#ffffff",
+  "hereColor": "#dddddd",
   "labelColor": "#ffffff",
   "defaultPrefix": "",
   "defaultSuffix": "+",

@@ -1,2 +1,2 @@
-python run.py -array box-turtles -debug
+python run.py -array "box-turtles" -debug
 python run.py -array trilobites -debug
