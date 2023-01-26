@@ -84,6 +84,7 @@ for i, d in enumerate(flattenedData):
         flattenedData[i]['children'] = children
         flattenedData[i]['hereParent'] = True
         break
+PACK_PADDING = 4 if hereLevel <= 4 else 2
 
 # add datums where they don't exist
 flattenedData = sorted(flattenedData, key=lambda d: -d['level'])
@@ -155,7 +156,7 @@ def getCropCoords(x, y):
     return pasteX, pasteY, cropX, cropY
 
 def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfont, titleFont, fromNode, toNode):
-    packPadding = 1.0 * config['packPadding'] / w
+    packPadding = 1.0 * PACK_PADDING / w
     w, h = (roundInt(w*resolution), roundInt(h*resolution))
     bgColor = config['bgColor']
     baseIm = Image.new(mode="RGBA", size=(w, h), color=bgColor)
@@ -163,7 +164,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
     draw = ImageDraw.Draw(baseIm)
     drawTxt = ImageDraw.Draw(txtIm)
     x0, y0, windowWidth = offset
-    # pprint(offset)
+    # print(offset)
     x1 = x0 + windowWidth
     y1 = y0 + windowWidth
     fromLevel = fromNode.ex['level']
@@ -194,8 +195,8 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         cy = norm(cy, (1, -1))
 
         # cr = cr * 0.5
-        if level > 1:
-            cr = max(cr - packPadding, 0.0000001)
+        if level > 1 and cr > packPadding:
+            cr = cr - packPadding
 
         circle = {'x': cx, 'y': cy, 'r': cr}
         rect = {'x': (x1 - x0) * 0.5 + x0, 'y': (y1 - y0) * 0.5 + y0, 'w': (x1 - x0), 'h': (y1 - y0)}
