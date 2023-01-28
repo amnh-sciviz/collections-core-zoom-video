@@ -23,9 +23,41 @@
   "imageBlend": 0.1,
   "imageBlendBackground": 0.33,
   "mediaArrays": {
-    "trilobites": {"id": "Trilobites", "parent": "Fossil Invertebrates", "datum": 80000, "image": "img/hero/Hero_Trilobite.png", "dx": 0.85, "dy": 0},
-    "megalodon": {"id": "Megalodon", "parent": "Fossil Fish", "datum": 20000, "dx": 0.5, "dy": -0.5, "image": "img/hero/Hero_Megalodon-Shark-Teeth.png"},
-    "box-turtles": {"id": "Box turtles", "parent": "Reptiles", "datum": 20000, "image": "img/hero/Hero_Box_Turtles.png"}
+    "ammonites": {"id": "Ammonites", "parent": "Fossil invertebrates", "image": "img/hero/Hero_Ammonite.png"},
+    "bats": {"id": "Bats", "parent": "Bats", "image": "img/hero/Hero_Bats.png"},
+    "box-turtles": {"id": "Box turtles", "parent": "Reptiles", "image": "img/hero/Hero_Box_Turtles.png", "dy": 0.75},
+    "camarasaurus-vertebrae": {"id": "Camarasaurus Vertebrae", "parent": "Fossil amphibians,\nreptiles, and birds", "image": "img/hero/Hero_Camarasaurus.png"},
+    "chaco-canyon-ceramics": {"id": "Chaco Canyon ceramics", "parent": "North American Archaeology", "image": "img/hero/Hero_Chaco_Canyon.png"},
+    "chinese-housewares": {"id": "Chinese housewares", "parent": "Asian Ethnology", "image": "img/hero/Hero_Chinese_Housewares.png"},
+    "clear-and-stained": {"id": "Clear and Stained", "parent": "Ichthyology", "image": "img/hero/Hero_Clear_and_Stained_Fish.png"},
+    "cone-snails": {"id": "Cone snails", "parent": "Mollusca", "image": "img/hero/Hero_Cone_Snails_Gastropods.png"},
+    "corals-and-echinoderms": {"id": "Corals and echinoderms", "parent": "Cnidaria", "image": "img/hero/Hero_Corals_and_Echinoderms.png"},
+    "crinoids": {"id": "Crinoids", "parent": "Fossil invertebrates", "image": "img/hero/Hero_Crinoids.png"},
+    "dino-footprints": {"id": "Dino footprints", "parent": "Fossil amphibians,\nreptiles, and birds", "image": "img/hero/Hero_Dinosaur_Footprints.png"},
+    "drill-cores": {"id": "Drill cores", "parent": "Drill core", "image": "img/hero/Hero_Drill_Cores.png"},
+    "eocene-mammals": {"id": "Eocene mammals", "parent": "Fossil mammals", "image": "img/hero/Hero_Eocene_Mammal.png"},
+    "field-documentation": {"id": "Field documentation", "parent": "Collections", "image": "img/hero/Hero_Field_Documentation.png"},
+    "gaia": {"id": "Gaia", "parent": "Observations: Universe,\nGalaxies, Stars, Planets,\nUnclassified Objects", "image": "img/hero/Hero_Gaia_Data.png"},
+    "historical-modern-instruments": {"id": "Historical & modern instruments", "parent": "Instruments: Imaging, Spectroscopy", "image": "img/hero/Hero_Historical_and_Modern_Instruments.png"},
+    "horned-mammals": {"id": "Horned mammals", "parent": "Horned mammals", "image": "img/hero/Hero_Horns_and_Antlers.png"},
+    "jacketed-and-crated-specimens": {"id": "Jacketed and Crated Specimens", "parent": "Fossil amphibians,\nreptiles, and birds", "image": "img/hero/Hero_Fossil_Jackets.png"},
+    "korean-pottery": {"id": "Korean pottery", "parent": "Asian Ethnology", "image": "img/hero/Hero_KoreanPotttery.png"},
+    "lantern-slides": {"id": "Lantern slides", "parent": "Lantern slides", "image": "img/hero/Hero_Lantern_Slides_Single.png"},
+    "large-grouper": {"id": "Large Grouper", "parent": "Ichthyology", "image": "img/hero/Hero_Large_Grouper.png"},
+    "maasai-beadwork": {"id": "Maasai beadwork", "parent": "African Ethnology", "image": "img/hero/Hero_Maasai_Beadwork.png"},
+    "marine-toads": {"id": "Marine toads", "parent": "Amphibians", "image": "img/hero/Hero_Marine_Toad.png"},
+    "maya-bricks": {"id": "Maya Bricks", "parent": "Mexican & Central American\nArchaelology", "image": "img/hero/Hero_MayaBricks.png"},
+    "megalodon-shark-teeth": {"id": "Megalodon Shark Teeth", "parent": "Fossil fish", "image": "img/hero/Hero_Megalodon-Shark-Teeth.png", "dx": 0.5, "dy": -0.5},
+    "nabokov-butterflies": {"id": "Nabokov butterflies", "parent": "Lepidoptera", "image": "img/hero/Hero_Butterflies.png"},
+    "ny-local": {"id": "NY Local", "parent": "Mineralogy", "image": "img/hero/Hero_NY_Local_Rocks_and_Minerals.png"},
+    "parrots": {"id": "Parrots", "parent": "Ornithology", "image": "img/hero/Hero_Parrots.png"},
+    "pleistocene-megafauna": {"id": "Pleistocene Megafauna", "parent": "Fossil mammals", "image": "img/hero/Hero_Pleistocene_Megafauna.png"},
+    "pueblo-pottery": {"id": "Pueblo pottery", "parent": "North American Ethnology", "image": "img/hero/Hero_PuebloPottery.png"},
+    "spiders": {"id": "Spiders", "parent": "Fossil invertebrates", "image": "img/hero/Hero_Goblin_Spiders.png"},
+    "toys": {"id": "Toys", "parent": "African Ethnology", "image": "img/hero/Hero_Recycled_Toys.png"},
+    "trilobites": {"id": "Trilobites", "parent": "Fossil invertebrates", "image": "img/hero/Hero_Trilobite.png", "dx": 0.85, "dy": 0},
+    "wasp-nests-galls": {"id": "Wasp nests & galls", "parent": "Hymenoptera", "image": "img/hero/Hero_Wasp_Nests_and_Galls.png"},
+    "zamiello-collection": {"id": "Zamiello collection", "parent": "Minor insect orders", "image": "img/hero/Hero_Zammiello_Insects.png"}
   },
   "data": [{
     "id": "American Museum of Natural History Collections",
@@ -130,15 +162,15 @@
         "image": "img/wallpapers/Paleontology/_01_Paleontology_Overview.png",
         "unit": "specimens",
         "children": [
-          {"id": "Fossil Vertebrates", 
+          {"id": "Fossil vertebrates", 
            "image": "img/wallpapers/Paleontology/_02_Fossil_Vertabrates.png",
            "children": [
-            {"id": "Fossil Amphibians,\nReptiles and Birds", "datum": 90000, "displayNumber": 33232, "image": "img/wallpapers/Paleontology/_03_Fossil_Amph_Rep_Birds.png"},
-            {"id": "Fossil Fish", "datum": 75000, "displayNumber": 28687, "image": "img/wallpapers/Paleontology/_03_Fossil_Fish.png"},
-            {"id": "Fossil Mammals", "datum": 400000, "image": "img/wallpapers/Paleontology/_03_Fossil_Mammals.png"}
+            {"id": "Fossil amphibians,\nreptiles, and birds", "datum": 90000, "displayNumber": 33232, "image": "img/wallpapers/Paleontology/_03_Fossil_Amph_Rep_Birds.png"},
+            {"id": "Fossil fish", "datum": 75000, "displayNumber": 28687, "image": "img/wallpapers/Paleontology/_03_Fossil_Fish.png"},
+            {"id": "Fossil mammals", "datum": 400000, "image": "img/wallpapers/Paleontology/_03_Fossil_Mammals.png"}
           ]},
-          {"id": "Fossil Invertebrates", "datum": 5120869, "image": "img/wallpapers/Paleontology/_02_Fossil_Invertabrates.png"},
-          {"id": "Fossil Plants", "datum": 50000, "displayNumber": 440, "image": "img/wallpapers/Paleontology/_02_Fossil_Plants.png"}
+          {"id": "Fossil invertebrates", "datum": 5120869, "image": "img/wallpapers/Paleontology/_02_Fossil_Invertabrates.png"},
+          {"id": "Fossil plants", "datum": 50000, "displayNumber": 440, "image": "img/wallpapers/Paleontology/_02_Fossil_Plants.png"}
         ]
       },{
         "id": "Invertebrate Zoology",
@@ -174,7 +206,7 @@
           {"id": "Ichthyology", "datum": 3235579, "image": "img/wallpapers/Vertebrate Zoology/Icthyology/Icthyology.png"},
           {"id": "Mammalogy", "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/Mammalogy.png", "children": [
             {"id": "Bats", "datum": 64227, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Bats.png"},
-            {"id": "Horned Mammals", "datum": 9813, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Horned_Mammals.png"},
+            {"id": "Horned mammals", "datum": 9813, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Horned_Mammals.png"},
             {"id": "Primates", "datum": 10816, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Primates.png"},
             {"id": "Hoofed mammals", "datum": 12200, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Hoofed_Mammals.png"},
             {"id": "Whales", "datum": 661, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Whales.png"},

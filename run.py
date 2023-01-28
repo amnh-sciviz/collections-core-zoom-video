@@ -16,7 +16,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-config', dest="CONFIG_FILE", default="config.json", help="Input config .json file")
 parser.add_argument('-array', dest="HERE_KEY", default="trilobites", help="Which media array this video is embedded in; it should map to a key in 'mediaArrays' in config file")
 parser.add_argument('-width', dest="WIDTH", default=1080, type=int, help="Width of video")
-parser.add_argument('-height', dest="HEIGHT", default=1080, type=float, help="Height of video")
+parser.add_argument('-height', dest="HEIGHT", default=1080, type=int, help="Height of video")
 parser.add_argument('-fps', dest="FPS", default=30, type=int, help="Frames per second of video")
 parser.add_argument('-out', dest="OUTPUT_FILE", default="", help="Name of the output file; leave blank and it will be output/{HERE_KEY}.mp4")
 parser.add_argument('-debug', dest="DEBUG", action="store_true", help="Just output an image of the data")
@@ -65,6 +65,8 @@ for i, d in enumerate(flattenedData):
     if d['id'] == here['parent']:
         hereLevel = d['level'] + 1
         here['level'] = hereLevel
+        if 'datum' not in here:
+            here['datum'] = roundInt(min(d['datum'] * 0.1, d['datum'] ** 0.75))
         children = [here]
         leftover = d['datum'] - here['datum']
         otherCount = 1
