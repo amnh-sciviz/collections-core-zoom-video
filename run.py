@@ -66,7 +66,7 @@ for i, d in enumerate(flattenedData):
         hereLevel = d['level'] + 1
         here['level'] = hereLevel
         if 'datum' not in here:
-            here['datum'] = roundInt(min(d['datum'] * 0.1, d['datum'] ** 0.75))
+            here['datum'] = roundInt(d['datum'] * 0.0667)
         children = [here]
         leftover = d['datum'] - here['datum']
         otherCount = 1
