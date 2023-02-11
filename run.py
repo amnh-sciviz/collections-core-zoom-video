@@ -54,6 +54,7 @@ if a.HERE_KEY not in config['mediaArrays']:
     sys.exit()
 here = config['mediaArrays'][a.HERE_KEY]
 here['isHere'] = True
+here['neverRendered'] = False
 hereImage = Image.open(config['hereImage'])
 hereW, hereH = hereImage.size
 hereImageRatio = hereW / hereH
@@ -140,7 +141,7 @@ for i, d in enumerate(flattenedData):
         flattenedData[i]['neverRendered'] = True
     else:
         flattenedData[i]['neverRendered'] = False
-    if 'isHere' in d:
+    if 'hereParent' in d:
         startNode = d
 # now we only render the nodes related to here node
 node = startNode
@@ -204,7 +205,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         cr = cdata['cr']
         isHere = 'isHere' in cdata
         isPlaceholder = 'isPlaceholder' in cdata
-        isNeverRendered = cdata['neverRendered']
+        isNeverRendered = 'neverRendered' in cdata and cdata['neverRendered']
         circleOpacity = cdata['circleOpacity']
         if isPlaceholder or circleOpacity <= 0 or isNeverRendered:
             circles[i].ex['isVisible'] = False
