@@ -397,22 +397,29 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         deltaX = 0
         deltaY = 0
         if 'image' in cdata:
+            imageResizeRatio = 0.7
             # paste array image
             imw0, imh0 = cdata['image'].size
             imRatio = imw0 / imh0
             loadedImage = cdata['image'].copy()
-            imw = roundInt(abs(cx1-cx0))
-            imh = roundInt(abs(cy1-cy0))
+            imw = abs(cx1-cx0)
+            imh = abs(cy1-cy0)
+            resizedImw = imw * imageResizeRatio
+            resizedImh = imh * imageResizeRatio
+            resizedCx0 = roundInt(cx0 + (imw - resizedImw) * 0.5)
+            resizedCxy = roundInt(cy0 + (imh - resizedImh) * 0.5)
             if imRatio >= 1: # landscape image
-                imh = roundInt(imw / imRatio)
-                deltaY = (imw - imh) * 0.5
+                resizedImh = roundInt(resizedImw / imRatio)
+                resizedImw = roundInt(resizedImw)
+                deltaY = (resizedImw - resizedImh) * 0.5
             else: # portrait image
-                imw = roundInt(imh / imRatio)
-                deltaX = (imh - imw) * 0.5
-            if imw <= 0 or imh <= 0:
+                resizedImw = roundInt(resizedImh / imRatio)
+                resizedImh = roundInt(resizedImh)
+                deltaX = (resizedImh - resizedImw) * 0.5
+            if resizedImw <= 0 or resizedImh <= 0:
                 continue
-            resizedImage = loadedImage.resize((imw, imh), resample=Image.LANCZOS)
-            pasteX, pasteY, cropX, cropY = getCropCoords(cx0+deltaX, cy0+deltaY)
+            resizedImage = loadedImage.resize((resizedImw, resizedImh), resample=Image.LANCZOS)
+            pasteX, pasteY, cropX, cropY = getCropCoords(resizedCx0+deltaX, resizedCxy+deltaY)
             baseIm.alpha_composite(resizedImage, (pasteX, pasteY), (cropX, cropY))
         # paste here label
         imw = roundInt(abs(cx1-cx0))
