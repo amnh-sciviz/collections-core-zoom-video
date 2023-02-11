@@ -66,7 +66,7 @@ for i, d in enumerate(flattenedData):
         hereLevel = d['level'] + 1
         here['level'] = hereLevel
         if 'datum' not in here:
-            here['datum'] = roundInt(d['datum'] * 0.0667)
+            here['datum'] = roundInt(d['datum'] * 0.04)
         children = [here]
         leftover = d['datum'] - here['datum']
         otherCount = 1
@@ -86,7 +86,8 @@ for i, d in enumerate(flattenedData):
         flattenedData[i]['children'] = children
         flattenedData[i]['hereParent'] = True
         break
-PACK_PADDING = 4 if hereLevel <= 4 else 2
+# PACK_PADDING = 4 if hereLevel <= 4 else 2
+PACK_PADDING = 0
 
 # add datums where they don't exist
 flattenedData = sorted(flattenedData, key=lambda d: -d['level'])
@@ -237,7 +238,8 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         if isHere:
             circles[i].ex['bounds'] = (cx0, cy0, cx1, cy1)
             if 'image' in cdata:
-                multiplier = 1.333
+                # multiplier = 1.333
+                multiplier = 1.0
                 imw = roundInt(abs(cx1-cx0))
                 imh = roundInt(abs(cy1-cy0))
                 imw1 = roundInt(imw * multiplier)
@@ -391,8 +393,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         imw = roundInt(abs(cx1-cx0))
         imh = roundInt(abs(cy1-cy0))
         deltaX2 = (imw - hereImageWidth) * 0.5
-        resizedImage = loadedImage.resize((imw, imh), resample=Image.LANCZOS)
-        pasteX, pasteY, cropX, cropY = getCropCoords(cx0+deltaX2, cy0+deltaY-hereImageHeight)
+        pasteX, pasteY, cropX, cropY = getCropCoords(cx0+deltaX2, cy0+deltaY-hereImageHeight+hereImageHeight*0.05)
         baseIm.alpha_composite(hereImage, (pasteX, pasteY), (cropX, cropY))
         break
 
@@ -495,8 +496,8 @@ for i, c in enumerate(circles):
 
     # manually adjust position of here, otherwise it's more or less random
     if isHere:
-        hereDx = 0.75 if 'dx' not in cdata else cdata['dx']
-        hereDy = -0.75 if 'dy' not in cdata else cdata['dy']
+        hereDx = 0.95 if 'dx' not in cdata else cdata['dx']
+        hereDy = -0.95 if 'dy' not in cdata else cdata['dy']
         parent = circles[cdata['parentIndex']]
         px, py, pr = (parent.ex['cx'], parent.ex['cy'], parent.ex['cr'])
         cx = px + hereDx * pr
