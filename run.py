@@ -123,9 +123,32 @@ for i, d in enumerate(flattenedData):
 #             if 'parent' in dd and dd['parent'] == d['id']:
 #                 flattenedData[j]['datum'] = per
 
+# add index
+for i, d in enumerate(flattenedData):
+    flattenedData[i]['index'] = i
+
 dataLookup = createLookup(flattenedData, 'id')
 # flattenedData = sorted(flattenedData, key=lambda d: d['level'])
 # pprint(flattenedData)
+
+# mark circles that never get rendered;
+# first mark all level 2+ as never rendered
+startNode = None
+for i, d in enumerate(flattenedData):
+    if d['level'] > 2:
+        flattenedData[i]['neverRendered'] = True
+    else:
+        flattenedData[i]['neverRendered'] = False
+    if 'isHere' in d:
+        startNode = d
+# now we only render the nodes related to here node
+node = startNode
+while node['level'] >= 2:
+    flattenedData[node['index']]['neverRendered'] = False
+    for i, d in enumerate(flattenedData):
+        if 'parent' in d and d['parent'] == node['id']:
+            flattenedData[i]['neverRendered'] = False
+    node = dataLookup[node['parent']]
 
 data = unflattenData(flattenedData)
 # pprint(data)
@@ -180,8 +203,9 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         cr = cdata['cr']
         isHere = 'isHere' in cdata
         isPlaceholder = 'isPlaceholder' in cdata
+        isNeverRendered = cdata['neverRendered']
         circleOpacity = cdata['circleOpacity']
-        if isPlaceholder or circleOpacity <= 0:
+        if isPlaceholder or circleOpacity <= 0 or isNeverRendered:
             circles[i].ex['isVisible'] = False
             continue
         text = cdata['id']
