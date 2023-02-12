@@ -40,7 +40,7 @@
     "eocene-mammals": {"id": "Eocene mammals", "parent": "Fossil mammals", "image": "img/hero/Hero_Eocene_Mammal.png"},
     "field-documentation": {"id": "Field documentation", "parent": "Collections", "image": "img/hero/Hero_Field_Documentation.png", "dx": 1.6, "dy": 0.25},
     "gaia": {"id": "Gaia", "parent": "Observations: Universe,\nGalaxies, Stars, Planets,\nUnclassified Objects", "image": "img/hero/Hero_Gaia_Data.png"},
-    "historical-modern-instruments": {"id": "Historical & modern instruments", "parent": "Instruments: Imaging, Spectroscopy", "image": "img/hero/Hero_Historical_and_Modern_Instruments.png"},
+    "historical-modern-instruments": {"id": "Historical & modern instruments", "parent": "Instruments:\nImaging, Spectroscopy", "image": "img/hero/Hero_Historical_and_Modern_Instruments.png"},
     "horned-mammals": {"id": "Horned mammals", "parent": "Horned mammals", "image": "img/hero/Hero_Horns_and_Antlers.png"},
     "jacketed-and-crated-specimens": {"id": "Jacketed and Crated Specimens", "parent": "Fossil amphibians,\nreptiles, and birds", "image": "img/hero/Hero_Fossil_Jackets.png"},
     "korean-pottery": {"id": "Korean pottery", "parent": "Asian Ethnology", "image": "img/hero/Hero_KoreanPotttery.png"},
@@ -115,7 +115,7 @@
           {"id": "Astrophysics", "image": "img/wallpapers/Physical Science/Astrophysics/Astrophysics-01.png", "children": [
             {"id": "Observations: Universe,\nGalaxies, Stars, Planets,\nUnclassified Objects", "image": "img/wallpapers/Physical Science/Astrophysics/Sub Collections/Observations.png", "datum": 4500000, "displayNumber": "45TB of data"},
             {"id": "Simulations: Universe,\nGalaxies, Stars, Planets,\nUnclassified Objects", "image": "img/wallpapers/Physical Science/Astrophysics/Sub Collections/Simulations.png", "datum": 5000000, "displayNumber": "50TB of data"},
-            {"id": "Instruments: Imaging, Spectroscopy", "image": "img/wallpapers/Physical Science/Astrophysics/Sub Collections/Instruments.png", "datum": 200000, "displayNumber": "2TB of data"}
+            {"id": "Instruments:\nImaging, Spectroscopy", "image": "img/wallpapers/Physical Science/Astrophysics/Sub Collections/Instruments.png", "datum": 200000, "displayNumber": "2TB of data"}
           ]}
         ]
       },{
