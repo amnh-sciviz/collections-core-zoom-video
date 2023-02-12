@@ -22,10 +22,12 @@
   "shadowOpacity": 0.4,
   "imageBlend": 0.1,
   "imageBlendBackground": 0.33,
+  "hereDx": 1.25,
+  "hereDy": 0.75,
   "mediaArrays": {
     "ammonites": {"id": "Ammonites", "parent": "Fossil invertebrates", "image": "img/hero/Hero_Ammonite.png"},
     "bats": {"id": "Bats", "parent": "Bats", "image": "img/hero/Hero_Bats.png"},
-    "box-turtles": {"id": "Box turtles", "parent": "Reptiles", "image": "img/hero/Hero_Box_Turtles.png", "dy": 0.75},
+    "box-turtles": {"id": "Box turtles", "parent": "Reptiles", "image": "img/hero/Hero_Box_Turtles.png"},
     "camarasaurus-vertebrae": {"id": "Camarasaurus Vertebrae", "parent": "Fossil amphibians,\nreptiles, and birds", "image": "img/hero/Hero_Camarasaurus.png"},
     "chaco-canyon-ceramics": {"id": "Chaco Canyon ceramics", "parent": "North American Archaeology", "image": "img/hero/Hero_Chaco_Canyon.png"},
     "chinese-housewares": {"id": "Chinese housewares", "parent": "Asian Ethnology", "image": "img/hero/Hero_Chinese_Housewares.png"},
@@ -36,18 +38,18 @@
     "dino-footprints": {"id": "Dino footprints", "parent": "Fossil amphibians,\nreptiles, and birds", "image": "img/hero/Hero_Dinosaur_Footprints.png"},
     "drill-cores": {"id": "Drill cores", "parent": "Drill core", "image": "img/hero/Hero_Drill_Cores.png"},
     "eocene-mammals": {"id": "Eocene mammals", "parent": "Fossil mammals", "image": "img/hero/Hero_Eocene_Mammal.png"},
-    "field-documentation": {"id": "Field documentation", "parent": "Collections", "image": "img/hero/Hero_Field_Documentation.png"},
+    "field-documentation": {"id": "Field documentation", "parent": "Collections", "image": "img/hero/Hero_Field_Documentation.png", "dx": 1.6, "dy": 0.25},
     "gaia": {"id": "Gaia", "parent": "Observations: Universe,\nGalaxies, Stars, Planets,\nUnclassified Objects", "image": "img/hero/Hero_Gaia_Data.png"},
     "historical-modern-instruments": {"id": "Historical & modern instruments", "parent": "Instruments: Imaging, Spectroscopy", "image": "img/hero/Hero_Historical_and_Modern_Instruments.png"},
     "horned-mammals": {"id": "Horned mammals", "parent": "Horned mammals", "image": "img/hero/Hero_Horns_and_Antlers.png"},
     "jacketed-and-crated-specimens": {"id": "Jacketed and Crated Specimens", "parent": "Fossil amphibians,\nreptiles, and birds", "image": "img/hero/Hero_Fossil_Jackets.png"},
     "korean-pottery": {"id": "Korean pottery", "parent": "Asian Ethnology", "image": "img/hero/Hero_KoreanPotttery.png"},
-    "lantern-slides": {"id": "Lantern slides", "parent": "Lantern slides", "image": "img/hero/Hero_Lantern_Slides_Single.png"},
+    "lantern-slides": {"id": "Lantern slides array", "parent": "Lantern slides", "image": "img/hero/Hero_Lantern_Slides_Single.png", "dx": 1.6, "dy": 0.25},
     "large-grouper": {"id": "Large Grouper", "parent": "Ichthyology", "image": "img/hero/Hero_Large_Grouper.png"},
     "maasai-beadwork": {"id": "Maasai beadwork", "parent": "African Ethnology", "image": "img/hero/Hero_Maasai_Beadwork.png"},
     "marine-toads": {"id": "Marine toads", "parent": "Amphibians", "image": "img/hero/Hero_Marine_Toad.png"},
     "maya-bricks": {"id": "Maya Bricks", "parent": "Mexican & Central American\nArchaelology", "image": "img/hero/Hero_MayaBricks.png"},
-    "megalodon-shark-teeth": {"id": "Megalodon Shark Teeth", "parent": "Fossil fish", "image": "img/hero/Hero_Megalodon-Shark-Teeth.png", "dx": 0.5, "dy": -0.5},
+    "megalodon-shark-teeth": {"id": "Megalodon Shark Teeth", "parent": "Fossil fish", "image": "img/hero/Hero_Megalodon-Shark-Teeth.png"},
     "nabokov-butterflies": {"id": "Nabokov butterflies", "parent": "Lepidoptera", "image": "img/hero/Hero_Butterflies.png"},
     "ny-local": {"id": "NY Local", "parent": "Mineralogy", "image": "img/hero/Hero_NY_Local_Rocks_and_Minerals.png"},
     "parrots": {"id": "Parrots", "parent": "Ornithology", "image": "img/hero/Hero_Parrots.png"},
@@ -83,7 +85,7 @@
             {"id": "Reels of microfilm", "image": "img/wallpapers/Library/Manuscript and Archives/SubCollections/Reels_of_Microfilm.png", "datum": 1300}
           ]},
           {"id": "Art & Memorabilia", "image": "img/wallpapers/Library/Art and Memorabilia/ArtandMemorabilia.png", "datum": 3000},
-          {"id": "Photographs", "image": "img/wallpapers/Library/Photographs/Photographs.png", "children": [
+          {"id": "Photographs_", "image": "img/wallpapers/Library/Photographs/Photographs.png", "children": [
             {"id": "Negatives", "image": "img/wallpapers/Library/Photographs/SubCollections/Negatives.png", "datum": 990000},
             {"id": "Lantern slides", "image": "img/wallpapers/Library/Photographs/SubCollections/LanternSlides.png", "datum": 70000},
             {"id": "Color slides and\ntransparencies", "image": "img/wallpapers/Library/Photographs/SubCollections/ColorSlidesTransparencies.png", "datum": 160000},
@@ -153,7 +155,7 @@
             {"id": "Archives & Manuscripts", "image": "img/wallpapers/Anthropology/Archives/SubCollections/ArchivesandManuscripts.png", "displayNumber": "1071 linear feet", "datum": 1071},
             {"id": "Artwork", "image": "img/wallpapers/Anthropology/Archives/SubCollections/Artwork.png", "datum": 280},
             {"id": "Photographs", "image": "img/wallpapers/Anthropology/Archives/SubCollections/Photographs.png", "datum": 25000},
-            {"id": "Sound recodings", "image": "img/wallpapers/Anthropology/Archives/SubCollections/SoundRecordings.png", "datum": 2500}
+            {"id": "Sound recordings", "image": "img/wallpapers/Anthropology/Archives/SubCollections/SoundRecordings.png", "datum": 2500}
           ]}
         ]
       },{
@@ -189,8 +191,8 @@
             {"id": "Minor insect orders", "image": "img/wallpapers/Invertebrate Zoology/Insecta/Insecta.png", "datum": 824644}
           ]},
           {"id": "Mollusca", "image": "img/wallpapers/Invertebrate Zoology/Mollusca.png", "datum": 1606459},
-          {"id": "Cnidaria", "image": "img/wallpapers/Invertebrate Zoology/Cnidaria.png", "datum": 8826},
-          {"id": "Echinodermata", "image": "img/wallpapers/Invertebrate Zoology/Echnodermata.png", "datum": 9000},
+          {"id": "Cnidaria", "image": "img/wallpapers/Invertebrate Zoology/Cnidaria.png", "datum": 88260, "displayNumber": 8826},
+          {"id": "Echinodermata", "image": "img/wallpapers/Invertebrate Zoology/Echnodermata.png", "datum": 90000, "displayNumber": 9000},
           {"id": "Other Invert Phyla\n(incl Crustacea,\nMyriapoda, protists)", "image": "img/wallpapers/Invertebrate Zoology/Other_Invert_Phyla.png", "datum": 3644131}
         ]
       },{

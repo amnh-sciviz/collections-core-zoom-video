@@ -182,7 +182,7 @@ def getCropCoords(x, y):
         pasteY = 0
     return pasteX, pasteY, cropX, cropY
 
-def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfont, titleFont, fromNode, toNode):
+def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfont, titleFont, fromNode, toNode, theta):
     packPadding = 1.0 * PACK_PADDING / w
     w, h = (roundInt(w*resolution), roundInt(h*resolution))
     bgColor = config['bgColor']
@@ -204,13 +204,20 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         cy = cdata['cy']
         cr = cdata['cr']
         isHere = 'isHere' in cdata
+        if isHere:
+            fromPositionIndex = fromLevel - 1
+            toPositionIndex = toLevel - 1
+            fromCx, fromCy = cdata['positions'][fromPositionIndex]
+            toCx, toCy = cdata['positions'][toPositionIndex]
+            cx = lerp((fromCx, toCx), theta)
+            cy = lerp((fromCy, toCy), theta)
         isPlaceholder = 'isPlaceholder' in cdata
         isNeverRendered = 'neverRendered' in cdata and cdata['neverRendered']
         circleOpacity = cdata['circleOpacity']
         if isPlaceholder or circleOpacity <= 0 or isNeverRendered:
             circles[i].ex['isVisible'] = False
             continue
-        text = cdata['id']
+        text = cdata['id'].replace('_', '')
         level = cdata['level']
         # # don't try to draw anything greater than grandparent
         # deltaLevel = min(fromLevel - level, toLevel - level)
@@ -512,7 +519,7 @@ def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution,
         circles[i].ex['labelOpacity'] = labelOpacity
         circles[i].ex['isLabelHeader'] = isLabelHeader
 
-    drawCircles(circles, filename, config, w, h, (offsetX, offsetY, offsetW), resolution, font, subfont, titleFont, fromNode, toNode)
+    drawCircles(circles, filename, config, w, h, (offsetX, offsetY, offsetW), resolution, font, subfont, titleFont, fromNode, toNode, t)
 
 # load font
 titleFont = ImageFont.truetype(font=config["titleFont"], size=roundInt(config["titleFontSize"]*RESOLUTION))
@@ -525,22 +532,12 @@ for i, c in enumerate(circles):
     cx, cy, cr, cdata = (c.x, c.y, c.r, c.ex)
     isHere = 'isHere' in cdata
     isPlaceholder = 'isPlaceholder' in cdata
-
-    # manually adjust position of here, otherwise it's more or less random
-    if isHere:
-        hereDx = 0.95 if 'dx' not in cdata else cdata['dx']
-        hereDy = -0.95 if 'dy' not in cdata else cdata['dy']
-        parent = circles[cdata['parentIndex']]
-        px, py, pr = (parent.ex['cx'], parent.ex['cy'], parent.ex['cr'])
-        cx = px + hereDx * pr
-        cy = py + hereDy * pr
-
     circles[i].ex['cx'] = cx
     circles[i].ex['cy'] = cy
     circles[i].ex['cr'] = cr * 0.5
 
     # add labels
-    collectionName = cdata['id']
+    collectionName = cdata['id'].replace('_', '')
     prefix = cdata['prefix'] if 'prefix' in cdata else config['defaultPrefix']
     suffix = cdata['suffix'] if 'suffix' in cdata else config['defaultSuffix']
     unit = cdata['unit'] if 'unit' in cdata else config['defaultUnit']
@@ -620,6 +617,37 @@ for i, c in enumerate(circles):
         circles[i].ex['bgImage'] = Image.new(loadedImage.mode, loadedImage.size, color=fillColor)
         circles[i].ex['image'] = loadedImage
 
+for i, c in enumerate(circles):
+    cx, cy, cr, cdata = (c.x, c.y, c.r, c.ex)
+    isHere = 'isHere' in cdata
+     # manually adjust position of here, otherwise it's more or less random
+    if isHere:
+        hereDx = config['hereDx'] if 'dx' not in cdata else cdata['dx']
+        hereDy = config['hereDy'] if 'dy' not in cdata else cdata['dy']
+        parent = circles[cdata['parentIndex']]
+        # create a list of fixed positions at each level
+        # this mitigates here label from overlapping with other labels
+        herePositions = []
+        while parent is not None and parent.ex['level'] > 1:
+            px, py, pr = (parent.ex['cx'], parent.ex['cy'], parent.ex['cr'])
+            hereX = px + hereDx * pr
+            hereY = py + hereDy * pr
+            herePositions = [(hereX, hereY)] + herePositions
+            if 'parentIndex' in parent.ex:
+                parent = circles[parent.ex['parentIndex']]
+            else:
+                parent = None
+        herePosition = herePositions[-1]
+        circles[i].ex['positions'] = herePositions + [herePosition] + [herePosition]
+        cx, cy = herePosition
+        circles[i].ex['cx'] = cx
+        circles[i].ex['cy'] = cy
+
+        # print(cdata['level'])
+        # pprint(circles[i].ex['positions'])
+        # sys.exit()
+        break
+
 # generate a path that zooms out from HERE then zooms back into HERE
 path = []
 hereNode = circleLookup[here['id']]
@@ -635,7 +663,7 @@ while True:
 # path += pathReversed
 
 # if a.DEBUG:
-#     drawCircles(circles, "output/test.png", config, a.WIDTH, a.HEIGHT, (0, 0, 1.0), RESOLUTION, font, subfont, titleFont)
+#     drawCircles(circles, "output/test.png", config, a.WIDTH, a.HEIGHT, (0, 0, 1.0), RESOLUTION, font, subfont, titleFont, 0)
 
 outputFramePattern = f'output/frames/{a.HERE_KEY}/frame.%s.png'
 if not a.DEBUG:
