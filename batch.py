@@ -21,14 +21,25 @@ a = parser.parse_args()
 config = readJSON(a.CONFIG_FILE)
 py = sys.executable
 
-# print make sure parents exists
-# flattenedData = flattenTree(config['data'])
-# ids = [d['id'] for d in flattenedData]
-# for id, props in config['mediaArrays'].items():
-#     parent = props['parent']
-#     if parent not in ids:
-#         print(f'Could not find {parent} in ids')
-# sys.exit()
+
+if a.DEBUG:
+    flattenedData = flattenTree(config['data'])
+    ids = [d['id'] for d in flattenedData]
+    arrayIds = []
+    # print make sure parents exists
+    for id, props in config['mediaArrays'].items():
+        parent = props['parent']
+        if parent not in ids:
+            print(f'Could not find {parent} in ids')
+        arrayIds.append(props['id'])
+    # check for duplicates
+    allIds = [{'id': id} for id in (ids + arrayIds)]
+    groupedIds = groupBy(allIds, 'id')
+    dupes = [group for group in groupedIds if group['count'] > 1]
+    print(f'Found {len(dupes)} dupes')
+    for dupe in dupes:
+        print(f"- {dupe['id']}")
+    print('---------------')
 
 for array in config['mediaArrays']:
     fn = f'output/{array}.mp4'
