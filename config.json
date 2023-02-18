@@ -1,8 +1,8 @@
 {
   "zoomDurationMin": 2000,
   "zoomDurationMax": 3600,
-  "restDurationMax": 4000,
-  "restDurationMin": 300,
+  "restDurationMax": 5000,
+  "restDurationMin": 1000,
   "bgColor": "#000000",
   "hereImage": "img/icons/marker.png",
   "hereColor": "#dddddd",
