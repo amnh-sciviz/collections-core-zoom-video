@@ -25,41 +25,41 @@
   "hereDx": 1.25,
   "hereDy": 0.75,
   "mediaArrays": {
+    "african-toys": {"id": "African toys", "parent": "African Ethnology", "image": "img/hero/Hero_Recycled_Toys.png"},
     "ammonites": {"id": "Ammonites", "parent": "Fossil invertebrates", "image": "img/hero/Hero_Ammonite.png"},
-    "bats": {"id": "Bats", "parent": "Bats", "image": "img/hero/Hero_Bats.png"},
+    "astronomical-instruments": {"id": "Astronomical\ninstruments", "parent": "Instruments", "image": "img/hero/Hero_Historical_and_Modern_Instruments.png"},
+    "bats": {"id": "Bats", "parent": "_Bats", "image": "img/hero/Hero_Bats.png"},
     "box-turtles": {"id": "Box turtles", "parent": "Reptiles", "image": "img/hero/Hero_Box_Turtles.png"},
-    "camarasaurus-vertebrae": {"id": "Camarasaurus Vertebrae", "parent": "Fossil amphibians,\nreptiles, and birds", "image": "img/hero/Hero_Camarasaurus.png"},
-    "chaco-canyon-ceramics": {"id": "Chaco Canyon ceramics", "parent": "North American Archaeology", "image": "img/hero/Hero_Chaco_Canyon.png"},
-    "chinese-housewares": {"id": "Chinese housewares", "parent": "Asian Ethnology", "image": "img/hero/Hero_Chinese_Housewares.png"},
-    "clear-and-stained": {"id": "Clear and Stained", "parent": "Ichthyology", "image": "img/hero/Hero_Clear_and_Stained_Fish.png"},
-    "cone-snails": {"id": "Cone snails", "parent": "Mollusca", "image": "img/hero/Hero_Cone_Snails_Gastropods.png"},
-    "corals-and-echinoderms": {"id": "Corals and echinoderms", "parent": "Cnidaria", "image": "img/hero/Hero_Corals_and_Echinoderms.png"},
+    "camarasaurus-vertebrae": {"id": "Camarasaurus\nvertebrae", "parent": "Fossil amphibians,\nreptiles, and birds", "image": "img/hero/Hero_Camarasaurus.png"},
+    "chaco-canyon-ceramics": {"id": "Chaco Canyon\nceramics", "parent": "North American\nArchaeology", "image": "img/hero/Hero_Chaco_Canyon.png"},
+    "cleared-and-stained-fish": {"id": "Cleared &\nstained fish", "parent": "Ichthyology", "image": "img/hero/Hero_Clear_and_Stained_Fish.png"},
+    "corals-and-echinoderms": {"id": "Corals &\nechinoderms", "parent": "Cnidaria", "image": "img/hero/Hero_Corals_and_Echinoderms.png"},
     "crinoids": {"id": "Crinoids", "parent": "Fossil invertebrates", "image": "img/hero/Hero_Crinoids.png"},
-    "dino-footprints": {"id": "Dino footprints", "parent": "Fossil amphibians,\nreptiles, and birds", "image": "img/hero/Hero_Dinosaur_Footprints.png"},
-    "drill-cores": {"id": "Drill cores", "parent": "Drill core", "image": "img/hero/Hero_Drill_Cores.png"},
+    "dinosaur-footprints": {"id": "Dinosaur footprints", "parent": "Fossil amphibians,\nreptiles, and birds", "image": "img/hero/Hero_Dinosaur_Footprints.png"},
+    "drill-cores": {"id": "Drill cores", "parent": "Drill cores\n(feet)", "image": "img/hero/Hero_Drill_Cores.png"},
     "eocene-mammals": {"id": "Eocene mammals", "parent": "Fossil mammals", "image": "img/hero/Hero_Eocene_Mammal.png"},
     "field-documentation": {"id": "Field documentation", "parent": "Collections", "image": "img/hero/Hero_Field_Documentation.png", "dx": 1.6, "dy": 0.25},
-    "gaia": {"id": "Gaia", "parent": "Observations: Universe,\nGalaxies, Stars, Planets,\nUnclassified Objects", "image": "img/hero/Hero_Gaia_Data.png"},
-    "historical-modern-instruments": {"id": "Historical & modern instruments", "parent": "Instruments:\nImaging, Spectroscopy", "image": "img/hero/Hero_Historical_and_Modern_Instruments.png"},
-    "horned-mammals": {"id": "Horned mammals", "parent": "Horned mammals", "image": "img/hero/Hero_Horns_and_Antlers.png"},
-    "jacketed-and-crated-specimens": {"id": "Jacketed and Crated Specimens", "parent": "Fossil amphibians,\nreptiles, and birds", "image": "img/hero/Hero_Fossil_Jackets.png"},
+    "gaia-data": {"id": "Gaia data", "parent": "Observed data", "image": "img/hero/Hero_Gaia_Data.png"},
+    "giant-grouper": {"id": "Giant Grouper", "parent": "Ichthyology", "image": "img/hero/Hero_Large_Grouper.png"},
+    "jacketed-fossils": {"id": "Jacketed fossils", "parent": "Fossil amphibians,\nreptiles, and birds", "image": "img/hero/Hero_Fossil_Jackets.png"},
     "korean-pottery": {"id": "Korean pottery", "parent": "Asian Ethnology", "image": "img/hero/Hero_KoreanPotttery.png"},
-    "lantern-slides": {"id": "Lantern slides array", "parent": "Lantern slides", "image": "img/hero/Hero_Lantern_Slides_Single.png", "dx": 1.6, "dy": 0.25},
-    "large-grouper": {"id": "Large Grouper", "parent": "Ichthyology", "image": "img/hero/Hero_Large_Grouper.png"},
+    "lantern-slides": {"id": "Lantern slides", "parent": "_Lantern slides", "image": "img/hero/Hero_Lantern_Slides_Single.png", "dx": 1.6, "dy": 0.25},
     "maasai-beadwork": {"id": "Maasai beadwork", "parent": "African Ethnology", "image": "img/hero/Hero_Maasai_Beadwork.png"},
+    "mammals-with-headgear": {"id": "Mammals with\nheadgear", "parent": "_Mammals with\nheadgear", "image": "img/hero/Hero_Horns_and_Antlers.png"},
+    "mao-era-housewares": {"id": "Mao-era\nhousewares", "parent": "Asian Ethnology", "image": "img/hero/Hero_Chinese_Housewares.png"},
     "marine-toads": {"id": "Marine toads", "parent": "Amphibians", "image": "img/hero/Hero_Marine_Toad.png"},
-    "maya-bricks": {"id": "Maya Bricks", "parent": "Mexican & Central American\nArchaelology", "image": "img/hero/Hero_MayaBricks.png"},
-    "megalodon-shark-teeth": {"id": "Megalodon Shark Teeth", "parent": "Fossil fish", "image": "img/hero/Hero_Megalodon-Shark-Teeth.png"},
-    "nabokov-butterflies": {"id": "Nabokov butterflies", "parent": "Lepidoptera", "image": "img/hero/Hero_Butterflies.png"},
-    "ny-local": {"id": "NY Local", "parent": "Mineralogy", "image": "img/hero/Hero_NY_Local_Rocks_and_Minerals.png"},
+    "maya-bricks": {"id": "Maya Bricks", "parent": "Mexican &\nCentral American\nArchaelology", "image": "img/hero/Hero_MayaBricks.png"},
+    "megalodon-teeth": {"id": "Megalodon teeth", "parent": "Fossil fish", "image": "img/hero/Hero_Megalodon-Shark-Teeth.png"},
+    "nabokovs-butterflies": {"id": "Nabokov's\nbutterflies", "parent": "Lepidoptera", "image": "img/hero/Hero_Butterflies.png"},
+    "new-york-rocks": {"id": "New York Rocks", "parent": "Mineralogy", "image": "img/hero/Hero_NY_Local_Rocks_and_Minerals.png"},
     "parrots": {"id": "Parrots", "parent": "Ornithology", "image": "img/hero/Hero_Parrots.png"},
-    "pleistocene-megafauna": {"id": "Pleistocene Megafauna", "parent": "Fossil mammals", "image": "img/hero/Hero_Pleistocene_Megafauna.png"},
-    "pueblo-pottery": {"id": "Pueblo pottery", "parent": "North American Ethnology", "image": "img/hero/Hero_PuebloPottery.png"},
+    "pleistocene-megafauna": {"id": "Pleistocene\nmegafauna", "parent": "Fossil mammals", "image": "img/hero/Hero_Pleistocene_Megafauna.png"},
+    "pueblo-pottery": {"id": "Pueblo pottery", "parent": "North American\nEthnology", "image": "img/hero/Hero_PuebloPottery.png"},
+    "sea-snails": {"id": "Sea snails", "parent": "Mollusca", "image": "img/hero/Hero_Cone_Snails_Gastropods.png"},
     "spiders": {"id": "Spiders", "parent": "Fossil invertebrates", "image": "img/hero/Hero_Goblin_Spiders.png"},
-    "toys": {"id": "Toys", "parent": "African Ethnology", "image": "img/hero/Hero_Recycled_Toys.png"},
     "trilobites": {"id": "Trilobites", "parent": "Fossil invertebrates", "image": "img/hero/Hero_Trilobite.png"},
-    "wasp-nests-galls": {"id": "Wasp nests & galls", "parent": "Hymenoptera", "image": "img/hero/Hero_Wasp_Nests_and_Galls.png"},
-    "zamiello-collection": {"id": "Zamiello collection", "parent": "Minor insect orders", "image": "img/hero/Hero_Zammiello_Insects.png"}
+    "wasp-nests-galls": {"id": "Wasp nests &\ngalls", "parent": "Hymenoptera", "image": "img/hero/Hero_Wasp_Nests_and_Galls.png"},
+    "zammiello-collection": {"id": "Zammiello collection", "parent": "Minor insect orders", "image": "img/hero/Hero_Zammiello_Insects.png"}
   },
   "data": [{
     "id": "AMNH Collections",
@@ -74,29 +74,29 @@
         "displayNumber": "2,000,000+\nobjects",
         "children": [
           {"id": "Books & Journals", "image": "img/wallpapers/Library/Books and Journals/BooksandJournals.png", "children": [
-            {"id": "Print book titles", "image": "img/wallpapers/Library/Books and Journals/SubCollections/PrintbookTitles.png", "datum": 159789},
+            {"id": "Print books", "image": "img/wallpapers/Library/Books and Journals/SubCollections/PrintbookTitles.png", "datum": 159789},
             {"id": "Print journal titles", "image": "img/wallpapers/Library/Books and Journals/SubCollections/PrintJournalTitles.png", "datum": 20991},
-            {"id": "E-journal titles", "image": "img/wallpapers/Library/Books and Journals/SubCollections/EJournalTitles.png", "datum": 5500},
-            {"id": "Rare print books\nand journals", "image": "img/wallpapers/Library/Books and Journals/SubCollections/RarePrintBooksandJournals.png", "datum": 15000, "displayNumber": "6855 titles 15,000 volumes"}
+            {"id": "E-journals", "image": "img/wallpapers/Library/Books and Journals/SubCollections/EJournalTitles.png", "datum": 5500},
+            {"id": "Rare books\n& journals", "image": "img/wallpapers/Library/Books and Journals/SubCollections/RarePrintBooksandJournals.png", "datum": 15000, "displayNumber": "6855 titles 15,000 volumes"}
           ]},
           {"id": "Manuscripts & Archives", "image": "img/wallpapers/Library/Manuscript and Archives/Manuscripts&Archives.png", "children": [
             {"id": "Collections", "image": "img/wallpapers/Library/Manuscript and Archives/SubCollections/Collections.png", "datum": 2642},
-            {"id": "Manuscript materials", "image": "img/wallpapers/Library/Manuscript and Archives/SubCollections/ManuscriptMaterials.png", "datum": 2000, "displayNumber": "2000 linear feet"},
-            {"id": "Reels of microfilm", "image": "img/wallpapers/Library/Manuscript and Archives/SubCollections/Reels_of_Microfilm.png", "datum": 1300}
+            {"id": "Manuscripts", "image": "img/wallpapers/Library/Manuscript and Archives/SubCollections/ManuscriptMaterials.png", "datum": 2000, "displayNumber": "2000 linear feet"},
+            {"id": "Microfilm", "image": "img/wallpapers/Library/Manuscript and Archives/SubCollections/Reels_of_Microfilm.png", "datum": 1300}
           ]},
           {"id": "Art & Memorabilia", "image": "img/wallpapers/Library/Art and Memorabilia/ArtandMemorabilia.png", "datum": 3000},
           {"id": "Photographs_", "image": "img/wallpapers/Library/Photographs/Photographs.png", "children": [
             {"id": "Negatives", "image": "img/wallpapers/Library/Photographs/SubCollections/Negatives.png", "datum": 990000},
-            {"id": "Lantern slides", "image": "img/wallpapers/Library/Photographs/SubCollections/LanternSlides.png", "datum": 70000},
-            {"id": "Color slides and\ntransparencies", "image": "img/wallpapers/Library/Photographs/SubCollections/ColorSlidesTransparencies.png", "datum": 160000},
+            {"id": "_Lantern slides", "image": "img/wallpapers/Library/Photographs/SubCollections/LanternSlides.png", "datum": 70000},
+            {"id": "Slides &\ntransparencies", "image": "img/wallpapers/Library/Photographs/SubCollections/ColorSlidesTransparencies.png", "datum": 160000},
             {"id": "Prints", "image": "img/wallpapers/Library/Photographs/SubCollections/Prints.png", "datum": 280000},
-            {"id": "Photo albums", "image": "img/wallpapers/Library/Photographs/SubCollections/PhotoAlbums.png", "datum": 199},
-            {"id": "Digital assets", "image": "img/wallpapers/Library/Photographs/SubCollections/DigitalAssets.png", "datum": 76000}
+            {"id": "Photo\nalbums", "image": "img/wallpapers/Library/Photographs/SubCollections/PhotoAlbums.png", "datum": 19900, "displayNumber": 199},
+            {"id": "Digital\nassets", "image": "img/wallpapers/Library/Photographs/SubCollections/DigitalAssets.png", "datum": 76000}
           ]},
           {"id": "Film & video", "image": "img/wallpapers/Library/Film and Video/Film&Video.png", "children": [
-            {"id": "Film reels", "image": "img/wallpapers/Library/Film and Video/SubCollections/FilmReels.png", "datum": 3200},
-            {"id": "Video cassettes", "image": "img/wallpapers/Library/Film and Video/SubCollections/Video_Cassettes.png", "datum": 2000},
-            {"id": "Digital assets", "image": "img/wallpapers/Library/Film and Video/SubCollections/Digital_Assets.png", "datum": 1423}
+            {"id": "Film reels", "image": "img/wallpapers/Library/Film and Video/SubCollections/FilmReels.png", "datum": 32000, "displayNumber": 3200},
+            {"id": "Video\ncassettes", "image": "img/wallpapers/Library/Film and Video/SubCollections/Video_Cassettes.png", "datum": 20000, "displayNumber": 2000},
+            {"id": "_Digital\nassets", "image": "img/wallpapers/Library/Film and Video/SubCollections/Digital_Assets.png", "datum": 14230, "displayNumber": 1423}
           ]}
         ]
       },{
@@ -109,13 +109,13 @@
             {"id": "Mineralogy", "image": "img/wallpapers/Physical Science/Earth&PlanetarySciences/SubCollections/Mineralogy.png", "datum": 138975},
             {"id": "Meteorites", "image": "img/wallpapers/Physical Science/Earth&PlanetarySciences/SubCollections/Meteorites.png", "datum": 4545},
             {"id": "Mineral deposits", "image": "img/wallpapers/Physical Science/Earth&PlanetarySciences/SubCollections/MineralDeposits-01.png", "datum": 13449},
-            {"id": "Drill core", "image": "img/wallpapers/Physical Science/Earth&PlanetarySciences/SubCollections/DrillCores.png", "datum": 26000, "displayNumber": "More than 26000 feet"},
+            {"id": "Drill cores\n(feet)", "image": "img/wallpapers/Physical Science/Earth&PlanetarySciences/SubCollections/DrillCores.png", "datum": 26000, "displayNumber": "More than 26000 feet"},
             {"id": "Petrology", "image": "img/wallpapers/Physical Science/Earth&PlanetarySciences/SubCollections/Petrology.png", "datum": 24608}
           ]},
           {"id": "Astrophysics", "image": "img/wallpapers/Physical Science/Astrophysics/Astrophysics-01.png", "children": [
-            {"id": "Observations: Universe,\nGalaxies, Stars, Planets,\nUnclassified Objects", "image": "img/wallpapers/Physical Science/Astrophysics/Sub Collections/Observations.png", "datum": 4500000, "displayNumber": "45TB of data"},
-            {"id": "Simulations: Universe,\nGalaxies, Stars, Planets,\nUnclassified Objects", "image": "img/wallpapers/Physical Science/Astrophysics/Sub Collections/Simulations.png", "datum": 5000000, "displayNumber": "50TB of data"},
-            {"id": "Instruments:\nImaging, Spectroscopy", "image": "img/wallpapers/Physical Science/Astrophysics/Sub Collections/Instruments.png", "datum": 200000, "displayNumber": "2TB of data"}
+            {"id": "Observed data", "image": "img/wallpapers/Physical Science/Astrophysics/Sub Collections/Observations.png", "datum": 4500000, "displayNumber": "45TB of data"},
+            {"id": "Simulation data", "image": "img/wallpapers/Physical Science/Astrophysics/Sub Collections/Simulations.png", "datum": 5000000, "displayNumber": "50TB of data"},
+            {"id": "Instruments", "image": "img/wallpapers/Physical Science/Astrophysics/Sub Collections/Instruments.png", "datum": 200000, "displayNumber": "2TB of data"}
           ]}
         ]
       },{
@@ -125,18 +125,18 @@
         "unit": "artifacts",
         "children": [
           {"id": "Archaeology", "image": "img/wallpapers/Anthropology/Archeology/ArcheologyWallpaper.png", "children": [
-            {"id": "North American Archaeology", "image": "img/wallpapers/Anthropology/Archeology/SubCollections/NorthAmericanArcheology.png", "datum": 166684},
-            {"id": "Mexican & Central American\nArchaelology", "image": "img/wallpapers/Anthropology/Archeology/SubCollections/MexicanandCentralAmericanArcheology.png", "datum": 58884},
-            {"id": "South American Archaeology", "image": "img/wallpapers/Anthropology/Archeology/SubCollections/SouthAmericanArcheology.png", "datum": 57945},
+            {"id": "North American\nArchaeology", "image": "img/wallpapers/Anthropology/Archeology/SubCollections/NorthAmericanArcheology.png", "datum": 166684},
+            {"id": "Mexican &\nCentral American\nArchaelology", "image": "img/wallpapers/Anthropology/Archeology/SubCollections/MexicanandCentralAmericanArcheology.png", "datum": 58884},
+            {"id": "South American\nArchaeology", "image": "img/wallpapers/Anthropology/Archeology/SubCollections/SouthAmericanArcheology.png", "datum": 57945},
             {"id": "Asian Archaeology", "image": "img/wallpapers/Anthropology/Archeology/SubCollections/AsianArcheology.png", "datum": 15311},
             {"id": "African Archaeology", "image": "img/wallpapers/Anthropology/Archeology/SubCollections/AfricanArcheology.png", "datum": 6500},
             {"id": "Pacific Archaeology", "image": "img/wallpapers/Anthropology/Archeology/SubCollections/PacificArcheology.png", "datum": 13503},
             {"id": "European Archaeology", "image": "img/wallpapers/Anthropology/Archeology/SubCollections/EuropeanArcheology.png", "datum": 21580}
           ]},
           {"id": "Ethnology", "image": "img/wallpapers/Anthropology/Ethnology/AnthropologyEthnology.png", "children": [
-            {"id": "North American Ethnology", "image": "img/wallpapers/Anthropology/Ethnology/SubCollections/NorthAmericanEthnology.png", "datum": 51673},
-            {"id": "Mexican & Central American\nEthnology", "image": "img/wallpapers/Anthropology/Ethnology/SubCollections/MexicanandCentralAmericanEthnology.png", "datum": 7917},
-            {"id": "South American Ethnology", "image": "img/wallpapers/Anthropology/Ethnology/SubCollections/SouthAmericanEthnology.png", "datum": 21778},
+            {"id": "North American\nEthnology", "image": "img/wallpapers/Anthropology/Ethnology/SubCollections/NorthAmericanEthnology.png", "datum": 51673},
+            {"id": "Mexican &\nCentral American\nEthnology", "image": "img/wallpapers/Anthropology/Ethnology/SubCollections/MexicanandCentralAmericanEthnology.png", "datum": 7917},
+            {"id": "South American\nEthnology", "image": "img/wallpapers/Anthropology/Ethnology/SubCollections/SouthAmericanEthnology.png", "datum": 21778},
             {"id": "Asian Ethnology", "image": "img/wallpapers/Anthropology/Ethnology/SubCollections/AsianEthnology.png", "datum": 62895},
             {"id": "African Ethnology", "image": "img/wallpapers/Anthropology/Ethnology/SubCollections/AfricanEthnology.png", "datum": 38110},
             {"id": "Pacific Ethnology", "image": "img/wallpapers/Anthropology/Ethnology/SubCollections/PacificEthnology.png", "datum": 28035},
@@ -144,7 +144,7 @@
           ]},
           {"id": "Biological\nAnthropology", "image": "img/wallpapers/Anthropology/Biology/AnthropologyBiology.png", "children": [
             {"id": "North American", "image": "img/wallpapers/Anthropology/Biology/SubCollections/NorthAmericanBiology.png", "datum": 8731},
-            {"id": "Mexican & Central American", "image": "img/wallpapers/Anthropology/Biology/SubCollections/MexicanandCentralAmericanBiology.png", "datum": 1560},
+            {"id": "Mexican &\nCentral American", "image": "img/wallpapers/Anthropology/Biology/SubCollections/MexicanandCentralAmericanBiology.png", "datum": 1560},
             {"id": "South American", "image": "img/wallpapers/Anthropology/Biology/SubCollections/SouthAmericanBiology.png", "datum": 2017},
             {"id": "Asian", "image": "img/wallpapers/Anthropology/Biology/SubCollections/AsianBiology.png", "datum": 906},
             {"id": "African", "image": "img/wallpapers/Anthropology/Biology/SubCollections/AfricanBiology.png", "datum": 1695},
@@ -152,7 +152,7 @@
             {"id": "European", "image": "img/wallpapers/Anthropology/Biology/SubCollections/EuropeanBiology.png", "datum": 3644}
           ]},
           {"id": "Anthropology Archives", "image": "img/wallpapers/Anthropology/Archives/AnthropologyArchives.png", "children": [
-            {"id": "Archives & Manuscripts", "image": "img/wallpapers/Anthropology/Archives/SubCollections/ArchivesandManuscripts.png", "displayNumber": "1071 linear feet", "datum": 1071},
+            {"id": "Manuscripts &\narchives", "image": "img/wallpapers/Anthropology/Archives/SubCollections/ArchivesandManuscripts.png", "displayNumber": "1071 linear feet", "datum": 1071},
             {"id": "Artwork", "image": "img/wallpapers/Anthropology/Archives/SubCollections/Artwork.png", "datum": 280},
             {"id": "Photographs", "image": "img/wallpapers/Anthropology/Archives/SubCollections/Photographs.png", "datum": 25000},
             {"id": "Sound recordings", "image": "img/wallpapers/Anthropology/Archives/SubCollections/SoundRecordings.png", "datum": 2500}
@@ -193,7 +193,7 @@
           {"id": "Mollusca", "image": "img/wallpapers/Invertebrate Zoology/Mollusca.png", "datum": 1606459},
           {"id": "Cnidaria", "image": "img/wallpapers/Invertebrate Zoology/Cnidaria.png", "datum": 88260, "displayNumber": 8826},
           {"id": "Echinodermata", "image": "img/wallpapers/Invertebrate Zoology/Echnodermata.png", "datum": 90000, "displayNumber": 9000},
-          {"id": "Other Invert Phyla\n(incl Crustacea,\nMyriapoda, protists)", "image": "img/wallpapers/Invertebrate Zoology/Other_Invert_Phyla.png", "datum": 3644131}
+          {"id": "Other invertebrates", "image": "img/wallpapers/Invertebrate Zoology/Other_Invert_Phyla.png", "datum": 3644131}
         ]
       },{
         "id": "Vertebrate Zoology",
@@ -207,12 +207,12 @@
           ]},
           {"id": "Ichthyology", "datum": 3235579, "image": "img/wallpapers/Vertebrate Zoology/Icthyology/Icthyology.png"},
           {"id": "Mammalogy", "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/Mammalogy.png", "children": [
-            {"id": "Bats", "datum": 64227, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Bats.png"},
-            {"id": "Horned mammals", "datum": 9813, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Horned_Mammals.png"},
+            {"id": "_Bats", "datum": 64227, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Bats.png"},
+            {"id": "_Mammals with\nheadgear", "datum": 9813, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Horned_Mammals.png"},
             {"id": "Primates", "datum": 10816, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Primates.png"},
             {"id": "Hoofed mammals", "datum": 12200, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Hoofed_Mammals.png"},
-            {"id": "Whales", "datum": 661, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Whales.png"},
-            {"id": "Elephants", "datum": 205, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Elephants.png"}
+            {"id": "Whales", "datum": 6610, "displayNumber": 661, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Whales.png"},
+            {"id": "Elephants", "datum": 2050, "displayNumber": 205, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Elephants.png"}
           ]},
           {"id": "Ornithology", "datum": 891374, "image": "img/wallpapers/Vertebrate Zoology/Ornithology/Ornithology.png"}
         ]
