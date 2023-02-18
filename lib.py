@@ -108,6 +108,12 @@ def flattenTree(nodes, modify=True):
 def formatNumber(n):
     return "{:,}".format(n)
 
+def getLineDimensions(tfont, text):
+    left, top, right, bottom = tfont.getbbox(text)
+    lw = right - left
+    lh = bottom - top
+    return (lw, lh)
+
 def groupBy(arr, groupBy):
     groups = []
     arr = sorted(arr, key=itemgetter(groupBy))

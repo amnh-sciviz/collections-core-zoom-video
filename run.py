@@ -369,13 +369,17 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             continue
 
         isHere = 'isHere' in cdata
-        if isHere:
-            continue
         isHereParent = 'hereParent' in cdata
+        isLabelHeader = cdata['isLabelHeader']
+        if isHere and not isLabelHeader:
+            continue
+        isUpperCase = isLabelHeader and not isHereParent
         labelWidth = cdata['labelWidth']
         labelHeight = cdata['labelHeight']
         labelColor = cdata['labelColor']
-        isLabelHeader = cdata['isLabelHeader']
+        if isUpperCase:
+            labelWidth = cdata['labelWidthUpper']
+            labelHeight = cdata['labelHeightUpper']
         cx, cy = cdata['nxy']
         cx = norm(cx, (x0, x1)) * w
         cy = norm(cy, (y0, y1)) * h
@@ -384,14 +388,19 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         labelColor = tuple(labelColor + [cdata['labelOpacity']])
 
         ly = cy - labelHeight * 0.5
-        if isLabelHeader and not isHereParent:
+        if isUpperCase:
             ly = cy - cdata['trueRadius'] * 0.95 + cdata['labelSpacing']
+        if isHere:
+            ly = cy - cdata['trueRadius'] * 0.9 + cdata['labelSpacing']
+            labelColor = tuple([0, 0, 0] + [cdata['labelOpacity']])
 
         deltaX = 0
         deltaY = 0
         padEdge = 20
         for i, line in enumerate(labelLines):
             lw, lh = line['size']
+            if isUpperCase and not line['isSubtitle']:
+                lw, lh = line['sizeUpper']
             lx = cx - labelWidth * 0.5 + (labelWidth - lw) * 0.5
             tfont = subfont if line['isSubtitle'] else font
             if line['isTitle']:
@@ -400,7 +409,10 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
                 deltaY = padEdge - ly
             if lx < padEdge:
                 deltaX = padEdge - lx
-            drawTxt.text((lx + deltaX, ly + deltaY), line['text'], font=tfont, fill=labelColor)
+            lineText = line['text']
+            if isUpperCase and not line['isSubtitle']:
+                lineText = line['textUpper']
+            drawTxt.text((lx + deltaX, ly + deltaY), lineText, font=tfont, fill=labelColor)
             ly += lh + cdata['labelSpacing']
 
     baseIm = Image.alpha_composite(baseIm, txtIm)
@@ -587,29 +599,26 @@ for i, c in enumerate(circles):
             lines.append(f'{prefix}{countFormatted}{suffix}')
             lines.append(unit)
             subtitleLines = 2
-    if isHere:
-        lines = ['You are here']
-        lines.append('('+collectionName+')')
-        subtitleLines = 1
     lineCount = len(lines)
     hfont = titleFont if cdata['level'] <= 0 else font
     h2font = font if cdata['level'] <= 0 else subfont
     for j, line in enumerate(lines):
         label = {}
         label['text'] = line
+        label['textUpper'] = line.upper()
         label['isSubtitle'] = (subtitleLines > 0 and j > 0 and j >= lineCount-subtitleLines)
         label['isTitle'] = cdata['level'] <= 0
-        # lw, lh = hfont.getsize(line)
-        left, top, right, bottom = hfont.getbbox(line)
         if label['isSubtitle']:
-             left, top, right, bottom = h2font.getbbox(line)
-        lw = right - left
-        lh = bottom - top
-        label['size'] = (lw, lh)
+            label['size'] = getLineDimensions(h2font, line)
+        else:
+            label['size'] = getLineDimensions(hfont, line)
+        label['sizeUpper'] = getLineDimensions(hfont, line.upper())
         lines[j] = label
     circles[i].ex['label'] = lines
     circles[i].ex['labelWidth'] = max(l['size'][0] for l in lines)
     circles[i].ex['labelHeight'] = sum(l['size'][1] for l in lines) + (lineCount-1) * lineSpacing
+    circles[i].ex['labelWidthUpper'] = max(l['sizeUpper'][0] for l in lines)
+    circles[i].ex['labelHeightUpper'] = sum(l['sizeUpper'][1] for l in lines) + (lineCount-1) * lineSpacing
     circles[i].ex['labelOpacity'] = 0
     circles[i].ex['labelColor'] = list(ImageColor.getrgb(config['labelColor']))
     circles[i].ex['labelSpacing'] = lineSpacing
