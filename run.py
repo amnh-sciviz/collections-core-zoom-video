@@ -387,13 +387,21 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         if isLabelHeader and not isHereParent:
             ly = cy - cdata['trueRadius'] * 0.95 + cdata['labelSpacing']
 
+        deltaX = 0
+        deltaY = 0
+        padEdge = 20
         for i, line in enumerate(labelLines):
             lw, lh = line['size']
             lx = cx - labelWidth * 0.5 + (labelWidth - lw) * 0.5
             tfont = subfont if line['isSubtitle'] else font
             if line['isTitle']:
                 tfont = font if line['isSubtitle'] else titleFont
-            drawTxt.text((lx, ly), line['text'], font=tfont, fill=labelColor)
+            if i == 0:
+                if lx < padEdge:
+                    deltaX = padEdge - lx
+                if ly < padEdge:
+                    deltaY = padEdge - ly
+            drawTxt.text((lx + deltaX, ly + deltaY), line['text'], font=tfont, fill=labelColor)
             ly += lh + cdata['labelSpacing']
 
     baseIm = Image.alpha_composite(baseIm, txtIm)

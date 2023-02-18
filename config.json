@@ -105,7 +105,7 @@
         "image": "img/wallpapers/Physical Science/Physical_Sciences_Wallpaper-01.png",
         "displayNumber": "166,700+ objects,\n500+ TB of data",
         "children": [
-          {"id": "Earth & Planetary Sciences", "image": "img/wallpapers/Physical Science/Earth&PlanetarySciences/EarthandPlanetarySciences.png", "children": [
+          {"id": "Earth &\nPlanetary Sciences", "image": "img/wallpapers/Physical Science/Earth&PlanetarySciences/EarthandPlanetarySciences.png", "children": [
             {"id": "Mineralogy", "image": "img/wallpapers/Physical Science/Earth&PlanetarySciences/SubCollections/Mineralogy.png", "datum": 138975},
             {"id": "Meteorites", "image": "img/wallpapers/Physical Science/Earth&PlanetarySciences/SubCollections/Meteorites.png", "datum": 4545},
             {"id": "Mineral deposits", "image": "img/wallpapers/Physical Science/Earth&PlanetarySciences/SubCollections/MineralDeposits-01.png", "datum": 13449},
