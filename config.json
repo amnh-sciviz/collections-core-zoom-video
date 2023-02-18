@@ -39,7 +39,7 @@
     "drill-cores": {"id": "Drill cores", "parent": "Drill cores\n(feet)", "image": "img/hero/Hero_Drill_Cores.png"},
     "eocene-mammals": {"id": "Eocene mammals", "parent": "Fossil mammals", "image": "img/hero/Hero_Eocene_Mammal.png"},
     "field-documentation": {"id": "Field documentation", "parent": "Collections", "image": "img/hero/Hero_Field_Documentation.png", "dx": 1.6, "dy": 0.25},
-    "gaia-data": {"id": "Gaia data", "parent": "Observed data", "image": "img/hero/Hero_Gaia_Data.png"},
+    "gaia-data": {"id": "Gaia data", "parent": "Observed data", "image": "img/hero/Hero_Gaia_Data.png", "dx": -1.25},
     "giant-grouper": {"id": "Giant Grouper", "parent": "Ichthyology", "image": "img/hero/Hero_Large_Grouper.png"},
     "jacketed-fossils": {"id": "Jacketed fossils", "parent": "Fossil amphibians,\nreptiles, and birds", "image": "img/hero/Hero_Fossil_Jackets.png"},
     "korean-pottery": {"id": "Korean pottery", "parent": "Asian Ethnology", "image": "img/hero/Hero_KoreanPotttery.png"},
@@ -85,7 +85,7 @@
             {"id": "Microfilm", "image": "img/wallpapers/Library/Manuscript and Archives/SubCollections/Reels_of_Microfilm.png", "datum": 1300}
           ]},
           {"id": "Art & Memorabilia", "image": "img/wallpapers/Library/Art and Memorabilia/ArtandMemorabilia.png", "datum": 3000},
-          {"id": "Photographs_", "image": "img/wallpapers/Library/Photographs/Photographs.png", "children": [
+          {"id": "Photographs_", "image": "img/wallpapers/Library/Photographs/Photographs.png", "rotate": -40, "children": [
             {"id": "Negatives", "image": "img/wallpapers/Library/Photographs/SubCollections/Negatives.png", "datum": 990000},
             {"id": "_Lantern slides", "image": "img/wallpapers/Library/Photographs/SubCollections/LanternSlides.png", "datum": 70000},
             {"id": "Slides &\ntransparencies", "image": "img/wallpapers/Library/Photographs/SubCollections/ColorSlidesTransparencies.png", "datum": 160000},
@@ -181,7 +181,7 @@
         "unit": "specimens",
         "children": [
           {"id": "Arachnida", "datum": 1216768, "image": "img/wallpapers/Invertebrate Zoology/Arachnida/Arachnida.png"},
-          {"id": "Insecta", "image": "img/wallpapers/Invertebrate Zoology/Insecta/Insecta.png", "children": [
+          {"id": "Insecta", "image": "img/wallpapers/Invertebrate Zoology/Insecta/Insecta.png", "rotate": 40, "children": [
             {"id": "Coleoptera", "image": "img/wallpapers/Invertebrate Zoology/Insecta/SubCollections/Coleoptera.png", "datum": 1982842},
             {"id": "Diptera", "image": "img/wallpapers/Invertebrate Zoology/Insecta/SubCollections/Diptera.png", "datum": 1138717},
             {"id": "Hemiptera", "image": "img/wallpapers/Invertebrate Zoology/Insecta/SubCollections/Hemiptera.png", "datum": 976518},

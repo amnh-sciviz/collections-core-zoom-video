@@ -84,7 +84,7 @@ def createLookup(arr, key):
 def ease(n):
     return (math.sin((n+1.5)*math.pi)+1.0) / 2.0
 
-def flattenTree(nodes):
+def flattenTree(nodes, modify=True):
     results = []
     level = 1
     while 1:
@@ -94,10 +94,12 @@ def flattenTree(nodes):
         for node in nodes:
             if 'children' in node and len(node['children']) > 0:
                 for child in node['children']:
-                    child['parent'] = node['id']
+                    if modify:
+                        child['parent'] = node['id']
                     newNodes.append(child)
-            node['level'] = level
-            node.pop('children', None)
+            if modify:
+                node['level'] = level
+                node.pop('children', None)
             results.append(node)
         nodes = newNodes
         level += 1
@@ -177,6 +179,18 @@ def removeFiles(listOrString):
     for fn in filenames:
         if os.path.isfile(fn):
             os.remove(fn)
+
+def rotate(origin, point, degrees):
+    """
+    Rotate a point counterclockwise by a given angle around a given origin.
+    """
+    angle = math.radians(degrees)
+    ox, oy = origin
+    px, py = point
+
+    qx = ox + math.cos(angle) * (px - ox) - math.sin(angle) * (py - oy)
+    qy = oy + math.sin(angle) * (px - ox) + math.cos(angle) * (py - oy)
+    return qx, qy
 
 def roundInt(n):
     return int(round(n))

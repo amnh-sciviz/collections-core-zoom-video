@@ -157,8 +157,12 @@ data = unflattenData(flattenedData)
 
 circles = circ.circlify(data)
 circles = sorted(circles, key=lambda c: c.level)
-# add indices for easier references later
+# add positions and indices for easier references later
 for i, c in enumerate(circles):
+    cx, cy, cr = (c.x, c.y, c.r)
+    circles[i].ex['cx'] = cx
+    circles[i].ex['cy'] = cy
+    circles[i].ex['cr'] = cr * 0.5
     circles[i].ex['index'] = i
 circleLookup = dict([(c.ex['id'], c) for c in circles])
 for i, c in enumerate(circles):
@@ -528,13 +532,29 @@ subfont = ImageFont.truetype(font=config["subheadingFont"], size=roundInt(config
 lineSpacing = config["lineSpacing"] * RESOLUTION
 imageCache = {}
 
+# check to see if circles need to be rotated
 for i, c in enumerate(circles):
-    cx, cy, cr, cdata = (c.x, c.y, c.r, c.ex)
+    cdata = c.ex
+    originX, originY = (cdata['cx'], cdata['cy'])
+    if 'rotate' not in cdata:
+        continue
+    degrees = cdata['rotate']
+    children = flattenTree(cdata['children'][:], modify=False)
+    
+    for node in children:
+        id = node['id']
+        circle = circleLookup[id]
+        cx, cy = (circle.ex['cx'], circle.ex['cy'])
+        cindex = circle.ex['index']
+        rotatedX, rotatedY = rotate((originX, originY), (cx, cy), degrees)
+        circles[cindex].ex['cx'] = rotatedX
+        circles[cindex].ex['cy'] = rotatedY
+
+for i, c in enumerate(circles):
+    cdata = c.ex
+    cx, cy, cr = (cdata['cx'], cdata['cy'], cdata['cr'])
     isHere = 'isHere' in cdata
     isPlaceholder = 'isPlaceholder' in cdata
-    circles[i].ex['cx'] = cx
-    circles[i].ex['cy'] = cy
-    circles[i].ex['cr'] = cr * 0.5
 
     # add labels
     collectionName = cdata['id'].replace('_', '')
@@ -618,7 +638,8 @@ for i, c in enumerate(circles):
         circles[i].ex['image'] = loadedImage
 
 for i, c in enumerate(circles):
-    cx, cy, cr, cdata = (c.x, c.y, c.r, c.ex)
+    cdata = c.ex
+    cx, cy, cr = (cdata['cx'], cdata['cy'], cdata['cr'])
     isHere = 'isHere' in cdata
      # manually adjust position of here, otherwise it's more or less random
     if isHere:
