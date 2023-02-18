@@ -396,11 +396,10 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             tfont = subfont if line['isSubtitle'] else font
             if line['isTitle']:
                 tfont = font if line['isSubtitle'] else titleFont
-            if i == 0:
-                if lx < padEdge:
-                    deltaX = padEdge - lx
-                if ly < padEdge:
-                    deltaY = padEdge - ly
+            if i == 0 and ly < padEdge:
+                deltaY = padEdge - ly
+            if lx < padEdge:
+                deltaX = padEdge - lx
             drawTxt.text((lx + deltaX, ly + deltaY), line['text'], font=tfont, fill=labelColor)
             ly += lh + cdata['labelSpacing']
 
