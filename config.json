@@ -43,7 +43,7 @@
     "giant-grouper": {"id": "Giant Grouper", "parent": "Ichthyology", "image": "img/hero/Hero_Large_Grouper.png"},
     "jacketed-fossils": {"id": "Jacketed fossils", "parent": "Fossil amphibians,\nreptiles, and birds", "image": "img/hero/Hero_Fossil_Jackets.png"},
     "korean-pottery": {"id": "Korean pottery", "parent": "Asian Ethnology", "image": "img/hero/Hero_KoreanPotttery.png"},
-    "lantern-slides": {"id": "Lantern slides", "parent": "_Lantern slides", "image": "img/hero/Hero_Lantern_Slides_Single.png", "dx": 1.6, "dy": 0.25},
+    "lantern-slides": {"id": "Lantern slides", "parent": "Lantern\nslides", "image": "img/hero/Hero_Lantern_Slides_Single.png", "dx": 1.6, "dy": 0.25},
     "maasai-beadwork": {"id": "Maasai beadwork", "parent": "African Ethnology", "image": "img/hero/Hero_Maasai_Beadwork.png"},
     "mammals-with-headgear": {"id": "Mammals with\nheadgear", "parent": "_Mammals with\nheadgear", "image": "img/hero/Hero_Horns_and_Antlers.png"},
     "mao-era-housewares": {"id": "Mao-era\nhousewares", "parent": "Asian Ethnology", "image": "img/hero/Hero_Chinese_Housewares.png"},
@@ -59,7 +59,7 @@
     "spiders": {"id": "Spiders", "parent": "Fossil invertebrates", "image": "img/hero/Hero_Goblin_Spiders.png"},
     "trilobites": {"id": "Trilobites", "parent": "Fossil invertebrates", "image": "img/hero/Hero_Trilobite.png"},
     "wasp-nests-galls": {"id": "Wasp nests &\ngalls", "parent": "Hymenoptera", "image": "img/hero/Hero_Wasp_Nests_and_Galls.png"},
-    "zammiello-collection": {"id": "Zammiello collection", "parent": "Minor insect orders", "image": "img/hero/Hero_Zammiello_Insects.png"}
+    "zammiello-collection": {"id": "Zammiello collection", "parent": "Minor insect\norders", "image": "img/hero/Hero_Zammiello_Insects.png"}
   },
   "data": [{
     "id": "AMNH Collections",
@@ -87,7 +87,7 @@
           {"id": "Art & Memorabilia", "image": "img/wallpapers/Library/Art and Memorabilia/ArtandMemorabilia.png", "datum": 3000},
           {"id": "Photographs_", "image": "img/wallpapers/Library/Photographs/Photographs.png", "rotate": -40, "children": [
             {"id": "Negatives", "image": "img/wallpapers/Library/Photographs/SubCollections/Negatives.png", "datum": 990000},
-            {"id": "_Lantern slides", "image": "img/wallpapers/Library/Photographs/SubCollections/LanternSlides.png", "datum": 70000},
+            {"id": "Lantern\nslides", "image": "img/wallpapers/Library/Photographs/SubCollections/LanternSlides.png", "datum": 70000},
             {"id": "Slides &\ntransparencies", "image": "img/wallpapers/Library/Photographs/SubCollections/ColorSlidesTransparencies.png", "datum": 160000},
             {"id": "Prints", "image": "img/wallpapers/Library/Photographs/SubCollections/Prints.png", "datum": 280000},
             {"id": "Photo\nalbums", "image": "img/wallpapers/Library/Photographs/SubCollections/PhotoAlbums.png", "datum": 19900, "displayNumber": 199},
@@ -188,7 +188,7 @@
             {"id": "Hymenoptera", "image": "img/wallpapers/Invertebrate Zoology/Insecta/SubCollections/Hymenoptera.png", "datum": 8727302},
             {"id": "Isoptera", "image": "img/wallpapers/Invertebrate Zoology/Insecta/SubCollections/Isoptera.png", "datum": 1000000},
             {"id": "Lepidoptera", "image": "img/wallpapers/Invertebrate Zoology/Insecta/SubCollections/Lepidoptera.png", "datum": 3000000},
-            {"id": "Minor insect orders", "image": "img/wallpapers/Invertebrate Zoology/Insecta/Insecta.png", "datum": 824644}
+            {"id": "Minor insect\norders", "image": "img/wallpapers/Invertebrate Zoology/Insecta/Insecta.png", "datum": 824644}
           ]},
           {"id": "Mollusca", "image": "img/wallpapers/Invertebrate Zoology/Mollusca.png", "datum": 1606459},
           {"id": "Cnidaria", "image": "img/wallpapers/Invertebrate Zoology/Cnidaria.png", "datum": 88260, "displayNumber": 8826},
