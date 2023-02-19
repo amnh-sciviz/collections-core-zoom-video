@@ -371,8 +371,8 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
         isHere = 'isHere' in cdata
         isHereParent = 'hereParent' in cdata
         isLabelHeader = cdata['isLabelHeader']
-        # if isHere and not isLabelHeader:
-        #     continue
+        if isHere and not isLabelHeader:
+            continue
         isUpperCase = isLabelHeader and not isHereParent
         labelWidth = cdata['labelWidth']
         labelHeight = cdata['labelHeight']
