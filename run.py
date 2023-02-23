@@ -93,8 +93,8 @@ PACK_PADDING = 0
 # add datums where they don't exist
 flattenedData = sorted(flattenedData, key=lambda d: -d['level'])
 def trueDatum(dd):
-    if 'displayNumber' in dd and isNumber(dd['displayNumber']):
-        return dd['displayNumber']
+    # if 'displayNumber' in dd and isNumber(dd['displayNumber']):
+    #     return dd['displayNumber']
     return dd['datum']
 for i, d in enumerate(flattenedData):
     if 'datum' not in d:
