@@ -794,5 +794,8 @@ if not a.DEBUG:
     padZeros = len(str(totalFrames))
     compileFrames(outputFramePattern, a.FPS, outfile, padZeros)
 
+print('Rendered video')
+print('Removing frames...')
+removeFiles(outputFramePattern % '*')
 print('Done.')
 print('===============================')
