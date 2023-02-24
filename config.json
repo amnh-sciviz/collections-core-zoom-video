@@ -57,9 +57,9 @@
     "pueblo-pottery": {"id": "Pueblo pottery", "parent": "North American\nEthnology", "image": "img/hero/Hero_PuebloPottery.png"},
     "sea-snails": {"id": "Sea snails", "parent": "Mollusca", "image": "img/hero/Hero_Cone_Snails_Gastropods.png"},
     "spiders": {"id": "Spiders", "parent": "Fossil invertebrates", "image": "img/hero/Hero_Goblin_Spiders.png"},
-    "trilobites": {"id": "Trilobites", "parent": "Fossil invertebrates", "image": "img/hero/Hero_Trilobite.png"},
+    "trilobites": {"id": "Trilobites", "parent": "Fossil invertebrates", "image": "img/hero/Hero_Trilobite.png", "dy": -1},
     "wasp-nests-galls": {"id": "Wasp nests &\ngalls", "parent": "Hymenoptera", "image": "img/hero/Hero_Wasp_Nests_and_Galls.png"},
-    "zammiello-collection": {"id": "Zammiello collection", "parent": "Minor insect\norders", "image": "img/hero/Hero_Zammiello_Insects.png"}
+    "zammiello-collection": {"id": "Zammiello collection", "parent": "Invertebrate Zoology", "image": "img/hero/Hero_Zammiello_Insects.png"}
   },
   "data": [{
     "id": "AMNH Collections",
