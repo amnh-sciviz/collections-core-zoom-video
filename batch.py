@@ -11,6 +11,7 @@ from lib import *
 # input
 parser = argparse.ArgumentParser()
 parser.add_argument('-config', dest="CONFIG_FILE", default="config.json", help="Input config .json file")
+parser.add_argument('-ids', dest="ID_LIST", default="all", help="List of ids to target")
 parser.add_argument('-width', dest="WIDTH", default=1080, type=int, help="Width of video")
 parser.add_argument('-height', dest="HEIGHT", default=1080, type=int, help="Height of video")
 parser.add_argument('-fps', dest="FPS", default=30, type=int, help="Frames per second of video")
@@ -21,6 +22,10 @@ a = parser.parse_args()
 config = readJSON(a.CONFIG_FILE)
 py = sys.executable
 
+renderAll = True
+renderList = []
+if a.ID_LIST != "all":
+    renderList = [id.strip() for id in a.ID_LIST.split(",")]
 
 if a.DEBUG:
     flattenedData = flattenTree(config['data'])
@@ -42,6 +47,8 @@ if a.DEBUG:
     print('---------------')
 
 for array in config['mediaArrays']:
+    if not renderAll and array not in renderList:
+        continue
     fn = f'output/{array}.mp4'
     if not a.OVERWRITE and os.path.isfile(fn):
         print(f'Already created {fn}.')
