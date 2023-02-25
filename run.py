@@ -47,6 +47,7 @@ config = readJSON(a.CONFIG_FILE)
 
 data = config['data']
 flattenedData = flattenTree(data)
+flattenedData = sorted(flattenedData, key=lambda d: -d['level'])
 
 # add here
 if a.HERE_KEY not in config['mediaArrays']:
@@ -66,6 +67,8 @@ for i, d in enumerate(flattenedData):
     if d['id'] == here['parent']:
         hereLevel = d['level'] + 1
         here['level'] = hereLevel
+        if 'datum' not in d:
+            d['datum'] = sum([dd['datum'] for dd in flattenedData if 'parent' in dd and dd['parent']==d['id'] and 'datum' in dd])
         if 'datum' not in here:
             here['datum'] = roundInt(d['datum'] * 0.04)
         children = [here]
