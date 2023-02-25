@@ -47,7 +47,16 @@ config = readJSON(a.CONFIG_FILE)
 
 data = config['data']
 flattenedData = flattenTree(data)
+
+# add datums where they don't exist
 flattenedData = sorted(flattenedData, key=lambda d: -d['level'])
+def trueDatum(dd):
+    # if 'displayNumber' in dd and isNumber(dd['displayNumber']):
+    #     return dd['displayNumber']
+    return dd['datum']
+for i, d in enumerate(flattenedData):
+    if 'datum' not in d:
+        flattenedData[i]['datum'] = sum([trueDatum(dd) for dd in flattenedData if 'parent' in dd and dd['parent']==d['id'] and 'datum' in dd])
 
 # add here
 if a.HERE_KEY not in config['mediaArrays']:
@@ -63,12 +72,12 @@ hereImageWidth = roundInt(a.WIDTH * RESOLUTION * 0.075)
 hereImageHeight = roundInt(hereImageWidth / hereImageRatio)
 hereImage = hereImage.resize((hereImageWidth, hereImageHeight), resample=Image.LANCZOS)
 hereLevel = None
+# remove existing children of here parent
+flattenedData = [node for node in flattenedData if not ('parent' in node and node['parent'] == here['parent'])]
 for i, d in enumerate(flattenedData):
     if d['id'] == here['parent']:
         hereLevel = d['level'] + 1
         here['level'] = hereLevel
-        if 'datum' not in d:
-            d['datum'] = sum([dd['datum'] for dd in flattenedData if 'parent' in dd and dd['parent']==d['id'] and 'datum' in dd])
         if 'datum' not in here:
             here['datum'] = roundInt(d['datum'] * 0.04)
         children = [here]
@@ -92,16 +101,6 @@ for i, d in enumerate(flattenedData):
         break
 # PACK_PADDING = 4 if hereLevel <= 4 else 2
 PACK_PADDING = 0
-
-# add datums where they don't exist
-flattenedData = sorted(flattenedData, key=lambda d: -d['level'])
-def trueDatum(dd):
-    # if 'displayNumber' in dd and isNumber(dd['displayNumber']):
-    #     return dd['displayNumber']
-    return dd['datum']
-for i, d in enumerate(flattenedData):
-    if 'datum' not in d:
-        flattenedData[i]['datum'] = sum([trueDatum(dd) for dd in flattenedData if 'parent' in dd and dd['parent']==d['id'] and 'datum' in dd])
 
 # add color palette if they don't exist
 flattenedData = sorted(flattenedData, key=lambda d: d['level'])
