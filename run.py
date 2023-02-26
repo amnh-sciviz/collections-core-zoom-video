@@ -72,6 +72,9 @@ hereImageWidth = roundInt(a.WIDTH * RESOLUTION * 0.075)
 hereImageHeight = roundInt(hereImageWidth / hereImageRatio)
 hereImage = hereImage.resize((hereImageWidth, hereImageHeight), resample=Image.LANCZOS)
 hereLevel = None
+maxCircleWidth = config['maxCircleWidth']
+if 'maxCircleWidth' in here:
+    maxCircleWidth = here['maxCircleWidth']
 # remove existing children of here parent
 flattenedData = [node for node in flattenedData if not ('parent' in node and node['parent'] == here['parent'])]
 for i, d in enumerate(flattenedData):
@@ -295,7 +298,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
 
         imw = roundInt(abs(cx1-cx0))
         imh = roundInt(abs(cy1-cy0))
-        tooLarge = imw >= 20000
+        tooLarge = imw >= maxCircleWidth
 
         # draw shadow
         if not isFullBleed and not tooLarge:
@@ -323,7 +326,10 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             if imageBlend > 0:
                 blendedImage = Image.blend(backgroundImage, loadedImage, imageBlend)
                 blendedImage = blendedImage.convert("RGBA")
-            if isFullBleed or tooLarge:
+            if not isFullBleed and tooLarge:
+                draw.ellipse([cx0, cy0, cx1, cy1], fill=fillColor)
+                
+            elif isFullBleed or tooLarge:
                 imw0, imh0 = blendedImage.size
                 scale = imw / imw0
                 pasteX, pasteY, cropX, cropY = getCropCoords(cx0, cy0)

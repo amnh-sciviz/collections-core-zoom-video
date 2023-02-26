@@ -24,6 +24,7 @@
   "imageBlendBackground": 0.33,
   "hereDx": 1.25,
   "hereDy": 0.75,
+  "maxCircleWidth": 20000,
   "mediaArrays": {
     "african-toys": {"id": "African toys", "parent": "African Ethnology", "image": "img/hero/Hero_Recycled_Toys.png"},
     "ammonites": {"id": "Ammonites", "parent": "Fossil invertebrates", "image": "img/hero/Hero_Ammonite.png", "dy": -1},
