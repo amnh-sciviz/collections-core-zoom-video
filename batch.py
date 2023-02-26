@@ -26,6 +26,7 @@ renderAll = True
 renderList = []
 if a.ID_LIST != "all":
     renderList = [id.strip() for id in a.ID_LIST.split(",")]
+    renderAll = False
 
 if a.DEBUG:
     flattenedData = flattenTree(config['data'])
