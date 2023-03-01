@@ -498,6 +498,7 @@ def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution,
     offsetW = lerp((cw0, cw1), t)
 
     threshold = 0.667
+    labelThreshold = 0.333
     zoomingIn = (toLevel > fromLevel)
     zoomingOut = (not zoomingIn)
     for i, circle in enumerate(circles):
@@ -510,22 +511,31 @@ def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution,
         circleOpacity = 1
         imageOpacity = 0
         labelOpacity = 0
+
+        # set image opacity
         if t < threshold and hasParent and cdata['parent'] == fromId:
             theta = ease(1.0 - t / threshold)
-            labelOpacity = roundInt(theta * 255.0)
             imageOpacity = theta
 
         elif t > (1.0 - threshold) and hasParent and cdata['parent'] == toId:
             theta = ease(norm(t, (1.0 - threshold, 1.0)))
-            labelOpacity = roundInt(theta * 255.0)
             imageOpacity = theta
 
-        elif t < threshold and cdata['id'] == fromId:
-            labelOpacity = roundInt(ease(1.0 - t / threshold) * 255.0)
+        # set label opacity
+        if t < labelThreshold and hasParent and cdata['parent'] == fromId:
+            labelTheta = ease(1.0 - t / labelThreshold)
+            labelOpacity = roundInt(labelTheta * 255.0)
+
+        elif t > (1.0 - labelThreshold) and hasParent and cdata['parent'] == toId:
+            labelTheta = ease(norm(t, (1.0 - labelThreshold, 1.0)))
+            labelOpacity = roundInt(labelTheta * 255.0)
+
+        elif t < labelThreshold and cdata['id'] == fromId:
+            labelOpacity = roundInt(ease(1.0 - t / labelThreshold) * 255.0)
             isLabelHeader = True
 
-        elif t > (1.0 - threshold) and cdata['id'] == toId:
-            labelOpacity = roundInt(ease(norm(t, (1.0 - threshold, 1.0))) * 255.0)
+        elif t > (1.0 - labelThreshold) and cdata['id'] == toId:
+            labelOpacity = roundInt(ease(norm(t, (1.0 - labelThreshold, 1.0))) * 255.0)
             isLabelHeader = True
 
         # don't fade in/out here parent since position does not move
