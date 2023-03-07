@@ -14,7 +14,7 @@ Generates videos for collections core arrays that zoom in and out of the Museum'
 
 ## Configuration
 
-All content configuration can be found in the [config.json](/amnh-sciviz/collections-core-zoom-video/blob/main/config.json) file. Config properties should be relatively self-explanatory. The most important entries are the `mediaArrays` and `data` which control the visualization.
+All content configuration can be found in the [config.json](https://github.com/amnh-sciviz/collections-core-zoom-video/blob/main/config.json) file. Config properties should be relatively self-explanatory. The most important entries are the `mediaArrays` and `data` which control the visualization.
 
 ### mediaArrays
 
