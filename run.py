@@ -14,7 +14,7 @@ from lib import *
 # input
 parser = argparse.ArgumentParser()
 parser.add_argument('-config', dest="CONFIG_FILE", default="config.json", help="Input config .json file")
-parser.add_argument('-array', dest="HERE_KEY", default="trilobites", help="Which media array this video is embedded in; it should map to a key in 'mediaArrays' in config file")
+parser.add_argument('-array', dest="HERE_KEY", default="trilobite-fossils", help="Which media array this video is embedded in; it should map to a key in 'mediaArrays' in config file")
 parser.add_argument('-width', dest="WIDTH", default=1080, type=int, help="Width of video")
 parser.add_argument('-height', dest="HEIGHT", default=1080, type=int, help="Height of video")
 parser.add_argument('-fps', dest="FPS", default=30, type=int, help="Frames per second of video")
