@@ -27,7 +27,7 @@
   "maxCircleWidth": 20000,
   "mediaArrays": {
     "ammonites-fossils": {"id": "Ammonites fossils", "parent": "Fossil invertebrates", "image": "img/hero/Hero_Ammonite.png", "dy": -1},
-    "astronomical-instruments": {"id": "Astronomical\ninstruments", "parent": "Instruments", "image": "img/hero/Hero_Historical_and_Modern_Instruments.png"},
+    "astronomical-instruments": {"id": "Astronomical\ninstruments", "parent": "Instruments", "image": "img/hero/Hero_Astro_Instruments.png"},
     "bats": {"id": "Bats", "parent": "_Bats", "image": "img/hero/Hero_Bats.png"},
     "camarasaurus-vertebrae": {"id": "Camarasaurus\nvertebrae", "parent": "Fossil amphibians,\nreptiles, and birds", "image": "img/hero/Hero_Camarasaurus.png", "dx": -1, "dy": 0.6},
     "chaco-canyon-pottery": {"id": "Chaco Canyon\npottery", "parent": "North American\nArchaeology", "image": "img/hero/Hero_Chaco_Canyon.png"},
