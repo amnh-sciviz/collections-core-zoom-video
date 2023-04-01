@@ -191,7 +191,7 @@ def getCropCoords(x, y):
         pasteY = 0
     return pasteX, pasteY, cropX, cropY
 
-def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfont, titleFont, fromNode, toNode, theta):
+def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfont, titleFont, fontItalic, fromNode, toNode, theta):
     packPadding = 1.0 * PACK_PADDING / w
     w, h = (roundInt(w*resolution), roundInt(h*resolution))
     bgColor = config['bgColor']
@@ -413,6 +413,8 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
             tfont = subfont if line['isSubtitle'] else font
             if line['isTitle']:
                 tfont = font if line['isSubtitle'] else titleFont
+            if 'isItalic' in line and line['isItalic']:
+                tfont = fontItalic
             if i == 0 and ly < padEdge:
                 deltaY = padEdge - ly
             if lx < padEdge:
@@ -475,7 +477,7 @@ def drawCircles(circles, filename, config, w, h, offset, resolution, font, subfo
     makeDirectories(filename)
     baseIm.save(filename)
 
-def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution, font, subfont, titleFont):
+def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution, font, subfont, titleFont, fontItalic):
 
     fromId = fromNode.ex['id']
     toId = toNode.ex['id']
@@ -562,11 +564,12 @@ def tweenNodes(circles, filename, fromNode, toNode, t, config, w, h, resolution,
         circles[i].ex['labelOpacity'] = labelOpacity
         circles[i].ex['isLabelHeader'] = isLabelHeader
 
-    drawCircles(circles, filename, config, w, h, (offsetX, offsetY, offsetW), resolution, font, subfont, titleFont, fromNode, toNode, t)
+    drawCircles(circles, filename, config, w, h, (offsetX, offsetY, offsetW), resolution, font, subfont, titleFont, fontItalic, fromNode, toNode, t)
 
 # load font
 titleFont = ImageFont.truetype(font=config["titleFont"], size=roundInt(config["titleFontSize"]*RESOLUTION))
 font = ImageFont.truetype(font=config["font"], size=roundInt(config["fontSize"]*RESOLUTION))
+fontItalic = ImageFont.truetype(font=config["fontItalic"], size=roundInt(config["fontSize"]*RESOLUTION))
 subfont = ImageFont.truetype(font=config["subheadingFont"], size=roundInt(config["subheadingFontSize"]*RESOLUTION))
 lineSpacing = config["lineSpacing"] * RESOLUTION
 imageCache = {}
@@ -624,15 +627,23 @@ for i, c in enumerate(circles):
     h2font = font if cdata['level'] <= 0 else subfont
     for j, line in enumerate(lines):
         label = {}
-        label['text'] = line
-        label['textUpper'] = line.upper()
+        text = line
+        if line.startswith('<i>'):
+            label['isItalic'] = True
+            text = line.replace('<i>', '')
+        label['text'] = text
+        label['textUpper'] = text.upper()
         label['isSubtitle'] = (subtitleLines > 0 and j > 0 and j >= lineCount-subtitleLines)
         label['isTitle'] = cdata['level'] <= 0
-        if label['isSubtitle']:
-            label['size'] = getLineDimensions(h2font, line)
+        if 'isItalic' in label:
+            label['size'] = getLineDimensions(fontItalic, text)
+        elif label['isSubtitle']:
+            label['size'] = getLineDimensions(h2font, text)
         else:
-            label['size'] = getLineDimensions(hfont, line)
-        label['sizeUpper'] = getLineDimensions(hfont, line.upper())
+            label['size'] = getLineDimensions(hfont, text)
+        label['sizeUpper'] = getLineDimensions(hfont, text.upper())
+        if 'isItalic' in label:
+            label['sizeUpper'] = getLineDimensions(fontItalic, text.upper())
         lines[j] = label
     circles[i].ex['label'] = lines
     circles[i].ex['labelWidth'] = max(l['size'][0] for l in lines)
@@ -719,9 +730,6 @@ while True:
 # pathReversed = list(reversed(path[:-1]))
 # path += pathReversed
 
-# if a.DEBUG:
-#     drawCircles(circles, "output/test.png", config, a.WIDTH, a.HEIGHT, (0, 0, 1.0), RESOLUTION, font, subfont, titleFont, 0)
-
 outputFramePattern = f'output/frames/{a.HERE_KEY}/frame.%s.png'
 if not a.DEBUG:
     makeDirectories(outputFramePattern)
@@ -747,9 +755,9 @@ for i in range(len(path)-1):
     delta = 1.0 * path[i+1].ex['datum'] / path[i].ex['datum']
     print(f'Rendering frames from node {fromNode.ex["id"]} to {toNode.ex["id"]} ({i+1} of {len(path)})')
     if a.DEBUG:
-        tweenNodes(circles, f'output/tween_test_{i}.png', fromNode, toNode, 0.0, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont, titleFont)
+        tweenNodes(circles, f'output/tween_test_{i}.png', fromNode, toNode, 0.0, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont, titleFont, fontItalic)
         if i >= (len(path)-2):
-            tweenNodes(circles, f'output/tween_test_{i+1}.png', fromNode, toNode, 1.0, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont, titleFont)
+            tweenNodes(circles, f'output/tween_test_{i+1}.png', fromNode, toNode, 1.0, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont, titleFont, fontItalic)
     else:
         nFrom = norm(fromNode.ex['level'], (minLevel, maxLevel))
         restDurationFrom = lerp((restDurationMin, restDurationMax), 1.0 - nFrom)
@@ -773,7 +781,7 @@ for i in range(len(path)-1):
         for i in range(restFramesFrom):
             frameFilename = outputFramePattern % zeroPad(currentFrame, totalFrames)
             if i == 0:
-                tweenNodes(circles, frameFilename, fromNode, toNode, 0.0, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont, titleFont)
+                tweenNodes(circles, frameFilename, fromNode, toNode, 0.0, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont, titleFont, fontItalic)
                 referenceFrame = frameFilename
             else:
                 shutil.copyfile(referenceFrame, frameFilename)
@@ -785,7 +793,7 @@ for i in range(len(path)-1):
         for i in range(zoomFramesTo):
             frameFilename = outputFramePattern % zeroPad(currentFrame, totalFrames)
             t = 1.0 * i / (zoomFramesTo-1)
-            tweenNodes(circles, frameFilename, fromNode, toNode, t, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont, titleFont)
+            tweenNodes(circles, frameFilename, fromNode, toNode, t, config, a.WIDTH, a.HEIGHT, RESOLUTION, font, subfont, titleFont, fontItalic)
             printProgress(currentPathFrame, totalPathFrames)
             referenceFrame = frameFilename
             frameFilenames.append(frameFilename)
