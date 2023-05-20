@@ -184,9 +184,9 @@
         "colorPalette": ["#3e9f42", "#306933", "#448546"],
         "image": "img/wallpapers/Invertebrate Zoology/Invertebrate_Zoology.png",
         "unit": "specimens",
-        "displayNumber": "23,330,000+\nspecimens",
+        "displayNumber": "27,181,000+\nspecimens",
         "children": [
-          {"id": "Arachnida", "datum": 1216768, "image": "img/wallpapers/Invertebrate Zoology/Arachnida/Arachnida.png"},
+          {"id": "Arachnida", "datum": 5000000, "image": "img/wallpapers/Invertebrate Zoology/Arachnida/Arachnida.png"},
           {"id": "Insecta", "image": "img/wallpapers/Invertebrate Zoology/Insecta/Insecta.png", "rotate": 40, "children": [
             {"id": "Coleoptera", "image": "img/wallpapers/Invertebrate Zoology/Insecta/SubCollections/Coleoptera.png", "datum": 1982842},
             {"id": "Diptera", "image": "img/wallpapers/Invertebrate Zoology/Insecta/SubCollections/Diptera.png", "datum": 1138717},
@@ -219,7 +219,8 @@
             {"id": "Primates", "datum": 10816, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Primates.png"},
             {"id": "Hoofed mammals", "datum": 12200, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Hoofed_Mammals.png"},
             {"id": "Whales", "datum": 6610, "displayNumber": 661, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Whales.png"},
-            {"id": "Elephants", "datum": 2050, "displayNumber": 205, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Elephants.png"}
+            {"id": "Elephants", "datum": 2050, "displayNumber": 205, "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Elephants.png"},
+            {"id": "Rodents", "datum": 146060,  "image": "img/wallpapers/Vertebrate Zoology/Mammalogy/SubCollections/Rodents.png"}
           ]},
           {"id": "Ornithology", "datum": 891374, "image": "img/wallpapers/Vertebrate Zoology/Ornithology/Ornithology.png"}
         ]
