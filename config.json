@@ -68,7 +68,7 @@
     "rotate": -10,
     "colorPalette": ["#1e2938", "#396791", "#4081b2", "#579ac4"],
     "image": "img/wallpapers/AMNH_Collections_WP.png",
-    "displayNumber": "36,000,000+ objects, 500+ TB of data",
+    "displayNumber": "36,000,000+ objects",
     "children": [
       {
         "id": "Library",
@@ -106,7 +106,7 @@
         "id": "Physical Sciences",
         "colorPalette": ["#7f3f99", "#532d63", "#7d4991"],
         "image": "img/wallpapers/Physical Science/Physical_Sciences_Wallpaper-01.png",
-        "displayNumber": "166,700+ objects,\n500+ TB of data",
+        "displayNumber": "166,700+ objects",
         "children": [
           {"id": "Earth &\nPlanetary Sciences", "image": "img/wallpapers/Physical Science/Earth&PlanetarySciences/EarthandPlanetarySciences.png", "children": [
             {"id": "Mineralogy", "image": "img/wallpapers/Physical Science/Earth&PlanetarySciences/SubCollections/Mineralogy.png", "datum": 200853, "displayNumber": 138975},
