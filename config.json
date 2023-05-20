@@ -59,7 +59,7 @@
     "parrots": {"id": "Parrots", "parent": "Ornithology", "image": "img/hero/Hero_Parrots.png"},
     "pueblo-pottery": {"id": "Pueblo pottery", "parent": "North American\nEthnology", "image": "img/hero/Hero_PuebloPottery.png"},
     "sea-snail-shells": {"id": "Sea snail\nshells", "parent": "Mollusca", "image": "img/hero/Hero_Cone_Snails_Gastropods.png"},
-    "spiders": {"id": "Spiders", "parent": "Arachnida", "image": "img/hero/Hero_Goblin_Spiders.png"},
+    "spiders": {"id": "Spiders", "parent": "Arachnida", "image": "img/hero/Hero_Goblin_Spiders.png", "dx": 0},
     "trilobite-fossils": {"id": "Trilobite fossils", "parent": "Fossil invertebrates", "image": "img/hero/Hero_Trilobite.png", "dy": -1},
     "wasp-nests-galls": {"id": "Wasp nests\nand galls", "parent": "Hymenoptera", "image": "img/hero/Hero_Wasp_Nests_and_Galls.png"}
   },
